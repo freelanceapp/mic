@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    tools:context=".OtpActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.3"
+            android:background="@drawable/login_color">
+            <ImageView
+                android:layout_width="120sp"
+                android:layout_height="100sp"
+                android:src="@drawable/logo2"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:layout_marginTop="20sp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Verify Your Mobile Number"
+                android:gravity="center"
+                android:textColor="@color/colorYellow"
+                android:textSize="20sp"
+                android:id="@+id/tv"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="An OTP has been send to your "
+                android:gravity="center"
+                android:textColor="@color/colorYellow"
+                android:textSize="16sp"
+                android:id="@+id/tv1"
+                android:layout_below="@id/tv"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number"
+                android:gravity="center"
+                android:textColor="@color/colorYellow"
+                android:textSize="16sp"
+                android:id="@+id/tv2"
+                android:layout_below="@id/tv1"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/colorYellow"
+                android:textSize="22sp"
+                android:padding="5sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:inputType="phone"
+                android:lines="1"
+                android:layout_below="@id/tv2"
+                android:id="@+id/et_otp"/>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/otp_progress"
+                android:visibility="gone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_color"
+                android:text="Log in"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
+                android:layout_below="@id/et_otp"
+                android:gravity="center"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:textSize="18sp"
+                android:textColor="@color/colorYellow"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:layout_gravity="center"
+                android:id="@+id/otp_btn"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Didn't Get The OTP? RESEND"
+                android:textColor="@color/colorYellow"
+                android:gravity="center"
+                android:layout_below="@id/otp_btn"
+                android:layout_marginTop="10sp"
+                android:id="@+id/signup_btn"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

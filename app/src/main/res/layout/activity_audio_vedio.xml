@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mic_background"
+    android:orientation="vertical"
+    tools:context=".Newmic.AudioVedio">
+
+    <include layout="@layout/contast_audio_video"/>
+    <com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget
+        android:id="@+id/itemCycleMenuWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:elevation="8dp"
+        app:cm_autoMaxRadius="220dp"
+        app:cm_autoMinRadius="150dp"
+        app:cm_background="@color/black"
+        app:cm_collapsed_radius="45dp"
+        app:cm_corner="right_bottom"
+        app:cm_corner_image_src="@drawable/ic_menu"
+        app:cm_fixedRadius="500dp"
+        app:cm_item_background_tint="@color/yellow"
+        app:cm_radius_scale_type="auto"
+        app:cm_ripple_color="@color/transparent_b"
+        app:cm_scroll_type="basic"
+        />
+
+</RelativeLayout>

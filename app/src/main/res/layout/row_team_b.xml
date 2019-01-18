@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mic_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageA"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/circle"
+                android:elevation="1dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="-34dp"
+                android:layout_marginTop="45dp"
+                android:layout_toRightOf="@+id/circleImageA"
+                android:background="@color/black"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rita Ambastha"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/singername"
+                    android:gravity="center"
+                    android:text="Director"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="-34dp"
+                android:layout_toLeftOf="@+id/circleImage"
+                android:background="@color/black"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/singername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ritesh Anand"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/singername"
+                    android:gravity="center"
+                    android:text="Founder,Director AND CEO"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageB"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/circle"
+                android:elevation="1dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="-34dp"
+                android:layout_marginTop="45dp"
+                android:layout_toRightOf="@+id/circleImageB"
+                android:background="@color/black"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ritesh Anand"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/singername"
+                    android:gravity="center"
+                    android:text="Co-Founder, CTA"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="-34dp"
+                android:layout_toLeftOf="@+id/circleImageC"
+                android:background="@color/black"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sneha Agarwalla"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/singername"
+                    android:gravity="center"
+                    android:text="Co-Founder, CTO"
+                    android:textColor="@color/yellow"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageC"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

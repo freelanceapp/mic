@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg1"
+    tools:context=".Fragment.HomeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20sp">
+        <ImageView
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:src="@drawable/logo2"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVEL - 1"
+            android:textColor="@color/colorYellow"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:padding="5sp"
+            android:textStyle="bold"
+            android:fontFamily="serif"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25sp"
+            android:layout_marginBottom="10sp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/upload_btn">
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/video_upload"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Video"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorYellow"
+                    android:padding="5sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/record_btn">
+                <ImageView
+                    android:layout_width="60sp"
+                    android:layout_height="60sp"
+                    android:src="@drawable/video_record"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Record Video"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorYellow"
+                    android:padding="5sp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1.5sp"
+            android:background="@color/colorYellow"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:layout_marginTop="5sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructions"
+            android:layout_margin="5sp"
+            android:padding="5sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/colorYellow"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

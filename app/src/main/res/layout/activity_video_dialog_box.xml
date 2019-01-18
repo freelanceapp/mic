@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:layout_gravity="center"
+    android:background="@drawable/layout_back_c"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="10dp"
+        android:src="@drawable/ic_cancel"
+        android:id="@+id/cancleVideoBtn"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Video"
+        android:textColor="@color/yellow"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Select any one option to submit your Video"
+        android:textColor="@color/white" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:id="@+id/rgVideo">
+
+        <RadioButton
+            android:id="@+id/rdVideoRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/yellow"
+            android:padding="5dp"
+            android:checked="true"
+            android:text="Record Video"
+            android:textColor="@color/yellow" />
+
+        <RadioButton
+            android:id="@+id/rdVideoUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/yellow"
+            android:padding="5dp"
+            android:text="Upload Video"
+            android:textColor="@color/yellow" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/buttonborder"
+        android:text="select"
+        android:textColor="@color/yellow"
+        android:id="@+id/btnSelectVideo"/>
+
+</LinearLayout>

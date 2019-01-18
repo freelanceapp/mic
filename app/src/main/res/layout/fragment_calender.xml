@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.CalenderFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1.2">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".8"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_tv"
+                android:textColor="@color/colorYellow"
+                android:layout_above="@id/day_tv"
+                android:textSize="45sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/day_tv"
+                android:layout_above="@id/year_tv"
+                android:textSize="20sp"
+                android:textColor="@color/colorYellow"
+                android:padding="10sp"
+                android:gravity="center"/>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/year_tv"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/colorYellow"
+                android:padding="10sp" />
+            </LinearLayout>
+        </RelativeLayout>
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".5"
+            android:id="@+id/cv1"
+            android:focusedMonthDateColor="@android:color/white"
+            android:weekNumberColor="@android:color/white"
+            android:outlineAmbientShadowColor="@color/colorYellow" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/event_detail"/>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/notification_bar"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</LinearLayout>
