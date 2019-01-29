@@ -12,7 +12,7 @@
         android:layout_marginBottom="10sp">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45sp"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:src="@drawable/notification1"/>
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="Notification"
                 android:textColor="@color/colorYellow"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:padding="5sp"
                 android:id="@+id/title_tv"/>
             <TextView
@@ -35,9 +35,9 @@
                 android:layout_height="wrap_content"
                 android:text="Notification The show all message ivje oevi oie "
                 android:textColor="@color/colorYellow"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:padding="3sp"
-                android:lines="1"
+                android:lines="2"
                 android:id="@+id/title_description"/>
         </LinearLayout>
         <ImageView

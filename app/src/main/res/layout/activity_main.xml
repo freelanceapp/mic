@@ -99,7 +99,7 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/layout_back_a"
@@ -111,7 +111,8 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_mail" />
+                        android:src="@drawable/ic_mail"
+                        android:id="@+id/emailpic"/>
 
                     <EditText
                         android:id="@+id/user_email"
@@ -121,10 +122,26 @@
                         android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:paddingLeft="8dp"
+                        android:layout_toRightOf="@id/emailpic"
+                        android:layout_toLeftOf="@id/emailVarificationBtn"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
+                    <Button
+                        android:id="@+id/emailVarificationBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/buttonborder"
+                        android:gravity="center"
+                        android:text="varify"
+                        android:textAllCaps="false"
+                        android:textColor="@color/yellow"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"/>
 
-                </LinearLayout>
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/hint_email"
@@ -341,7 +358,7 @@
                     android:layout_marginRight="32dp"
                     android:background="@drawable/layout_back_b">
 
-                    <Spinner
+                    <EditText
                         android:id="@+id/spinner_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -349,6 +366,17 @@
                         android:backgroundTint="@color/yellow" />
                 </RelativeLayout>
             </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:padding="8sp"
+                android:hint="Enter Place Here"
+                android:textColorHint="@color/colorGray"
+                android:background="@drawable/layout_back_b"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

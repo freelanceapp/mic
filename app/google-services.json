@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "790263008568",
-    "firebase_url": "https://micproject-88fc3.firebaseio.com",
-    "project_id": "micproject-88fc3",
-    "storage_bucket": "micproject-88fc3.appspot.com"
+    "project_number": "205331945709",
+    "firebase_url": "https://mic-music.firebaseio.com",
+    "project_id": "mic-music",
+    "storage_bucket": "mic-music.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:790263008568:android:f9362873ed621d3e",
+        "mobilesdk_app_id": "1:205331945709:android:f9362873ed621d3e",
         "android_client_info": {
           "package_name": "com.mic.music.mic"
         }
       },
       "oauth_client": [
         {
-          "client_id": "790263008568-29dmmuoi2aghinegehl03nda4892vuki.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.mic.music.mic",
-            "certificate_hash": "af6e7a438225bb46c5ab7585a31fb59ee4c135dd"
-          }
-        },
-        {
-          "client_id": "790263008568-p9rd3msjbk9j2g5rkl577nc3p2chg68m.apps.googleusercontent.com",
+          "client_id": "205331945709-9kaffve42o6f3g84pghpa0ceit0bqe5c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAFBaCxBBMIFtLDga84gmy1FHPdY29Vya0"
+          "current_key": "AIzaSyDOx-Hgq_GBt7zstNRcp-Y_6UjqhGSdChA"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "790263008568-p9rd3msjbk9j2g5rkl577nc3p2chg68m.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

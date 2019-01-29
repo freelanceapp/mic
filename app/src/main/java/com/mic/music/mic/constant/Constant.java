@@ -5,18 +5,20 @@ package com.mic.music.mic.constant;
  */
 
 public class Constant {
-    public static final String BASE_URL = "http://codeencrypt.in/must_eat/";
+    public static final String BASE_URL = "http://onlinemic.in/admin/";
     public static final String USER_REGISTRATION = "api/user-signup.php";
-    public static final String USER_PROFILE = "api/user-profile.php";
+    public static final String FIREBSE_TOKEN = "api/app_token.php";
     public static final String USER_LOGIN = "api/user-login.php";
-    public static final String VERIFICATION = "api/user-verification.php";
-    public static final String VENDOR_DETAIL = "api/vendor-details.php";
-    public static final String VENDOR_LIST = "api/vendor-list.php";
+    public static final String RESEND_PASSWORD = "api/resend-otp.php";
+    public static final String APP_VERSION = "api/check-version.php";
+    public static final String OTP_VARIFICATION = "api/user-verification.php";
+    public static final String OTP_EMAIL_VARIFICATION = "api/user-verification-email.php";
+    public static final String PROFILE_UPDATE = "api/user-profile_update.php";
     public static final String FOROGOT_PASSWORD = "jain/api/forgot.php";
     public static final String NOTIFICATION_LIST = "api/select-notification.php";
-    public static final String OFFER_LIST = "api/coupon_list.php";
-    public static final String APP_VERSION = "api/check-version.php";
-    public static final String EDIT_PROFILE = "api/edit_profile.php";
+    public static final String COMPETITIONS_LIST = "api/select-competition.php";
+    public static final String PROFILE_IMAGE = "api/user-profile-image-update.php";
+    public static final String MY_PROFILE = "api/user-profile.php";
     public static final String FAQ = "api/select-faq.php";
     public static final String SUPPORT = "api/user-support.php";
 

@@ -135,13 +135,24 @@
             android:text="submit"
             android:textColor="@color/yellow" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/yellow"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:id="@+id/otpTime"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="30dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:id="@+id/resendLayout">
 
             <TextView
                 android:layout_width="wrap_content"

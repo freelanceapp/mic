@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/mic_background"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent_a"
     android:orientation="vertical">
 
     <LinearLayout
@@ -34,7 +34,8 @@
                 android:paddingRight="10dp"
                 android:text="Competition Name"
                 android:textColor="@color/yellow"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:id="@+id/tvCompetitionName"/>
 
             <ImageView
                 android:id="@+id/imgArrowA"
@@ -43,7 +44,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="8dp"
-                android:src="@drawable/ic_open" />
+                android:src="@drawable/ic_close" />
         </RelativeLayout>
 
         <View
@@ -56,7 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="54dp"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:id="@+id/competitionll"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,15 +73,29 @@
                 android:layout_height="wrap_content"
                 android:text="Dec 28,2018 11:25 PM"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:id="@+id/tvExpDate"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Details of the Competition"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:id="@+id/tvCompetitionDetail"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/yellow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Details of the Competition"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:id="@+id/tvCompetitionLevelDetail"/>
         </LinearLayout>
 
         <View
@@ -86,128 +103,7 @@
             android:layout_height="0.5dp"
             android:background="@color/yellow" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/imgCompB"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center_vertical"
-                android:padding="4dp"
-                android:src="@drawable/ic_competitionn_b" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="left"
-                android:layout_toRightOf="@+id/imgCompB"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Competition Name"
-                android:textColor="@color/yellow"
-                android:textSize="16dp" />
-
-            <ImageView
-                android:id="@+id/imgArrowB"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_close" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/yellow" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/imgCompC"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center_vertical"
-                android:padding="4dp"
-                android:src="@drawable/ic_competitionn_b" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="left"
-                android:layout_toRightOf="@+id/imgCompC"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Competition Name"
-                android:textColor="@color/yellow"
-                android:textSize="16dp" />
-
-            <ImageView
-                android:id="@+id/imgArrowC"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_close" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/yellow" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/imgCompD"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_gravity="center_vertical"
-                android:padding="4dp"
-                android:src="@drawable/ic_competitionn_b" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="left"
-                android:layout_toRightOf="@+id/imgCompD"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Competition Name"
-                android:textColor="@color/yellow"
-                android:textSize="16dp" />
-
-            <ImageView
-                android:id="@+id/imgArrowD"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_close" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/yellow" />
     </LinearLayout>
 
 </LinearLayout>

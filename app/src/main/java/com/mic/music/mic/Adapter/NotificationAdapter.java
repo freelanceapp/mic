@@ -18,19 +18,20 @@ import com.mic.music.mic.VideoUpload.Activity_galleryview;
 import com.mic.music.mic.VideoUpload.Adapter_VideoFolder;
 import com.mic.music.mic.VideoUpload.Model_Video;
 import com.mic.music.mic.model.notification;
+import com.mic.music.mic.model.notification_responce.Notification;
 
 import java.util.ArrayList;
 
 public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
 
-    ArrayList<notification> notificationArrayList;
+    ArrayList<Notification> notificationArrayList;
     Context context;
 
 
     public NotificationAdapter() {
     }
 
-    public NotificationAdapter(Context context, ArrayList<notification> notificationArrayList) {
+    public NotificationAdapter(Context context, ArrayList<Notification> notificationArrayList) {
 
         this.notificationArrayList = notificationArrayList;
         this.context = context;
@@ -61,8 +62,8 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
     @Override
     public void onBindViewHolder(final ViewHolder Vholder, final int position) {
 
-        Vholder.title_tv.setText(notificationArrayList.get(position).getTitle());
-        Vholder.discription_tv.setText(notificationArrayList.get(position).getDescription());
+        Vholder.title_tv.setText(notificationArrayList.get(position).getNotificationTitle());
+        Vholder.discription_tv.setText(notificationArrayList.get(position).getNotificationMessage());
 
     }
 

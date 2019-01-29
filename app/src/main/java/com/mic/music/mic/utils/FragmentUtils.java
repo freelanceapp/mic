@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.mic.music.mic.Newmic.MainActivity;
+import com.mic.music.mic.Newmic.Activity.MainActivity;
 import com.mic.music.mic.interfaces.FragmentChangeListener;
 import com.mic.music.mic.interfaces.FragmentService;
 

@@ -1,5 +1,6 @@
-package com.mic.music.mic.Fragment;
+package com.mic.music.mic.Newmic.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,7 +18,14 @@ import com.mic.music.mic.Adapter.NotificationAdapter;
 import com.mic.music.mic.Api.RequestHandler;
 import com.mic.music.mic.Api.URLs;
 import com.mic.music.mic.R;
+import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.notification;
+import com.mic.music.mic.model.notification_responce.Notification;
+import com.mic.music.mic.model.notification_responce.NotificationModel;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.BaseFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,9 +34,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AllNotificationFragment extends Fragment {
+import retrofit2.Response;
+
+public class AllNotificationFragment extends BaseFragment {
     RecyclerView all_list;
-    ArrayList<notification> notifications = new ArrayList<>();
+    ArrayList<Notification> notifications = new ArrayList<>();
     NotificationAdapter adapter;
 
     public AllNotificationFragment() {
@@ -45,7 +55,6 @@ public class AllNotificationFragment extends Fragment {
 
         NotificationUser notificationUser = new NotificationUser();
         notificationUser.execute();
-
         return view;
     }
     class NotificationUser extends AsyncTask<Void, Void, String> {
@@ -85,10 +94,9 @@ public class AllNotificationFragment extends Fragment {
                     for (int i = 0 ; i<jsonArray.length() ; i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-
-                        notification n = new notification();
-                        n.setTitle(object.getString("notification_title"));
-                        n.setDescription(object.getString("notification_message"));
+                        Notification n = new Notification();
+                        n.setNotificationTitle(object.getString("notification_title"));
+                        n.setNotificationMessage(object.getString("notification_message"));
                         notifications.add(n);
                     }
 
@@ -106,5 +114,9 @@ public class AllNotificationFragment extends Fragment {
             }
         }
     }
+
+
+
+
 
 }

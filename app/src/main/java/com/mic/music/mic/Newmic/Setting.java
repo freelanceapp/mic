@@ -2,49 +2,61 @@ package com.mic.music.mic.Newmic;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mic.music.mic.R;
 
-public class Setting extends AppCompatActivity {
+public class Setting extends Fragment {
 
     LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting, notificationsetting, ourteam, performance;
 
+    private View view;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
 
-        performance = findViewById(R.id.performance);
-        ourteam = findViewById(R.id.ourteam);
-        about = findViewById(R.id.about);
-        reachus = findViewById(R.id.reachus);
-        termsofuse = findViewById(R.id.termsofuse);
-        privatepolicy = findViewById(R.id.privacypolicy);
-        refundpolicy = findViewById(R.id.refundpolicy);
-        soundsetting = findViewById(R.id.soundsetting);
-        notificationsetting = findViewById(R.id.notification);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.activity_setting, container, false);
+
+        performance = view.findViewById(R.id.performance);
+        ourteam = view.findViewById(R.id.ourteam);
+        about = view.findViewById(R.id.about);
+        reachus = view.findViewById(R.id.reachus);
+        termsofuse = view.findViewById(R.id.termsofuse);
+        privatepolicy = view.findViewById(R.id.privacypolicy);
+        refundpolicy = view.findViewById(R.id.refundpolicy);
+        soundsetting = view.findViewById(R.id.soundsetting);
+        notificationsetting = view.findViewById(R.id.notification);
 
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, About.class);
+                Intent intent = new Intent(getActivity(), About.class);
                 startActivity(intent);
             }
         });
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, About.class);
+                Intent intent = new Intent(getActivity(), About.class);
                 startActivity(intent);
             }
         });
         reachus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, ReachUs.class);
+                Intent intent = new Intent(getActivity(), ReachUs.class);
                 startActivity(intent);
             }
         });
@@ -52,51 +64,54 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Setting.this, TandC.class);
+                Intent intent = new Intent(getActivity(), TandC.class);
                 startActivity(intent);
             }
         });
         privatepolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, PrivatePolicy.class);
+                Intent intent = new Intent(getActivity(), PrivatePolicy.class);
                 startActivity(intent);
             }
         });
         refundpolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, RefundPolicy.class);
+                Intent intent = new Intent(getActivity(), RefundPolicy.class);
                 startActivity(intent);
             }
         });
         soundsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, SoundSetting.class);
+                Intent intent = new Intent(getActivity(), SoundSetting.class);
                 startActivity(intent);
             }
         });
         notificationsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, Notification.class);
+                Intent intent = new Intent(getActivity(), Notification.class);
                 startActivity(intent);
             }
         });
         ourteam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, OurTeam.class);
+                Intent intent = new Intent(getActivity(), OurTeam.class);
                 startActivity(intent);
             }
         });
         performance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Setting.this, Performance.class);
+                Intent intent = new Intent(getActivity(), Performance.class);
                 startActivity(intent);
             }
         });
+
+        return view;
     }
+
 }

@@ -1,7 +1,5 @@
 package com.mic.music.mic.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mic.music.mic.Newmic.Fragment.AllNotificationFragment;
 import com.mic.music.mic.R;
-
-import org.w3c.dom.Text;
 
 
 public class NotificationFragment extends Fragment {

@@ -23,6 +23,7 @@ import com.mic.music.mic.LoginActivity;
 import com.mic.music.mic.OtpActivity;
 import com.mic.music.mic.R;
 import com.mic.music.mic.model.notification;
+import com.mic.music.mic.model.notification_responce.Notification;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 
 public class RecentNotificationFragment extends Fragment {
     RecyclerView recent_list;
-    ArrayList<notification> notifications = new ArrayList<>();
+    ArrayList<Notification> notifications = new ArrayList<>();
     NotificationAdapter adapter;
     ProgressBar notification_progress;
     public RecentNotificationFragment() {
@@ -89,9 +90,9 @@ public class RecentNotificationFragment extends Fragment {
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
 
-                        notification n = new notification();
-                        n.setTitle(object.getString("notification_title"));
-                        n.setDescription(object.getString("notification_message"));
+                        Notification n = new Notification();
+                        n.setNotificationTitle(object.getString("notification_title"));
+                        n.setNotificationMessage(object.getString("notification_message"));
                         notifications.add(n);
                     }
 

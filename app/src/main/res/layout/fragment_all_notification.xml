@@ -3,11 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.AllNotificationFragment">
-
+    android:background="@drawable/mic_background"
+    tools:context=".Newmic.Fragment.AllNotificationFragment">
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Notification"
+       android:textColor="@color/colorYellow"
+       android:gravity="center"
+       android:textSize="14sp"
+       android:padding="10sp"
+       android:layout_marginBottom="10sp"/>
    <android.support.v7.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/all_list"/>
-
 </FrameLayout>

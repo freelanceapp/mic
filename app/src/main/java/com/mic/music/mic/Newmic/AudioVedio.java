@@ -7,10 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,109 +30,106 @@ import android.widget.Toast;
 import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
 import com.cleveroad.sy.cyclemenuwidget.OnMenuItemClickListener;
 import com.cleveroad.sy.cyclemenuwidget.OnStateChangedListener;
+import com.google.gson.Gson;
 import com.mic.music.mic.AudioUpload.AudioListActivity;
 import com.mic.music.mic.AudioUpload.AudioRecordActivity;
+import com.mic.music.mic.Newmic.Activity.HomeActivity;
+import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
+import com.mic.music.mic.Newmic.Activity.SplashScreen;
+import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
 import com.mic.music.mic.R;
 import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
+import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.User;
+import com.mic.music.mic.model.competition_responce.Competition;
+import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.BaseFragment;
+import com.mic.music.mic.utils.ConnectionDetector;
 
-public class AudioVedio extends AppCompatActivity implements OnMenuItemClickListener {
+import java.util.ArrayList;
+
+import retrofit2.Response;
+
+public class AudioVedio extends BaseFragment implements View.OnClickListener {
     LinearLayout audiodialog, videodialog;
-    CycleMenuWidget itemCycleMenuWidget;
     RadioButton radioVideoButton, radioAudioButton;
+    private  View view;
     String videoSelect, audioSelect;
+    private ArrayList<Competition> arrayList = new ArrayList<>();
+    private CompetitionsAdapter adapter;
+    private int formant = 0;
+    Dialog CompetitionDialog;
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.tvCompetitionName:
+                int pos = Integer.parseInt(view.getTag().toString());
+                Competition category = arrayList.get(pos);
+                String strCompetitionName = category.getCompetitionName();
+                Toast.makeText(context,"Name "+strCompetitionName, Toast.LENGTH_SHORT).show();
+                if (formant == 0)
+                {
+                    showAudioDialog();
+                }else {
+                    showVideoDialog();
+                }
+                CompetitionDialog.dismiss();
+                break;
+        }
+    }
+
     public enum STATE {
         OPEN, CLOSED, IN_OPEN_PROCESS, IN_CLOSE_PROCESS
     }
 
     private STATE mState = STATE.CLOSED;
-    final Context context = this;
+    Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audio_vedio);
 
-        audiodialog = findViewById(R.id.audio_dialog);
-        videodialog = findViewById(R.id.video_dialog);
-        itemCycleMenuWidget = findViewById(R.id.itemCycleMenuWidget);
-        itemCycleMenuWidget.setMenuRes(R.menu.cycle_menu);
-        itemCycleMenuWidget.setOnMenuItemClickListener(this);
+    }
 
-        itemCycleMenuWidget.setStateChangeListener(new OnStateChangedListener() {
-            @Override
-            public void onStateChanged(CycleMenuWidget.STATE state) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view =  inflater.inflate(R.layout.activity_audio_vedio, container, false);
 
-            }
+        mContext = getActivity();
+        activity = getActivity();
+        cd = new ConnectionDetector(mContext);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
 
-            @Override
-            public void onOpenComplete() {
-                final int sdk = Build.VERSION.SDK_INT;
-                if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                    itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(AudioVedio.this, R.color.transparent_c));
-                } else
-                    itemCycleMenuWidget.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.color.transparent_c));
-            }
-
-            @Override
-            public void onCloseComplete() {
-                final int sdk = Build.VERSION.SDK_INT;
-                if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                    itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(AudioVedio.this, R.color.transparent));
-                } else {
-                    itemCycleMenuWidget.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.color.transparent));
-                }
-            }
-        });
+        context = getActivity();
+        audiodialog = view.findViewById(R.id.audio_dialog);
+        videodialog = view.findViewById(R.id.video_dialog);
 
         audiodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAudioDialog();
+                showCompetitionDialog();
+                formant = 0;
             }
         });
         videodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showVideoDialog();
+                showCompetitionDialog();
+                formant = 1;
             }
         });
-    }
 
-    @Override
-    public void onMenuItemClick(View view, int itemPosition) {
-        switch (view.getId()) {
-            case R.id.home:
-                Intent intent1 = new Intent(AudioVedio.this, AudioVedio.class);
-                startActivity(intent1);
-                break;
-            case R.id.profile:
-                Intent intent2 = new Intent(AudioVedio.this, Profile.class);
-                startActivity(intent2);
-                break;
-            case R.id.notification:
-                Intent intent3 = new Intent(AudioVedio.this, Notification.class);
-                startActivity(intent3);
-                break;
-            case R.id.competition:
-                Intent intent4 = new Intent(AudioVedio.this, MicCompetitions.class);
-                startActivity(intent4);
-                break;
-
-            case R.id.analytics:
-                Intent intent5 = new Intent(AudioVedio.this, Performance.class);
-                startActivity(intent5);
-                break;
-            case R.id.setting:
-                Intent intent6 = new Intent(AudioVedio.this, Setting.class);
-                startActivity(intent6);
-                break;
-        }
-    }
-
-    @Override
-    public void onMenuItemLongClick(View view, int itemPosition) {
-
+        return view;
     }
 
 
@@ -179,9 +183,6 @@ public class AudioVedio extends AppCompatActivity implements OnMenuItemClickList
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.activity_video_dialog_box);
-
-       /* TextView text = (TextView) dialog.findViewById(R.id.text_dialog);
-        text.setText(msg);*/
         final RadioGroup rgVideo = (RadioGroup) dialog.findViewById(R.id.rgVideo);
         ImageView dialogButton = (ImageView) dialog.findViewById(R.id.cancleVideoBtn);
         dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -190,9 +191,6 @@ public class AudioVedio extends AppCompatActivity implements OnMenuItemClickList
                 dialog.dismiss();
             }
         });
-
-
-
         Button btnSelectVideo = (Button) dialog.findViewById(R.id.btnSelectVideo);
         btnSelectVideo.setOnClickListener(new View.OnClickListener()
         {
@@ -220,5 +218,58 @@ public class AudioVedio extends AppCompatActivity implements OnMenuItemClickList
             }
         });
         dialog.show();
+    }
+
+    public void showCompetitionDialog() {
+        CompetitionDialog = new Dialog(context);
+        CompetitionDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        CompetitionDialog.setCancelable(false);
+        CompetitionDialog.setContentView(R.layout.dialog_competition);
+        final RecyclerView rvDCompetitionList = (RecyclerView) CompetitionDialog.findViewById(R.id.rvDCompetitionList);
+        competitionApi();
+        ImageView dialogButton = (ImageView) CompetitionDialog.findViewById(R.id.cancleBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CompetitionDialog.dismiss();
+            }
+        });
+        adapter = new CompetitionsAdapter(getActivity(),arrayList, this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvDCompetitionList.setLayoutManager(mLayoutManager);
+        rvDCompetitionList.setItemAnimator(new DefaultItemAnimator());
+        rvDCompetitionList.setAdapter(adapter);
+        CompetitionDialog.show();
+    }
+
+    private void competitionApi() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getCompetition(new Dialog(mContext), retrofitApiClient.getcompetition(), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    CompletionModel loginModal = (CompletionModel) result.body();
+                    assert loginModal != null;
+                    arrayList.clear();
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        arrayList.addAll(loginModal.getCompetition());
+
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+
+        } else {
+            cd.show(mContext);
+        }
+
     }
 }

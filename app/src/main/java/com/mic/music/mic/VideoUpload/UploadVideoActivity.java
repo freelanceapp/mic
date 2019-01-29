@@ -84,7 +84,6 @@ public class UploadVideoActivity extends AppCompatActivity {
     }
 
     public void ApiCallkyc() {
-
         File file = new File(video1);
         RequestBody competition = RequestBody.create(MediaType.parse("text/plain"), "music");
         RequestBody level = RequestBody.create(MediaType.parse("text/plain"), "1");
@@ -97,7 +96,6 @@ public class UploadVideoActivity extends AppCompatActivity {
         Call<VideoResponce> call = apiInterface1.uploadVideo(competition, level, participet, video2);
         Log.e("Response", "...." + competition + "..........");
         Log.e("Response lat", "...." + file.getName() + "..........");
-
         progressBar.setVisibility(View.VISIBLE);
         pDialog.setMessage("Upload...");
         pDialog.show();

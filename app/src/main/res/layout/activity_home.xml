@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Newmic.Activity.HomeActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_container"></FrameLayout>
+
+    <com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget
+        android:id="@+id/itemCycleMenuWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:elevation="8dp"
+        app:cm_autoMaxRadius="250dp"
+        app:cm_autoMinRadius="200dp"
+        app:cm_background="@color/black"
+        app:cm_collapsed_radius="45dp"
+        app:cm_corner="right_bottom"
+        app:cm_corner_image_src="@drawable/ic_menu"
+        app:cm_fixedRadius="600dp"
+        app:cm_item_background_tint="@color/yellow"
+        app:cm_radius_scale_type="auto"
+        app:cm_ripple_color="@color/transparent_b"
+        app:cm_scroll_type="basic"
+        />
+
+</RelativeLayout>

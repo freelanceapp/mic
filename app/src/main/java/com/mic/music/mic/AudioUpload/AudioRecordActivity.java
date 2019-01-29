@@ -58,11 +58,8 @@ public class AudioRecordActivity extends AppCompatActivity {
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(checkPermission()) {
-
                     AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "MicAudioRecording.3gp";
-
                     MediaRecorderReady();
 
                     try {

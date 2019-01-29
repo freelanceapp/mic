@@ -1,27 +1,43 @@
-package com.mic.music.mic.Newmic;
+package com.mic.music.mic.Newmic.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.User;
+import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
+
+import retrofit2.Response;
 
 public class VerificationActivity extends BaseActivity implements View.OnClickListener {
 
     Button submitotp;
-    TextView micCompititions,audiovideo,btnSend;
+    TextView micCompititions,audiovideo,btnSend,otpTime,btnResend;
     private EditText et_otp_a, et_otp_b, et_otp_c, et_otp_d, et_otp_e, et_otp_f;
-
+    LinearLayout resendLayout;
+    String otpnumber;
+    String myNumber,myEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +51,40 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     }
     private void init()
     {
-
-        btnSend = findViewById(R.id.btnResend);
+        resendLayout = findViewById(R.id.resendLayout);
+        otpTime = findViewById(R.id.otpTime);
+        btnResend = findViewById(R.id.btnResend);
+        myNumber = getIntent().getStringExtra("MobileNumber");
+        myEmail = getIntent().getStringExtra("EmailID");
+        Log.e("MobileNumber ",".."+myNumber);
+        Log.e("MobileNumber ",".."+myEmail);
+        otptime();
         et_otp_a = findViewById(R.id.et_otp_a);
         et_otp_b = findViewById(R.id.et_otp_b);
         et_otp_c = findViewById(R.id.et_otp_c);
         et_otp_d = findViewById(R.id.et_otp_d);
         et_otp_e = findViewById(R.id.et_otp_e);
         et_otp_f = findViewById(R.id.et_otp_f);
-
         submitotp = findViewById(R.id.submit_otp);
         submitotp.setOnClickListener(this);
         verificationCode();
+        btnResend.setOnClickListener(this);
+    }
 
+    private void otptime()
+    {
+        new CountDownTimer(120000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                otpTime.setVisibility(View.VISIBLE);
+                otpTime.setText("seconds remaining: " + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+            public void onFinish() {
+                //otpTime.setText("done!");
+                otpTime.setVisibility(View.GONE);
+                resendLayout.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 
     private void verificationCode() {
@@ -236,14 +273,121 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         switch (view.getId())
         {
             case R.id.btnResend :
-                Alerts.show(mContext,"Resend OTP");
-                break;
+                //Alerts.show(mContext,"Resend OTP");
+                resendEmailOtp();
 
+                resendLayout.setVisibility(View.GONE);
+                break;
             case R.id.submit_otp :
-                Intent intent = new Intent(VerificationActivity.this,MainActivity.class);
-                startActivity(intent);
-
+                otpnumber = et_otp_a.getText().toString()+et_otp_b.getText().toString()+et_otp_c.getText().toString()+et_otp_d.getText().toString()+et_otp_e.getText().toString()+et_otp_f.getText().toString();
+                //Toast.makeText(VerificationActivity.this, "OTP "+otpnumber, Toast.LENGTH_SHORT).show();
+                if (myNumber.equals("121"))
+                {
+                    otpVarification1();
+                }else {
+                    otpVarification();
+                }
                 break;
+        }
+    }
+
+
+    private void otpVarification() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp(myNumber,otpnumber), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    OtpModel loginModal = (OtpModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
+                        AppPreference.setStringPreference(mContext, Constant.User_Id, loginModal.getUser().getParticipantId());
+
+                        Gson gson = new GsonBuilder().setLenient().create();
+                        String data = gson.toJson(loginModal);
+                        Log.e("Login", ".."+data);
+                        AppPreference.setStringPreference(mContext, Constant.User_Data, data);
+                        User.setUser(loginModal);
+                        Intent intent = new Intent(VerificationActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        otpTime.setVisibility(View.GONE);
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+
+    private void otpVarification1() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(myEmail,otpnumber), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    OtpModel loginModal = (OtpModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                        AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
+                        AppPreference.setStringPreference(mContext, Constant.User_Id, loginModal.getUser().getParticipantId());
+
+                        Gson gson = new GsonBuilder().setLenient().create();
+                        String data = gson.toJson(loginModal);
+                        Log.e("Login", ".."+data);
+                        AppPreference.setStringPreference(mContext, Constant.User_Data, data);
+                        User.setUser(loginModal);
+                        Intent intent = new Intent(VerificationActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        otpTime.setVisibility(View.GONE);
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+
+    private void resendEmailOtp() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getResend(new Dialog(mContext), retrofitApiClient.getResend(myEmail), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    TokenModel loginModal = (TokenModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        otptime();
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
         }
     }
 }

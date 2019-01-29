@@ -4,6 +4,14 @@ import android.app.Dialog;
 
 
 import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.appversion_responce.AppVersion;
+import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.notification_responce.Notification;
+import com.mic.music.mic.model.notification_responce.NotificationModel;
+import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.model.token_responce.TokenModel;
+import com.mic.music.mic.model.user_responce.UserProfileModel;
 import com.mic.music.mic.utils.AppProgressDialog;
 
 import java.util.concurrent.TimeUnit;
@@ -21,8 +29,8 @@ public class RetrofitService {
 
     public static RetrofitApiClient client;
     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.MINUTES)
-            .connectTimeout(10, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.MINUTES)
+            .connectTimeout(30, TimeUnit.MINUTES)
             .build();
 
     public RetrofitService() {
@@ -71,21 +79,87 @@ public class RetrofitService {
         });
     }
 
-
-    public static void signup(final Dialog dialog, final Call<ResponseBody> method, final WebResponse webResponse) {
+    //token Update
+    public static void gettoken(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
         if (dialog != null)
             AppProgressDialog.show(dialog);
 
-        method.enqueue(new Callback<ResponseBody>() {
+        method.enqueue(new Callback<TokenModel>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 WebServiceResponse.handleResponse(response, webResponse);
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+            public void onFailure(Call<TokenModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //Competition level
+    public static void getCompetition(final Dialog dialog, final Call<CompletionModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<CompletionModel>() {
+            @Override
+            public void onResponse(Call<CompletionModel> call, Response<CompletionModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<CompletionModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //My Profile
+    public static void getProfile(final Dialog dialog, final Call<UserProfileModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<UserProfileModel>() {
+            @Override
+            public void onResponse(Call<UserProfileModel> call, Response<UserProfileModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<UserProfileModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //Email Resend Otp
+    public static void getResend(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<TokenModel>() {
+            @Override
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<TokenModel> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());
@@ -94,6 +168,139 @@ public class RetrofitService {
     }
 
 
+    //app version
+    public static void appversion(final Dialog dialog, final Call<AppVersion> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<AppVersion>() {
+            @Override
+            public void onResponse(Call<AppVersion> call, Response<AppVersion> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<AppVersion> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+    //app notification list
+    public static void getnotification(final Dialog dialog, final Call<NotificationModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<NotificationModel>() {
+            @Override
+            public void onResponse(Call<NotificationModel> call, Response<NotificationModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<NotificationModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+    //app login
+    public static void getlogin(final Dialog dialog, final Call<LoginModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //app otp
+    public static void getOtp(final Dialog dialog, final Call<OtpModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<OtpModel>() {
+            @Override
+            public void onResponse(Call<OtpModel> call, Response<OtpModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<OtpModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //profile update
+    public static void updateProfile(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<TokenModel>() {
+            @Override
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<TokenModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //profile image
+    public static void profileimage(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<TokenModel>() {
+            @Override
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<TokenModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
 
 
 }

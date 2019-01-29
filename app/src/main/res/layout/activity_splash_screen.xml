@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
     android:orientation="vertical"
-    tools:context=".Newmic.SplashScreen">
+    tools:context=".Newmic.Activity.SplashScreen">
 
     <ImageView
         android:layout_width="250dp"
