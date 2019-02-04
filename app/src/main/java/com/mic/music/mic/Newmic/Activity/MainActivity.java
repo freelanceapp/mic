@@ -45,6 +45,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.abdularis.civ.CircleImageView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -121,7 +122,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     AppLocationService appLocationService;
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
-    ImageView profile;
+    CircleImageView profile;
     EditText user_name, user_email, user_phone, user_address , spinner_city;
     RadioGroup rgGendar,rgOrganisation;
     ImageView show_calender;

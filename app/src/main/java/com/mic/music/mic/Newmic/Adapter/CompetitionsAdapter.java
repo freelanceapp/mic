@@ -61,7 +61,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     Context context;
     int num1 = 0;
     String competitionId, competitionLevelId, paymentType, UserId;
-
+    String strPayment;
     public CompetitionsAdapter() {
     }
 
@@ -163,9 +163,10 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 CompetitionLevel category = singleSectionItems.get(pos);
                 competitionLevelId = category.getCompetitionLevelId();
                 paymentType = category.getCompetitionLevelPaymentType();
+                strPayment = singleSectionItems.get(pos).getCompetitionLevelPaymentType();
                 competitionId = competitionArrayList.get(position).getCompetitionId();
                 UserId = AppPreference.getStringPreference(context, Constant.User_Id);
-                Toast.makeText(view.getContext(), competitionId+"  "+competitionLevelId + " "+ paymentType, Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), competitionId+"  "+competitionLevelId + " "+ strPayment, Toast.LENGTH_SHORT).show();
                 AudioVedio audioVedio = new AudioVedio();
                 competitionApi();
             }
@@ -187,8 +188,10 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         cd = new ConnectionDetector(context);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
+        String strId = AppPreference.getStringPreference(context, Constant.User_Id);
+
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getParticipation(new Dialog(context), retrofitApiClient.getParticipation(competitionLevelId, competitionId, "2", "Abc"), new WebResponse() {
+            RetrofitService.getParticipation(new Dialog(context), retrofitApiClient.getParticipation(competitionLevelId, competitionId, strId, strPayment), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     TokenModel loginModal = (TokenModel) result.body();

@@ -29,7 +29,7 @@
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/mic_splash_new" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_profile"
                     android:layout_width="80dp"
                     android:layout_height="80dp"

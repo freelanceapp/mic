@@ -30,6 +30,10 @@ import com.mic.music.mic.Newmic.Profile;
 import com.mic.music.mic.Newmic.Setting;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.Compatition1;
+import com.mic.music.mic.model.User;
+import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
@@ -51,7 +55,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
     Fragment fragment;
     public String f_token;
     public String android_id;
-    public String user_id = "4";
+    public static String user_id;
 
     public static HomeActivity homeActivity;
 
@@ -67,7 +71,19 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         retrofitApiClient = RetrofitService.getRetrofit();
         f_token = FirebaseInstanceId.getInstance().getToken();
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        user_id = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        //user_id = AppPreference.getStringPreference(mContext, Constant.User_Id);
+
+
+
+        Gson gson = new Gson();
+        String data = AppPreference.getStringPreference(mContext, Constant.User_Data);
+        Log.e("Profile ", "..."+data);
+        OtpModel loginModal = gson.fromJson(data, OtpModel.class);
+        User.setUser(loginModal);
+
+        OtpModel completionModel = User.getUser();
+        user_id = completionModel.getUser().getParticipantId();
+
 
         Log.e("token", f_token);
         Log.e("Device", android_id);

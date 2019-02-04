@@ -24,13 +24,13 @@ public class User implements Parcelable
     private String participantDob;
     @SerializedName("participant_organization")
     @Expose
-    private Object participantOrganization;
+    private String participantOrganization;
     @SerializedName("participant_address")
     @Expose
-    private Object participantAddress;
+    private String participantAddress;
     @SerializedName("participant_city")
     @Expose
-    private Object participantCity;
+    private String participantCity;
     @SerializedName("participant_state")
     @Expose
     private String participantState;
@@ -74,9 +74,9 @@ public class User implements Parcelable
         this.participantName = ((String) in.readValue((String.class.getClassLoader())));
         this.participantGendar = ((String) in.readValue((String.class.getClassLoader())));
         this.participantDob = ((String) in.readValue((String.class.getClassLoader())));
-        this.participantOrganization = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantAddress = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantCity = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.participantOrganization = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantAddress = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantCity = ((String) in.readValue((String.class.getClassLoader())));
         this.participantState = ((String) in.readValue((String.class.getClassLoader())));
         this.participantCountry = ((String) in.readValue((String.class.getClassLoader())));
         this.participantCountryCode = ((String) in.readValue((String.class.getClassLoader())));
@@ -141,41 +141,41 @@ public class User implements Parcelable
         return this;
     }
 
-    public Object getParticipantOrganization() {
+    public String getParticipantOrganization() {
         return participantOrganization;
     }
 
-    public void setParticipantOrganization(Object participantOrganization) {
+    public void setParticipantOrganization(String participantOrganization) {
         this.participantOrganization = participantOrganization;
     }
 
-    public User withParticipantOrganization(Object participantOrganization) {
+    public User withParticipantOrganization(String participantOrganization) {
         this.participantOrganization = participantOrganization;
         return this;
     }
 
-    public Object getParticipantAddress() {
+    public String getParticipantAddress() {
         return participantAddress;
     }
 
-    public void setParticipantAddress(Object participantAddress) {
+    public void setParticipantAddress(String participantAddress) {
         this.participantAddress = participantAddress;
     }
 
-    public User withParticipantAddress(Object participantAddress) {
+    public User withParticipantAddress(String participantAddress) {
         this.participantAddress = participantAddress;
         return this;
     }
 
-    public Object getParticipantCity() {
+    public String getParticipantCity() {
         return participantCity;
     }
 
-    public void setParticipantCity(Object participantCity) {
+    public void setParticipantCity(String participantCity) {
         this.participantCity = participantCity;
     }
 
-    public User withParticipantCity(Object participantCity) {
+    public User withParticipantCity(String participantCity) {
         this.participantCity = participantCity;
         return this;
     }

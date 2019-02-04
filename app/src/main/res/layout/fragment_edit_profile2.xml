@@ -1,14 +1,487 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/mic_background"
     tools:context=".Newmic.Fragment.EditProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/mic_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/mic_splash_new" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_profile1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/imagebordercircle"
+                    android:padding="2dp"
+                    android:src="@drawable/p1"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/mic_logo_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="Upload Image"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/layout_back_a"
+                    android:orientation="horizontal"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/username" />
+
+                    <EditText
+                        android:id="@+id/user_name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_back_transparent"
+                        android:hint="Name"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/yellow"
+                        android:textColorHint="@color/hint_color" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/hint_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="@string/name_hint"
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/layout_back_a"
+                    android:orientation="horizontal"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_mail"
+                        android:id="@+id/emailpic"/>
+
+                    <EditText
+                        android:id="@+id/user_email1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_back_transparent"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:paddingLeft="8dp"
+                        android:layout_toRightOf="@id/emailpic"
+                        android:layout_toLeftOf="@id/emailVarificationBtn"
+                        android:textColor="@color/yellow"
+                        android:textColorHint="@color/hint_color" />
+                    <Button
+                        android:id="@+id/emailVarificationBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/buttonborder"
+                        android:gravity="center"
+                        android:text="varify"
+                        android:textAllCaps="false"
+                        android:textColor="@color/yellow"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:visibility="gone"/>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/hint_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:text="@string/email_hin"
+                    android:textColor="@color/white"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/organization_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_organization" />
+                    <TextView
+                        android:id="@+id/tv_organization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:text="Organisation"
+                        android:textColor="@color/yellow"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal"
+                android:weightSum="20"
+                android:id="@+id/rgOrganisation1">
+                <RadioButton
+                    android:id="@+id/rd_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="School"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+                <RadioButton
+                    android:id="@+id/rd_college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="College"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+                <RadioButton
+                    android:id="@+id/rd_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="Work"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+                <RadioButton
+                    android:id="@+id/rd_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="Other"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RadioGroup>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:gravity="center"
+                    android:text="Address"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@+id/tv_location">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="-8dp"
+                        android:layout_toLeftOf="@+id/tvLocateMe"
+                        android:background="@drawable/layout_back_a">
+
+                        <EditText
+                            android:id="@+id/user_loaction1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittext_back_transparent"
+                            android:inputType="text"
+                            android:paddingLeft="8dp"
+                            android:textColor="@color/yellow"
+                            android:textColorHint="@color/hint_color" />
+
+                        <RadioButton
+                            android:id="@+id/radioLocation1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:buttonTint="@color/yellow"
+                            android:scaleX="0.8"
+                            android:scaleY="0.8" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvLocateMe"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="Locate me"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/city_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_city" />
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:backgroundTint="@color/yellow"
+                    android:text="City"
+                    android:textColor="@color/yellow"
+                    android:textSize="16dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="44dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/layout_back_b">
+
+                    <EditText
+                        android:id="@+id/spinner_city1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:backgroundTint="@color/yellow" />
+                </RelativeLayout>
+            </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:padding="8sp"
+                android:hint="Enter Place Here"
+                android:textColorHint="@color/colorGray"
+                android:background="@drawable/layout_back_b"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/gender_selection_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_gender" />
+
+                <TextView
+                    android:id="@+id/tv_genter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="14dp"
+                    android:text="Gender"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/rgGendar1">
+
+                    <RadioButton
+                        android:id="@+id/rd_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:text="Male"
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:text="Female"
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+
+                    <RadioButton
+                        android:id="@+id/rd_other_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/yellow"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:text="Other"
+                        android:textColor="@color/white"
+                        android:textSize="16dp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/birth_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_birthday" />
+
+                <TextView
+                    android:id="@+id/select_birth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/show_calender"
+                    android:text="Select your BirthDate"
+                    android:textColor="@color/yellow" />
+
+                <ImageView
+                    android:id="@+id/show_calender"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:src="@drawable/pcalendar" />
+
+                <CalendarView
+                    android:id="@+id/select_dob1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <CheckBox
+                android:textAlignment="viewStart"
+                android:layout_marginTop="26dp"
+                android:text="@string/checkbox_text"
+                android:id="@+id/checkbox_chek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/yellow"
+                android:buttonTint="@color/yellow"
+                android:checked="true"
+                android:textColor="@color/yellow"
+                android:gravity="start" />
+
+
+            <Button
+                android:id="@+id/submit_button1"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_margin="24dp"
+                android:background="@drawable/buttonborder"
+                android:gravity="center"
+                android:text="save"
+                android:textColor="@color/yellow"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

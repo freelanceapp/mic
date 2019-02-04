@@ -15,43 +15,43 @@ public class User implements Parcelable
     private String participantId;
     @SerializedName("participant_name")
     @Expose
-    private Object participantName;
+    private String participantName;
     @SerializedName("participant_gendar")
     @Expose
-    private Object participantGendar;
+    private String participantGendar;
     @SerializedName("participant_dob")
     @Expose
-    private Object participantDob;
+    private String participantDob;
     @SerializedName("participant_organization")
     @Expose
-    private Object participantOrganization;
+    private String participantOrganization;
     @SerializedName("participant_address")
     @Expose
-    private Object participantAddress;
+    private String participantAddress;
     @SerializedName("participant_city")
     @Expose
-    private Object participantCity;
+    private String participantCity;
     @SerializedName("participant_state")
     @Expose
-    private Object participantState;
+    private String participantState;
     @SerializedName("participant_country")
     @Expose
-    private Object participantCountry;
+    private String participantCountry;
     @SerializedName("participant_country_code")
     @Expose
-    private Object participantCountryCode;
+    private String participantCountryCode;
     @SerializedName("participant_image")
     @Expose
-    private Object participantImage;
+    private String participantImage;
     @SerializedName("participant_mobile_verification_status")
     @Expose
-    private Object participantMobileVerificationStatus;
+    private String participantMobileVerificationStatus;
     @SerializedName("participant_email_verification_status")
     @Expose
-    private Object participantEmailVerificationStatus;
+    private String participantEmailVerificationStatus;
     @SerializedName("participant_email_otp")
     @Expose
-    private Object participantEmailOtp;
+    private String participantEmailOtp;
     @SerializedName("participant_registration_date")
     @Expose
     private String participantRegistrationDate;
@@ -74,19 +74,19 @@ public class User implements Parcelable
 
     protected User(Parcel in) {
         this.participantId = ((String) in.readValue((String.class.getClassLoader())));
-        this.participantName = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantGendar = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantDob = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantOrganization = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantAddress = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantCity = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantState = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantCountry = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantCountryCode = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantImage = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantMobileVerificationStatus = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantEmailVerificationStatus = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.participantEmailOtp = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.participantName = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantGendar = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantDob = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantOrganization = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantAddress = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantCity = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantState = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantCountry = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantCountryCode = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantImage = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantMobileVerificationStatus = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantEmailVerificationStatus = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantEmailOtp = ((String) in.readValue((String.class.getClassLoader())));
         this.participantRegistrationDate = ((String) in.readValue((String.class.getClassLoader())));
     }
 
@@ -106,171 +106,171 @@ public class User implements Parcelable
         return this;
     }
 
-    public Object getParticipantName() {
+    public String getParticipantName() {
         return participantName;
     }
 
-    public void setParticipantName(Object participantName) {
+    public void setParticipantName(String participantName) {
         this.participantName = participantName;
     }
 
-    public User withParticipantName(Object participantName) {
+    public User withParticipantName(String participantName) {
         this.participantName = participantName;
         return this;
     }
 
-    public Object getParticipantGendar() {
+    public String getParticipantGendar() {
         return participantGendar;
     }
 
-    public void setParticipantGendar(Object participantGendar) {
+    public void setParticipantGendar(String participantGendar) {
         this.participantGendar = participantGendar;
     }
 
-    public User withParticipantGendar(Object participantGendar) {
+    public User withParticipantGendar(String participantGendar) {
         this.participantGendar = participantGendar;
         return this;
     }
 
-    public Object getParticipantDob() {
+    public String getParticipantDob() {
         return participantDob;
     }
 
-    public void setParticipantDob(Object participantDob) {
+    public void setParticipantDob(String participantDob) {
         this.participantDob = participantDob;
     }
 
-    public User withParticipantDob(Object participantDob) {
+    public User withParticipantDob(String participantDob) {
         this.participantDob = participantDob;
         return this;
     }
 
-    public Object getParticipantOrganization() {
+    public String getParticipantOrganization() {
         return participantOrganization;
     }
 
-    public void setParticipantOrganization(Object participantOrganization) {
+    public void setParticipantOrganization(String participantOrganization) {
         this.participantOrganization = participantOrganization;
     }
 
-    public User withParticipantOrganization(Object participantOrganization) {
+    public User withParticipantOrganization(String participantOrganization) {
         this.participantOrganization = participantOrganization;
         return this;
     }
 
-    public Object getParticipantAddress() {
+    public String getParticipantAddress() {
         return participantAddress;
     }
 
-    public void setParticipantAddress(Object participantAddress) {
+    public void setParticipantAddress(String participantAddress) {
         this.participantAddress = participantAddress;
     }
 
-    public User withParticipantAddress(Object participantAddress) {
+    public User withParticipantAddress(String participantAddress) {
         this.participantAddress = participantAddress;
         return this;
     }
 
-    public Object getParticipantCity() {
+    public String getParticipantCity() {
         return participantCity;
     }
 
-    public void setParticipantCity(Object participantCity) {
+    public void setParticipantCity(String participantCity) {
         this.participantCity = participantCity;
     }
 
-    public User withParticipantCity(Object participantCity) {
+    public User withParticipantCity(String participantCity) {
         this.participantCity = participantCity;
         return this;
     }
 
-    public Object getParticipantState() {
+    public String getParticipantState() {
         return participantState;
     }
 
-    public void setParticipantState(Object participantState) {
+    public void setParticipantState(String participantState) {
         this.participantState = participantState;
     }
 
-    public User withParticipantState(Object participantState) {
+    public User withParticipantState(String participantState) {
         this.participantState = participantState;
         return this;
     }
 
-    public Object getParticipantCountry() {
+    public String getParticipantCountry() {
         return participantCountry;
     }
 
-    public void setParticipantCountry(Object participantCountry) {
+    public void setParticipantCountry(String participantCountry) {
         this.participantCountry = participantCountry;
     }
 
-    public User withParticipantCountry(Object participantCountry) {
+    public User withParticipantCountry(String participantCountry) {
         this.participantCountry = participantCountry;
         return this;
     }
 
-    public Object getParticipantCountryCode() {
+    public String getParticipantCountryCode() {
         return participantCountryCode;
     }
 
-    public void setParticipantCountryCode(Object participantCountryCode) {
+    public void setParticipantCountryCode(String participantCountryCode) {
         this.participantCountryCode = participantCountryCode;
     }
 
-    public User withParticipantCountryCode(Object participantCountryCode) {
+    public User withParticipantCountryCode(String participantCountryCode) {
         this.participantCountryCode = participantCountryCode;
         return this;
     }
 
-    public Object getParticipantImage() {
+    public String getParticipantImage() {
         return participantImage;
     }
 
-    public void setParticipantImage(Object participantImage) {
+    public void setParticipantImage(String participantImage) {
         this.participantImage = participantImage;
     }
 
-    public User withParticipantImage(Object participantImage) {
+    public User withParticipantImage(String participantImage) {
         this.participantImage = participantImage;
         return this;
     }
 
-    public Object getParticipantMobileVerificationStatus() {
+    public String getParticipantMobileVerificationStatus() {
         return participantMobileVerificationStatus;
     }
 
-    public void setParticipantMobileVerificationStatus(Object participantMobileVerificationStatus) {
+    public void setParticipantMobileVerificationStatus(String participantMobileVerificationStatus) {
         this.participantMobileVerificationStatus = participantMobileVerificationStatus;
     }
 
-    public User withParticipantMobileVerificationStatus(Object participantMobileVerificationStatus) {
+    public User withParticipantMobileVerificationStatus(String participantMobileVerificationStatus) {
         this.participantMobileVerificationStatus = participantMobileVerificationStatus;
         return this;
     }
 
-    public Object getParticipantEmailVerificationStatus() {
+    public String getParticipantEmailVerificationStatus() {
         return participantEmailVerificationStatus;
     }
 
-    public void setParticipantEmailVerificationStatus(Object participantEmailVerificationStatus) {
+    public void setParticipantEmailVerificationStatus(String participantEmailVerificationStatus) {
         this.participantEmailVerificationStatus = participantEmailVerificationStatus;
     }
 
-    public User withParticipantEmailVerificationStatus(Object participantEmailVerificationStatus) {
+    public User withParticipantEmailVerificationStatus(String participantEmailVerificationStatus) {
         this.participantEmailVerificationStatus = participantEmailVerificationStatus;
         return this;
     }
 
-    public Object getParticipantEmailOtp() {
+    public String getParticipantEmailOtp() {
         return participantEmailOtp;
     }
 
-    public void setParticipantEmailOtp(Object participantEmailOtp) {
+    public void setParticipantEmailOtp(String participantEmailOtp) {
         this.participantEmailOtp = participantEmailOtp;
     }
 
-    public User withParticipantEmailOtp(Object participantEmailOtp) {
+    public User withParticipantEmailOtp(String participantEmailOtp) {
         this.participantEmailOtp = participantEmailOtp;
         return this;
     }
