@@ -1,35 +1,27 @@
 package com.mic.music.mic.VideoUpload;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.mic.music.mic.Api.ApiClient;
-import com.mic.music.mic.Api.ApiService;
-import com.mic.music.mic.MainActivity;
-import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.R;
-import com.mic.music.mic.RagistrationActivity;
 import com.mic.music.mic.Responce.VideoResponce;
-import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
@@ -38,33 +30,30 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
-
+import com.mic.music.mic.video_compressor_classes.VideoCompress;
 
 import java.io.File;
-import java.io.IOException;
-
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.mic.music.mic.MainActivity.u_id;
-
 public class UploadVideoActivity extends BaseActivity implements ProgressRequestBody.UploadCallbacks {
+
     private TextView txtPercentage;
-    VideoView videoView;
-    String video1;
-    TextView submit_btn;
+    private VideoView videoView;
+    private String video1;
+    private TextView submit_btn;
     private ProgressBar progressBar;
-    long totalSize = 0;
-    ProgressDialog pDialog;
+    private long totalSize = 0;
+    private ProgressDialog pDialog;
+    private String destPath;
+    private Dialog dialogCompressProgress;
+    private String outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,20 +79,61 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
                     //we are connected to a network
-                   newPostFeedApi();
-                   // ApiCallkyc();
+                    compressVideo(video1);
+                    // ApiCallkyc();
                 } else {
                     Toast.makeText(UploadVideoActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+    }
+
+    private void compressVideo(String strOriginalVIdeo) {
+        destPath = outputDir + File.separator + "VID_" +
+                new SimpleDateFormat("yyyyMMdd_HHmmss", getLocale()).format(new Date()) + ".mp4";
+        VideoCompress.compressVideoLow(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
+            @Override
+            public void onStart() {
+                dialogCompressProgress = new Dialog(mContext);
+                dialogCompressProgress.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialogCompressProgress.setContentView(R.layout.dialog_compress_progress);
+
+                dialogCompressProgress.setCanceledOnTouchOutside(true);
+                dialogCompressProgress.setCancelable(true);
+                if (dialogCompressProgress.getWindow() != null)
+                    dialogCompressProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                Window window = dialogCompressProgress.getWindow();
+                window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                dialogCompressProgress.show();
+            }
+
+            @Override
+            public void onSuccess() {
+                dialogCompressProgress.dismiss();
+                newPostFeedApi(destPath);
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(mContext, "Compress fail", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProgress(float percent) {
+                if (dialogCompressProgress != null) {
+                    ((TextView) dialogCompressProgress.findViewById(R.id.tvProgress))
+                            .setText("Progress " + String.valueOf(percent) + " %");
+                }
+            }
+        });
+    }
+
+    private void compressProgressDialog() {
 
     }
 
-
-    private void newPostFeedApi() {
-        File file = new File(video1);
+    private void newPostFeedApi(String strFilePath) {
+        File file = new File(strFilePath);
         String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
         String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
         String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
@@ -116,23 +146,23 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
             ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
             MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
-            RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
+            RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition, level, participet, type, videoFileUpload), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     VideoResponce responseBody = (VideoResponce) result.body();
                     assert responseBody != null;
-                    if (!responseBody.getError())
-                        {
-                            Alerts.show(mContext, responseBody.getMessage());
-                            Log.e("url", ".. "+ responseBody.getMessage());
-                            Log.e("url", ".. "+ responseBody.getUrl());
-                            AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                    if (!responseBody.getError()) {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        Log.e("url", ".. " + responseBody.getMessage());
+                        Log.e("url", ".. " + responseBody.getUrl());
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
 
-                        } else {
-                            Alerts.show(mContext, responseBody.getMessage());
-                            //finish();
-                        }
+                    } else {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        //finish();
+                    }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -143,16 +173,12 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
         }
     }
 
-
-
-
     @Override
     public void onProgressUpdate(int percentage) {
         submit_btn.setText(percentage + "");
-        if (submit_btn.getText().equals("99"))
-        {
+        if (submit_btn.getText().equals("99")) {
             submit_btn.setText("Finish");
-        }else {
+        } else {
 
         }
 
@@ -166,6 +192,30 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
     @Override
     public void onFinish() {
         submit_btn.setText("Finished");
+    }
 
+    /****************************************************************************************************/
+    /*
+     * Video compress methods
+     * */
+    private Locale getLocale() {
+        Configuration config = getResources().getConfiguration();
+        Locale sysLocale = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            sysLocale = getSystemLocale(config);
+        } else {
+            sysLocale = getSystemLocaleLegacy(config);
+        }
+
+        return sysLocale;
+    }
+
+    public static Locale getSystemLocaleLegacy(Configuration config) {
+        return config.locale;
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    public static Locale getSystemLocale(Configuration config) {
+        return config.getLocales().get(0);
     }
 }
