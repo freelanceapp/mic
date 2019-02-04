@@ -51,6 +51,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
+            android:id="@+id/scSound1"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
@@ -79,7 +80,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:checked="false"
-            android:theme="@style/SCBSwitch" />
+            android:theme="@style/SCBSwitch"
+            android:id="@+id/scVibrition"/>
 
     </RelativeLayout>
 

@@ -112,7 +112,7 @@ public class SplashScreen extends BaseActivity {
             }
         } else {
             // Do something, when permissions are already granted
-            Toast.makeText(mContext, "Permissions already granted", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Permissions already granted", Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -150,7 +150,7 @@ public class SplashScreen extends BaseActivity {
                                 )
                 ) {
                     // Permissions are granted
-                    Toast.makeText(mContext, "Permissions granted.", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(mContext, "Permissions granted.", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -171,7 +171,6 @@ public class SplashScreen extends BaseActivity {
                         }
                     }, 3000);
                     // close this activity
-                    finish();
                 } else {
                     // Permissions are denied
                     Toast.makeText(mContext, "Permissions denied.", Toast.LENGTH_SHORT).show();

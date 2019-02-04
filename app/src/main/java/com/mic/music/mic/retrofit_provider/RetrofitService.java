@@ -3,13 +3,16 @@ package com.mic.music.mic.retrofit_provider;
 import android.app.Dialog;
 
 
+import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.notification_responce.NotificationModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.model.participation_responce.ParticipationModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
 import com.mic.music.mic.utils.AppProgressDialog;
@@ -29,8 +32,8 @@ public class RetrofitService {
 
     public static RetrofitApiClient client;
     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .readTimeout(30, TimeUnit.MINUTES)
-            .connectTimeout(30, TimeUnit.MINUTES)
+            .readTimeout(10, TimeUnit.MINUTES)
+            .connectTimeout(10, TimeUnit.MINUTES)
             .build();
 
     public RetrofitService() {
@@ -123,6 +126,51 @@ public class RetrofitService {
         });
     }
 
+    //Select Participation
+    public static void getSelectParticipation(final Dialog dialog, final Call<ParticipationModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<ParticipationModel>() {
+            @Override
+            public void onResponse(Call<ParticipationModel> call, Response<ParticipationModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<ParticipationModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+    //video upload
+    public static void getNewPostData(final Dialog dialog, final Call<VideoResponce> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<VideoResponce>() {
+            @Override
+            public void onResponse(Call<VideoResponce> call, Response<VideoResponce> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<VideoResponce> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
     //My Profile
     public static void getProfile(final Dialog dialog, final Call<UserProfileModel> method, final WebResponse webResponse) {
         if (dialog != null)
@@ -147,6 +195,28 @@ public class RetrofitService {
 
     //Email Resend Otp
     public static void getResend(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<TokenModel>() {
+            @Override
+            public void onResponse(Call<TokenModel> call, Response<TokenModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<TokenModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //Email Resend Otp
+    public static void getParticipation(final Dialog dialog, final Call<TokenModel> method, final WebResponse webResponse) {
         if (dialog != null)
             AppProgressDialog.show(dialog);
 
@@ -215,20 +285,20 @@ public class RetrofitService {
 
 
     //app login
-    public static void getlogin(final Dialog dialog, final Call<LoginModel> method, final WebResponse webResponse) {
+    public static void getlogin(final Dialog dialog, final Call<LoginModel1> method, final WebResponse webResponse) {
         if (dialog != null)
             AppProgressDialog.show(dialog);
 
-        method.enqueue(new Callback<LoginModel>() {
+        method.enqueue(new Callback<LoginModel1>() {
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(Call<LoginModel1> call, Response<LoginModel1> response) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 WebServiceResponse.handleResponse(response, webResponse);
             }
 
             @Override
-            public void onFailure(Call<LoginModel> call, Throwable throwable) {
+            public void onFailure(Call<LoginModel1> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());

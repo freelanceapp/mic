@@ -36,6 +36,7 @@ import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
 import okhttp3.MediaType;
@@ -52,12 +53,15 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
     public String android_id;
     public String user_id = "4";
 
+    public static HomeActivity homeActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         mContext = this;
+        homeActivity = this;
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
@@ -85,6 +89,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
             @Override
             public void onOpenComplete() {
                 final int sdk = Build.VERSION.SDK_INT;
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                     itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(HomeActivity.this, R.color.transparent_c));
                 } else
@@ -94,6 +99,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
             @Override
             public void onCloseComplete() {
                 final int sdk = Build.VERSION.SDK_INT;
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                     itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(HomeActivity.this, R.color.transparent));
                 } else {
@@ -109,27 +115,33 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
             case R.id.home:
                 fragment = new AudioVedio();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
             case R.id.profile:
                 fragment = new Profile();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
             case R.id.notification:
                 fragment = new AllNotificationFragment();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
             case R.id.competition:
                 fragment = new MicCompetitions();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
 
             case R.id.analytics:
                 fragment = new Performance();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
             case R.id.setting:
                 fragment = new Setting();
                 loadFragment(fragment);
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 break;
         }
         itemCycleMenuWidget.close(true);
@@ -147,7 +159,6 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     private void tokenApi() {
 

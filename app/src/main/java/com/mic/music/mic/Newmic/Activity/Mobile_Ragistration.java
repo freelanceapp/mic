@@ -10,11 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -92,10 +95,13 @@ public class Mobile_Ragistration extends BaseActivity {
             RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(phoneNumber), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
-                    LoginModel loginModal = (LoginModel) result.body();
+                    LoginModel1 loginModal = (LoginModel1) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
+                        AppPreference.setStringPreference(mContext, Constant.User_Check , loginModal.getUserEmail());
+                        AppPreference.setStringPreference(mContext, Constant.User_Mobile , phoneNumber);
+
                         Intent intent = new Intent(Mobile_Ragistration.this, VerificationActivity.class);
                         intent.putExtra("MobileNumber", phoneNumber);
                         intent.putExtra("EmailID", emailAddress);
@@ -115,19 +121,19 @@ public class Mobile_Ragistration extends BaseActivity {
         } else {
             cd.show(mContext);
         }
-
     }
 
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin1(emailAddress), new WebResponse() {
+            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(emailAddress), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     LoginModel loginModal = (LoginModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
+                        AppPreference.setStringPreference(mContext, Constant.User_Check , loginModal.getUserEmail());
                         Intent intent = new Intent(Mobile_Ragistration.this, VerificationActivity.class);
                         intent.putExtra("MobileNumber", phoneNumber);
                         intent.putExtra("EmailID", emailAddress);

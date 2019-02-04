@@ -130,6 +130,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private SimpleDateFormat dateFormatter;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
+    private String mobileNumber1;
     private String userName,userEmail,userPhone,userOrgnisation,userAddress,userCity,userGender,userDOB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,12 +143,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         retrofitApiClient = RetrofitService.getRetrofit();
         String data = AppPreference.getStringPreference(mContext, Constant.User_Data);
         Log.e("Profile ", "..."+data);
-
         init();
     }
     private void init()
     {
 
+        mobileNumber1 = AppPreference.getStringPreference(mContext , Constant.User_Mobile);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = findViewById(R.id.user_name);
         emailVarificationBtn = findViewById(R.id.emailVarificationBtn);
@@ -163,6 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         tvLocateMe = findViewById(R.id.tvLocateMe);
         spinner_city = findViewById(R.id.spinner_city);
         Log.e("USer ID ","..."+User.getUser().getUser().getParticipantId());
+        user_phone.setText(mobileNumber1);
 
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,8 +231,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         submitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-                startActivity(intent);
+
                 api();
                 getTextUpdate();
             }
@@ -508,7 +509,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin1(userEmail), new WebResponse() {
+            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(userEmail), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     LoginModel loginModal = (LoginModel) result.body();
@@ -553,6 +554,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         assert loginModal != null;
                         if (!loginModal.getError()) {
                             Alerts.show(mContext, loginModal.getMessage());
+                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             Alerts.show(mContext, loginModal.getMessage());
                         }

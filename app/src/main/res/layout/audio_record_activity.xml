@@ -26,6 +26,16 @@
         android:layout_marginTop="80dp"
         android:src="@drawable/logo" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="20"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:id="@+id/tvCount"
+        android:visibility="gone"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,5 +77,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="STOP PLAYING RECORDING " />
+
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Upload Audio " />
     </RelativeLayout>
 </RelativeLayout>

@@ -280,7 +280,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.submit_otp :
                 otpnumber = et_otp_a.getText().toString()+et_otp_b.getText().toString()+et_otp_c.getText().toString()+et_otp_d.getText().toString()+et_otp_e.getText().toString()+et_otp_f.getText().toString();
-                //Toast.makeText(VerificationActivity.this, "OTP "+otpnumber, Toast.LENGTH_SHORT).show();
                 if (myNumber.equals("121"))
                 {
                     otpVarification1();
@@ -347,9 +346,18 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("Login", ".."+data);
                         AppPreference.setStringPreference(mContext, Constant.User_Data, data);
                         User.setUser(loginModal);
-                        Intent intent = new Intent(VerificationActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                        String strCheck = AppPreference.getStringPreference(mContext, Constant.User_Check );
+
+                        if (strCheck.equals("registered user")) {
+                            Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                         otpTime.setVisibility(View.GONE);
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());

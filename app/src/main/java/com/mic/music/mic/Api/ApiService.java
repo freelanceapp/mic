@@ -15,6 +15,7 @@ public interface ApiService {
     Call<VideoResponce> uploadVideo(@Part("competition") RequestBody competition,
                                    @Part("competition_level") RequestBody competition_level,
                                    @Part("participant") RequestBody participant,
+                                   @Part("type") RequestBody type,
                                    @Part MultipartBody.Part file);
 
 }

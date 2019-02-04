@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -43,6 +44,7 @@ import com.mic.music.mic.VideoUpload.VideoFolder;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.User;
 import com.mic.music.mic.model.competition_responce.Competition;
+import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -50,29 +52,33 @@ import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
+import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.util.ArrayList;
 
 import retrofit2.Response;
 
+
 public class AudioVedio extends BaseFragment implements View.OnClickListener {
     LinearLayout audiodialog, videodialog;
-    RadioButton radioVideoButton, radioAudioButton;
+    public  RadioButton radioVideoButton, radioAudioButton;
     private  View view;
+    private Fragment fragment;
     String videoSelect, audioSelect;
     private ArrayList<Competition> arrayList = new ArrayList<>();
+    private ArrayList<CompetitionLevel> itemsList = new ArrayList<>();
     private CompetitionsAdapter adapter;
-    private int formant = 0;
-    Dialog CompetitionDialog;
+    public static int formant = 0;
+    public static Dialog CompetitionDialog;
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
-            case R.id.tvCompetitionName:
-                int pos = Integer.parseInt(view.getTag().toString());
-                Competition category = arrayList.get(pos);
-                String strCompetitionName = category.getCompetitionName();
+            case R.id.levelBtn:
+               /* int pos = Integer.parseInt(view.getTag().toString());
+                Competition category = arrayList.get(position1);;
+                String strCompetitionName = category.getCompetitionLevel().get(pos).getCompetitionLevelName();
                 Toast.makeText(context,"Name "+strCompetitionName, Toast.LENGTH_SHORT).show();
                 if (formant == 0)
                 {
@@ -80,7 +86,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 }else {
                     showVideoDialog();
                 }
-                CompetitionDialog.dismiss();
+                CompetitionDialog.dismiss();*/
                 break;
         }
     }
@@ -90,7 +96,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
     }
 
     private STATE mState = STATE.CLOSED;
-    Context context;
+    static Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,38 +109,54 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.activity_audio_vedio, container, false);
-
         mContext = getActivity();
         activity = getActivity();
         cd = new ConnectionDetector(mContext);
+        ButtonSound.getInstance().init(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
 
-        context = getActivity();
         audiodialog = view.findViewById(R.id.audio_dialog);
         videodialog = view.findViewById(R.id.video_dialog);
 
         audiodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCompetitionDialog();
-                formant = 0;
+                //showCompetitionDialog();
+                String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
+                Log.e("Company ", ".."+strCompany);
+                if (strCompany.equals(""))
+                {
+                    fragment = new MicCompetitions();
+                    loadFragment(fragment);
+                }else {
+                    showAudioDialog();
+                }
+
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
             }
         });
         videodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCompetitionDialog();
-                formant = 1;
+
+                String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
+                Log.e("Company ", ".."+strCompany);
+                if (strCompany.equals(""))
+                {
+                    fragment = new MicCompetitions();
+                    loadFragment(fragment);
+                }else {
+                    showVideoDialog();
+                }
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
             }
         });
-
         return view;
     }
 
-
     public void showAudioDialog() {
-        final Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.activity_autdio_dialog);
@@ -158,17 +180,17 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 radioAudioButton = (RadioButton) dialog.findViewById(selectedId);
                 if (radioAudioButton.getText().equals("Record Audio"))
                 {
-                    Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context,AudioRecordActivity.class);
+                   // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext,AudioRecordActivity.class);
                     startActivity(intent);
                 }else  if (radioAudioButton.getText().equals("Upload Audio"))
                 {
-                    Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, AudioListActivity.class);
+                   // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, AudioListActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(context, "Select Option any one option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -179,7 +201,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
     }
 
     public void showVideoDialog() {
-        final Dialog dialog = new Dialog(context);
+        final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.activity_video_dialog_box);
@@ -202,23 +224,30 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
                 if (radioVideoButton.getText().equals("Record Video"))
                 {
-                    Toast.makeText(context, "Select Option 1 "+radioVideoButton.getText(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context,VideoRecordActivity.class);
+                    Intent intent = new Intent(mContext,VideoRecordActivity.class);
                     startActivity(intent);
                 }else  if (radioVideoButton.getText().equals("Upload Video"))
                 {
-                    Toast.makeText(context, "Select Option 1 "+radioVideoButton.getText(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context,VideoFolder.class);
+                    Intent intent = new Intent(mContext,VideoFolder.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(context, "Select Option any one option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     public void showCompetitionDialog() {
         CompetitionDialog = new Dialog(context);

@@ -1,12 +1,15 @@
 package com.mic.music.mic.retrofit_provider;
 
+import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.notification_responce.NotificationModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.model.participation_responce.ParticipationModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
 
@@ -39,6 +42,19 @@ public interface RetrofitApiClient {
                                  @Field("token") String token,
                                  @Field("participant_id") String participant_id);
 
+    @FormUrlEncoded
+    @POST(Constant.USER_PARTICIPATION)
+    Call<TokenModel> getParticipation(@Field("competition_level") String competition_level,
+                              @Field("competition") String competition,
+                              @Field("user_id") String user_id,
+                              @Field("type") String type);
+
+
+    @FormUrlEncoded
+    @POST(Constant.SELECT_PARTICIPATION)
+    Call<ParticipationModel> getSelectParticipation(@Field("competition") String competition,
+                                                    @Field("user_id") String user_id);
+
 
     @FormUrlEncoded
     @POST(Constant.MY_PROFILE)
@@ -61,7 +77,7 @@ public interface RetrofitApiClient {
 
     @FormUrlEncoded
     @POST(Constant.USER_LOGIN)
-    Call<LoginModel> getLogin(@Field("mobile_number") String mobile_number);
+    Call<LoginModel1> getLogin(@Field("mobile_number") String mobile_number);
 
     @FormUrlEncoded
     @POST(Constant.RESEND_PASSWORD)
@@ -93,6 +109,16 @@ public interface RetrofitApiClient {
     @POST(Constant.PROFILE_IMAGE)
     Call<TokenModel> profileimage(@Part("user_id") RequestBody user_id,
                                   @Part MultipartBody.Part file);
+
+
+    //Ragister API
+    @Multipart
+    @POST(Constant.FILE_UPLOAD)
+    Call<VideoResponce> getNewPostData(@Part("competition") RequestBody competition,
+                                       @Part("competition_level") RequestBody competition_level,
+                                       @Part("participant") RequestBody participant,
+                                       @Part("type") RequestBody type,
+                                       @Part MultipartBody.Part file);
 
 
     //Ragister API

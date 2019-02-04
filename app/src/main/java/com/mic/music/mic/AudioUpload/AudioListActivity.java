@@ -2,6 +2,7 @@ package com.mic.music.mic.AudioUpload;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,23 +19,41 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mic.music.mic.Adapter.AudioListAdapter;
 import com.mic.music.mic.Adapter.EventAdapter;
 import com.mic.music.mic.R;
+import com.mic.music.mic.Responce.VideoResponce;
+import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.AudioModel;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.upload_with_progress.ProgressRequestBody;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class AudioListActivity extends AppCompatActivity {
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Response;
+
+public class AudioListActivity extends BaseActivity implements View.OnClickListener, ProgressRequestBody.UploadCallbacks {
     private Context mContext;
     private Activity mActivity;
-
+    AlertDialog.Builder builder;
+    private String urlAudio = "";
     private LinearLayout mRootLayout;
     private Button mButtonPlay;
     private TextView mResult;
@@ -48,10 +67,15 @@ public class AudioListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio_list_activity);
 
+        mContext = this;
+        cd = new ConnectionDetector(mContext);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
+
         // Get the application context
         mContext = getApplicationContext();
         mActivity = AudioListActivity.this;
-
+        builder = new AlertDialog.Builder(mContext);
         // Get the widget reference from xml layout
         mRootLayout = findViewById(R.id.root_layout);
         mButtonPlay = findViewById(R.id.btn_task);
@@ -122,7 +146,7 @@ public class AudioListActivity extends AppCompatActivity {
                 String thisTitle = cursor.getString(title);
 
                 AudioModel audioModel = new AudioModel();
-                audioModel.setaPath("Path : "+thisPath);
+                audioModel.setaPath(thisPath);
                 audioModel.setaName("Name : "+thisTitle);
                 audioModel.setaArtist("Artist : "+thisArtist);
                 audioModel.setaAlbum("Album : "+thisAlbum);
@@ -132,7 +156,16 @@ public class AudioListActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
 
 
-            adapter = new AudioListAdapter(AudioListActivity.this,audioModelArrayList);
+            adapter = new AudioListAdapter(AudioListActivity.this, audioModelArrayList, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = Integer.parseInt(view.getTag().toString());
+                    AudioModel audioModel = audioModelArrayList.get(pos);
+                    urlAudio = audioModel.getaPath();
+                    Log.e("Url", "..."+urlAudio);
+                    newPostFeedApi();
+                }
+            });
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(AudioListActivity.this);
             rvAudioList.setLayoutManager(mLayoutManager);
             rvAudioList.setItemAnimator(new DefaultItemAnimator());
@@ -187,5 +220,72 @@ public class AudioListActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+
+        }
+    }
+
+
+    private void newPostFeedApi() {
+        File file = new File(urlAudio);
+        String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
+        String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
+        String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
+
+        if (cd.isNetworkAvailable()) {
+            RequestBody competition = RequestBody.create(MediaType.parse("text/plain"), strCompanyId);
+            RequestBody level = RequestBody.create(MediaType.parse("text/plain"), strLevelId);
+            RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), strId);
+            RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "audio");
+            ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
+            MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
+
+            RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    VideoResponce responseBody = (VideoResponce) result.body();
+                    assert responseBody != null;
+                    if (!responseBody.getError())
+                    {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        Log.e("url", ".. "+ responseBody.getMessage());
+                        Log.e("url", ".. "+ responseBody.getUrl());
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+
+                    } else {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        //finish();
+                    }
+                }
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+
+      // Log.e("Loading..."," "+percentage);
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
     }
 }

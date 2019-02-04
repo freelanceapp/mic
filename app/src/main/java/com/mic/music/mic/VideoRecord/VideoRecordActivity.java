@@ -2,6 +2,7 @@ package com.mic.music.mic.VideoRecord;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,6 +36,14 @@ import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.VideoUpload.Activity_galleryview;
 import com.mic.music.mic.VideoUpload.UploadVideoActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
+import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.upload_with_progress.ProgressRequestBody;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -54,7 +63,7 @@ import static com.mic.music.mic.SplashScreen.ALLOW_KEY;
 import static com.mic.music.mic.SplashScreen.CAMERA_PREF;
 import static com.mic.music.mic.SplashScreen.MY_PERMISSIONS_REQUEST_CAMERA;
 
-public class VideoRecordActivity extends AppCompatActivity implements View.OnClickListener {
+public class VideoRecordActivity extends BaseActivity implements View.OnClickListener, ProgressRequestBody.UploadCallbacks {
     VideoView videoView;
     Uri videoFileUri;
     public static int VIDEO_CAPTURED = 1;
@@ -70,6 +79,10 @@ public class VideoRecordActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_record);
+        mContext = this;
+        cd = new ConnectionDetector(mContext);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
         playVideoButton = (Button) this.findViewById(R.id.PlayVideoButton);
         videoView = (VideoView) this.findViewById(R.id.VideoView);
         progressBar = (ProgressBar)this.findViewById(R.id.record_progress);
@@ -271,46 +284,60 @@ public class VideoRecordActivity extends AppCompatActivity implements View.OnCli
 
         }
 
-    public void ApiCallkyc() {
 
-        RequestBody competition = RequestBody.create(MediaType.parse("text/plain"), "music");
-        RequestBody level = RequestBody.create(MediaType.parse("text/plain"), "1");
-        RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), u_id);
-        RequestBody r_video = RequestBody.create(MediaType.parse("video/mp4"), file);
 
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part video2 = MultipartBody.Part.createFormData("file", file.getName(),r_video);
-        // add another part within the multipart request
+    private void newPostFeedApi() {
+        String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
+        String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
+        String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
 
-        ApiService apiInterface1 = ApiClient.getClient().create(ApiService.class);
-        Call<VideoResponce> call = apiInterface1.uploadVideo(competition,level,participet,video2);
-        Log.e("Response", "...." + competition + "..........");
-        Log.e("Response lat", "...." + video2.toString() + "..........");
-        Log.e("Response log", "...." + participet.toString() + "..........");
+        if (cd.isNetworkAvailable()) {
+            RequestBody competition = RequestBody.create(MediaType.parse("text/plain"), strCompanyId);
+            RequestBody level = RequestBody.create(MediaType.parse("text/plain"), strLevelId);
+            RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), "11");
+            RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "video");
+            ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
+            MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
-        progressBar.setVisibility(View.VISIBLE);
-        pDialog.setMessage("Doing something, please wait.");
-        pDialog.show();
-        call.enqueue(new Callback<VideoResponce>() {
-            @Override
-            public void onResponse(Call<VideoResponce> call, Response<VideoResponce> response) {
-                VideoResponce imageResponce = response.body();
-                Log.e("...Massage...", "..." + imageResponce.getMessage());
-                Log.e("...URI...", "..." + imageResponce.getUrl());
-                //Toast.makeText(VideoRecordActivity.this,imageResponce.getMessage(),Toast.LENGTH_SHORT).show();
-
-                progressBar.setVisibility(View.GONE);
-                pDialog.dismiss();
-            }
-            @Override
-            public void onFailure(Call<VideoResponce> call, Throwable t) {
-                Log.e("...Throwable...", "..." + t.getMessage());
-                Log.e("...Throwable...", "..." + t.toString());
-                progressBar.setVisibility(View.GONE);
-                pDialog.dismiss();
-            }
-        });
+            RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    VideoResponce responseBody = (VideoResponce) result.body();
+                    assert responseBody != null;
+                    if (!responseBody.getError())
+                    {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        Log.e("url", ".. "+ responseBody.getUrl());
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                    } else {
+                        Alerts.show(mContext, responseBody.getMessage());
+                        //finish();
+                    }
+                }
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
     }
 
 
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
 }

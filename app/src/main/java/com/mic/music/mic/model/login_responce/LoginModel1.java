@@ -2,11 +2,11 @@ package com.mic.music.mic.model.login_responce;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginModel implements Parcelable
+public class LoginModel1 implements Parcelable
 {
 
     @SerializedName("error")
@@ -15,33 +15,33 @@ public class LoginModel implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("user_email")
+    @SerializedName("user")
     @Expose
     private String userEmail;
-    public final static Parcelable.Creator<LoginModel> CREATOR = new Creator<LoginModel>() {
+    public final static Creator<LoginModel1> CREATOR = new Creator<LoginModel1>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public LoginModel createFromParcel(Parcel in) {
-            return new LoginModel(in);
+        public LoginModel1 createFromParcel(Parcel in) {
+            return new LoginModel1(in);
         }
 
-        public LoginModel[] newArray(int size) {
-            return (new LoginModel[size]);
+        public LoginModel1[] newArray(int size) {
+            return (new LoginModel1[size]);
         }
 
     }
             ;
 
-    protected LoginModel(Parcel in) {
+    protected LoginModel1(Parcel in) {
         this.error = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
         this.userEmail = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    public LoginModel() {
+    public LoginModel1() {
     }
 
     public Boolean getError() {
@@ -52,7 +52,7 @@ public class LoginModel implements Parcelable
         this.error = error;
     }
 
-    public LoginModel withError(Boolean error) {
+    public LoginModel1 withError(Boolean error) {
         this.error = error;
         return this;
     }
@@ -65,7 +65,7 @@ public class LoginModel implements Parcelable
         this.message = message;
     }
 
-    public LoginModel withMessage(String message) {
+    public LoginModel1 withMessage(String message) {
         this.message = message;
         return this;
     }
@@ -78,7 +78,7 @@ public class LoginModel implements Parcelable
         this.userEmail = userEmail;
     }
 
-    public LoginModel withUserEmail(String userEmail) {
+    public LoginModel1 withUserEmail(String userEmail) {
         this.userEmail = userEmail;
         return this;
     }

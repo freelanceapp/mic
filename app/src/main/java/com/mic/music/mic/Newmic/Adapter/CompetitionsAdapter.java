@@ -1,65 +1,106 @@
 package com.mic.music.mic.Newmic.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mic.music.mic.Adapter.NotificationAdapter;
+import com.mic.music.mic.Newmic.Activity.HomeActivity;
+import com.mic.music.mic.Newmic.Activity.MainActivity;
+import com.mic.music.mic.Newmic.AudioVedio;
+import com.mic.music.mic.Newmic.Fragment.ParticipationDetailFragment;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.competition_responce.Competition;
+import com.mic.music.mic.model.competition_responce.CompetitionLevel;
+import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.notification_responce.Notification;
+import com.mic.music.mic.model.participation_responce.ParticipationModel;
+import com.mic.music.mic.model.token_responce.TokenModel;
+import com.mic.music.mic.retrofit_provider.RetrofitApiClient;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
+import retrofit2.Response;
+
+import static com.mic.music.mic.Newmic.AudioVedio.CompetitionDialog;
+import static com.mic.music.mic.Newmic.AudioVedio.formant;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.ViewHolder> {
     private View.OnClickListener onClickListener;
-
     ArrayList<Competition> competitionArrayList;
+    public RetrofitApiClient retrofitApiClient;
+    public RetrofitApiClient retrofitRxClient;
+    public ConnectionDetector cd;
     Context context;
     int num1 = 0;
+    String competitionId, competitionLevelId, paymentType, UserId;
+
     public CompetitionsAdapter() {
     }
 
-    public CompetitionsAdapter(Context context, ArrayList<Competition> competitionArrayList , View.OnClickListener onClickListener) {
+    public CompetitionsAdapter(Context context, ArrayList<Competition> competitionArrayList, View.OnClickListener onClickListener) {
         this.competitionArrayList = competitionArrayList;
         this.context = context;
         this.onClickListener = onClickListener;
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvCompetitionName,tvCompetitionDetail, tvExpDate, tvCompetitionLevelDetail;
+        public TextView tvCompetitionName, tvCompetitionDetail, tvExpDate, tvCompetitionLevelDetail;
         public ImageView imgArrowA;
         public LinearLayout competitionll;
+        protected RecyclerView recycler_view_list;
+
         public ViewHolder(View v) {
             super(v);
-            tvCompetitionName = (TextView)v.findViewById(R.id.tvCompetitionName);
-            tvCompetitionDetail = (TextView)v.findViewById(R.id.tvCompetitionDetail);
-            tvExpDate = (TextView)v.findViewById(R.id.tvExpDate);
-            tvCompetitionLevelDetail = (TextView)v.findViewById(R.id.tvCompetitionLevelDetail);
-            imgArrowA = (ImageView)v.findViewById(R.id.imgArrowA);
-            competitionll = (LinearLayout)v.findViewById(R.id.competitionll);
+            this.recycler_view_list = (RecyclerView) v.findViewById(R.id.recycler_view_list);
+            tvCompetitionName = (TextView) v.findViewById(R.id.tvCompetitionName);
+            tvCompetitionDetail = (TextView) v.findViewById(R.id.tvCompetitionDetail);
+            tvExpDate = (TextView) v.findViewById(R.id.tvExpDate);
+            tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
+            imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
+            competitionll = (LinearLayout) v.findViewById(R.id.competitionll);
             imgArrowA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (num1 == 0)
-                    {
+                    if (num1 == 0) {
                         competitionll.setVisibility(View.VISIBLE);
                         num1 = 1;
                         imgArrowA.setImageResource(R.drawable.ic_open);
-                    }else {
+                    } else {
                         competitionll.setVisibility(View.GONE);
                         num1 = 0;
                         imgArrowA.setImageResource(R.drawable.ic_close);
                     }
                 }
             });
-
-
         }
     }
 
@@ -73,19 +114,65 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     @Override
     public void onBindViewHolder(final CompetitionsAdapter.ViewHolder Vholder, final int position) {
         Vholder.tvCompetitionName.setText(competitionArrayList.get(position).getCompetitionName());
-        Vholder.tvCompetitionDetail.setText(competitionArrayList.get(position).getCompetitionDescription());
-        Vholder.tvExpDate.setText(competitionArrayList.get(position).getCompetitionDuration());
 
-        for (int i= 0 ; i <competitionArrayList.get(position).getCompetitionLevel().size(); i++)
-        {
-            Vholder.tvCompetitionLevelDetail.setText("Lavel Name "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelName()+"\n"+
-                    "Lavel Detail "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDescription()+"\n"+
-                    "Lavel Duration "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDuration()+"\n"+
-                    "Lavel Result "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelResult()+"\n"+
-                    "Amount "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelAmount()+"\n"+
-                    "Lavel Rules "+competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelRules()+"\n\n");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Vholder.tvCompetitionDetail.setText(Html.fromHtml(competitionArrayList.get(position).getCompetitionDescription(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            Vholder.tvCompetitionDetail.setText(Html.fromHtml(competitionArrayList.get(position).getCompetitionDescription()));
         }
+        //Vholder.tvCompetitionDetail.setText(competitionArrayList.get(position).getCompetitionDescription());
+        Vholder.tvExpDate.setText(competitionArrayList.get(position).getCompetitionDuration());
+      /*  ArrayList<Date> listStrings = new ArrayList<>();
+        for (int i= 0 ; i <competitionArrayList.get(position).getCompetitionLevel().size(); i++) {
+            String date = competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDuration();
+            String date1[] = date.split("-");
+            String sdate = date1[0];
+            DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+            try {
+                listStrings.add(dateFormatter.parse(sdate));
 
+            } catch (ParseException ex) {
+                System.err.print(ex);
+            }
+
+            Log.e("Before sorting: ", "..." + listStrings);
+            Collections.sort(listStrings);
+            Log.e("After sorting: ", "..." + listStrings);
+
+            for (int j = 0; j < listStrings.size(); j++) {
+                Vholder.tvCompetitionLevelDetail.setText(
+                        "Lavel Name " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelName() + "\n" +
+                        "Lavel Detail " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDescription() + "\n" +
+                        "Lavel Start Date " + listStrings.get(j).toString() + "\n" +
+                        "Lavel Duration " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDuration() + "\n" +
+                        "Lavel Result " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelResult() + "\n" +
+                        "Amount " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelAmount() + "\n" +
+                        "Lavel Rules " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelRules() + "\n\n");
+            }
+        }*/
+
+
+        final ArrayList<CompetitionLevel> singleSectionItems = new ArrayList<>();
+
+        singleSectionItems.addAll(competitionArrayList.get(position).getCompetitionLevel());
+        SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(context, singleSectionItems, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = Integer.parseInt(view.getTag().toString());
+                CompetitionLevel category = singleSectionItems.get(pos);
+                competitionLevelId = category.getCompetitionLevelId();
+                paymentType = category.getCompetitionLevelPaymentType();
+                competitionId = competitionArrayList.get(position).getCompetitionId();
+                UserId = AppPreference.getStringPreference(context, Constant.User_Id);
+                Toast.makeText(view.getContext(), competitionId+"  "+competitionLevelId + " "+ paymentType, Toast.LENGTH_SHORT).show();
+                AudioVedio audioVedio = new AudioVedio();
+                competitionApi();
+            }
+        });
+        Vholder.recycler_view_list.setHasFixedSize(true);
+        Vholder.recycler_view_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        Vholder.recycler_view_list.setAdapter(itemListDataAdapter);
         Vholder.tvCompetitionName.setTag(position);
         Vholder.tvCompetitionName.setOnClickListener(onClickListener);
     }
@@ -94,4 +181,38 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     public int getItemCount() {
         return competitionArrayList.size();
     }
+
+    private void competitionApi() {
+        //String strUserId =
+        cd = new ConnectionDetector(context);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getParticipation(new Dialog(context), retrofitApiClient.getParticipation(competitionLevelId, competitionId, "2", "Abc"), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    TokenModel loginModal = (TokenModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(context, loginModal.getMessage());
+                        Log.e("message ", "..."+ loginModal.getMessage());
+
+                    } else {
+                        Alerts.show(context, loginModal.getMessage());
+                    }
+                    Intent intent = new Intent(context,ParticipationDetailFragment.class);
+                    intent.putExtra("companyId", competitionLevelId);
+                    context.startActivity(intent);
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(context, error);
+                }
+            });
+        } else {
+            cd.show(context);
+        }
+    }
+
 }
