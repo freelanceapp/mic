@@ -126,7 +126,7 @@ public class Mobile_Ragistration extends BaseActivity {
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(emailAddress), new WebResponse() {
+            RetrofitService.getEmaillogin(new Dialog(mContext), retrofitApiClient.getLogin1(emailAddress), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     LoginModel loginModal = (LoginModel) result.body();

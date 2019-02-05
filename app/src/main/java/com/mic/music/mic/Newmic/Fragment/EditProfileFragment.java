@@ -141,11 +141,6 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         rd_work = view.findViewById(R.id.rd_work);
 
 
-        Gson gson = new Gson();
-        String data = AppPreference.getStringPreference(mContext, Constant.User_Data);
-        Log.e("Profile ", "..."+data);
-        OtpModel loginModal = gson.fromJson(data, OtpModel.class);
-        User.setUser(loginModal);
         profileApi();
 
         setDateTimeField();

@@ -44,19 +44,9 @@ import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.abdularis.civ.CircleImageView;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.mic.music.mic.Adapter.PlaceArrayAdapter;
-import com.mic.music.mic.Adapter.PlacesAutoCompleteAdapter;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.User;
@@ -96,6 +86,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -249,10 +240,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 if (!userEmail.matches(emailPattern))
                 {
                     user_email.setError("Enter Email ID");
-                    emailVarificationBtn.setVisibility(View.GONE);
+                    //emailVarificationBtn.setVisibility(View.GONE);
 
                 }else {
-                    emailVarificationBtn.setVisibility(View.VISIBLE);
+                   // emailVarificationBtn.setVisibility(View.VISIBLE);
                 }
 
             }

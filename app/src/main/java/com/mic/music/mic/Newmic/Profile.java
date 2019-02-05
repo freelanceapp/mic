@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,6 +100,8 @@ public class Profile extends BaseFragment {
                         email.setText(loginModal.getUser().getParticipantGendar());
                         contact.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(circleImg);
+
+                        Log.e("Email Varification" , ".."+loginModal.getUser().getParticipantEmailVerificationStatus());
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
 

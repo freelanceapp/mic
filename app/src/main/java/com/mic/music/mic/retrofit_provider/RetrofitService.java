@@ -306,6 +306,28 @@ public class RetrofitService {
         });
     }
 
+    //app login email
+    public static void getEmaillogin(final Dialog dialog, final Call<LoginModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<LoginModel>() {
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
     //app otp
     public static void getOtp(final Dialog dialog, final Call<OtpModel> method, final WebResponse webResponse) {
         if (dialog != null)

@@ -91,7 +91,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
 
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation(companyId, strId), new WebResponse() {
+            RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation("16", "2"), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     ParticipationModel loginModal = (ParticipationModel) result.body();

@@ -244,6 +244,11 @@ public class VideoRecordActivity extends BaseActivity implements View.OnClickLis
             file = new File(getPath(videoFileUri));
             Log.e("Url Path...","###..."+videoname);
             playVideoButton.setEnabled(true);
+
+            Intent intent_gallery = new Intent(VideoRecordActivity.this,Activity_galleryview.class);
+            intent_gallery.putExtra("video",videoname);
+            startActivity(intent_gallery);
+            finish();
         }
     }
     public String getPath(Uri uri) {
@@ -286,45 +291,6 @@ public class VideoRecordActivity extends BaseActivity implements View.OnClickLis
 
 
 
-    private void newPostFeedApi() {
-        String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
-        String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
-        String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
-
-        if (cd.isNetworkAvailable()) {
-            RequestBody competition = RequestBody.create(MediaType.parse("text/plain"), strCompanyId);
-            RequestBody level = RequestBody.create(MediaType.parse("text/plain"), strLevelId);
-            RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), "11");
-            RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "video");
-            ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
-            MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
-
-            RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
-                @Override
-                public void onResponseSuccess(Response<?> result) {
-                    VideoResponce responseBody = (VideoResponce) result.body();
-                    assert responseBody != null;
-                    if (!responseBody.getError())
-                    {
-                        Alerts.show(mContext, responseBody.getMessage());
-                        Log.e("url", ".. "+ responseBody.getUrl());
-                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-                    } else {
-                        Alerts.show(mContext, responseBody.getMessage());
-                        //finish();
-                    }
-                }
-                @Override
-                public void onResponseFailed(String error) {
-                    Alerts.show(mContext, error);
-                }
-            });
-        } else {
-            cd.show(mContext);
-        }
-    }
-
-
 
     @Override
     public void onProgressUpdate(int percentage) {
@@ -339,5 +305,12 @@ public class VideoRecordActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onFinish() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do something on back.
+        finish();
+        return;
     }
 }

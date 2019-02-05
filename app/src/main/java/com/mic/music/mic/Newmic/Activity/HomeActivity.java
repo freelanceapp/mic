@@ -206,4 +206,10 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

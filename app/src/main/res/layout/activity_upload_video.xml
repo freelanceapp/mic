@@ -1,70 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background_color"
+    android:orientation="vertical"
     tools:context=".VideoUpload.UploadVideoActivity">
 
     <VideoView
+        android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5sp"
-        android:id="@+id/video_view"/>
+        android:padding="5sp" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_color"
         android:orientation="vertical"
         android:visibility="gone">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add Discription"
-            android:textColorHint="@color/colorYellow"
-            android:textColor="@color/colorYellow"
             android:layout_margin="15sp"
-            android:visibility="gone"/>
+            android:hint="Add Discription"
+            android:textColor="@color/colorYellow"
+            android:textColorHint="@color/colorYellow"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/txtPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@id/progressBar"
+            android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:textColor="@color/colorYellow"
             android:textSize="30dp"
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            android:layout_above="@id/progressBar"/>
+            android:visibility="gone" />
+
         <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="20sp"
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
             android:layout_centerInParent="true"
-            android:visibility="visible"/>
-
+            android:visibility="visible" />
 
     </RelativeLayout>
+
     <TextView
+        android:id="@+id/submit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_color"
-        android:text="Submit"
-        android:id="@+id/submit_btn"
-        android:paddingTop="10sp"
-        android:paddingBottom="10sp"
         android:layout_below="@id/et_number"
-        android:gravity="center"
-        android:layout_marginBottom="15sp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
         android:layout_marginLeft="20sp"
         android:layout_marginRight="20sp"
-        android:textSize="18sp"
+        android:layout_marginBottom="15sp"
+        android:background="@drawable/btn_color"
+        android:gravity="center"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        android:text="Submit"
         android:textColor="@color/colorYellow"
-        android:layout_gravity="center"
-        android:layout_alignParentBottom="true"/>
+        android:textSize="18sp" />
 </RelativeLayout>
