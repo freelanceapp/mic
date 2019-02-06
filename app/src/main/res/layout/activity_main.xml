@@ -36,8 +36,8 @@
                     android:layout_gravity="center"
                     android:background="@drawable/imagebordercircle"
                     android:padding="15dp"
-                    android:src="@drawable/p1"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p1" />
 
                 <TextView
                     android:id="@+id/mic_logo_tv"
@@ -77,6 +77,9 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/edittext_back_transparent"
                         android:hint="Name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
                         android:paddingLeft="8dp"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
@@ -109,27 +112,30 @@
                     android:paddingBottom="8dp">
 
                     <ImageView
+                        android:id="@+id/emailpic"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_mail"
-                        android:id="@+id/emailpic"/>
+                        android:src="@drawable/ic_mail" />
 
                     <EditText
                         android:id="@+id/user_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/emailVarificationBtn"
+                        android:layout_toRightOf="@id/emailpic"
                         android:background="@drawable/edittext_back_transparent"
                         android:hint="Email"
+                        android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:paddingLeft="8dp"
-                        android:layout_toRightOf="@id/emailpic"
-                        android:layout_toLeftOf="@id/emailVarificationBtn"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
+
                     <Button
                         android:id="@+id/emailVarificationBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
                         android:layout_gravity="center"
                         android:background="@drawable/buttonborder"
                         android:gravity="center"
@@ -137,8 +143,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/yellow"
                         android:textStyle="bold"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
 
                 </RelativeLayout>
@@ -174,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_back_transparent"
                     android:hint="Phone"
+                    android:imeOptions="actionNext"
                     android:inputType="number"
                     android:paddingLeft="8dp"
                     android:textColor="@color/yellow"
@@ -182,12 +188,12 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -198,6 +204,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_organization" />
+
                     <TextView
                         android:id="@+id/tv_organization"
                         android:layout_width="wrap_content"
@@ -209,54 +216,60 @@
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
+
             <RadioGroup
+                android:id="@+id/rgOrganisation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:orientation="horizontal"
-                android:weightSum="20"
-                android:id="@+id/rgOrganisation">
-                    <RadioButton
-                        android:id="@+id/rd_school"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/yellow"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:text="School"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                    <RadioButton
-                        android:id="@+id/rd_college"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/yellow"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:text="College"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                    <RadioButton
-                        android:id="@+id/rd_work"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/yellow"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:text="Work"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"/>
-                    <RadioButton
-                        android:id="@+id/rd_other"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/yellow"
-                        android:scaleX="0.8"
-                        android:scaleY="0.8"
-                        android:text="Other"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                android:weightSum="20">
+
+                <RadioButton
+                    android:id="@+id/rd_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="School"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/rd_college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="College"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/rd_work"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="Work"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/rd_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:text="Other"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
             </RadioGroup>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -300,6 +313,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_back_transparent"
+                            android:imeOptions="actionNext"
                             android:inputType="text"
                             android:paddingLeft="8dp"
                             android:textColor="@color/yellow"
@@ -363,19 +377,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:backgroundTint="@color/yellow" />
+                        android:backgroundTint="@color/yellow"
+                        android:imeOptions="actionNext"
+                        android:inputType="text" />
                 </RelativeLayout>
             </LinearLayout>
+
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
-                android:padding="8sp"
+                android:background="@drawable/layout_back_b"
                 android:hint="Enter Place Here"
-                android:textColorHint="@color/colorGray"
-                android:background="@drawable/layout_back_b"/>
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:padding="8sp"
+                android:textColorHint="@color/colorGray" />
 
 
             <LinearLayout
@@ -403,10 +422,10 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
+                    android:id="@+id/rgGendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/rgGendar">
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/rd_male"
@@ -482,18 +501,18 @@
             </RelativeLayout>
 
 
-                <CheckBox
-                    android:textAlignment="viewStart"
-                    android:layout_marginTop="26dp"
-                    android:text="@string/checkbox_text"
-                    android:id="@+id/checkbox_chek"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/yellow"
-                    android:buttonTint="@color/yellow"
-                    android:checked="true"
-                    android:textColor="@color/yellow"
-                    android:gravity="start" />
+            <CheckBox
+                android:id="@+id/checkbox_chek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:backgroundTint="@color/yellow"
+                android:buttonTint="@color/yellow"
+                android:checked="true"
+                android:gravity="start"
+                android:text="@string/checkbox_text"
+                android:textAlignment="viewStart"
+                android:textColor="@color/yellow" />
 
 
             <Button
