@@ -368,34 +368,23 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="44dp"
-                    android:layout_marginRight="32dp"
-                    android:background="@drawable/layout_back_b">
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="32dp">
 
-                    <EditText
-                        android:id="@+id/spinner_city"
+                    <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:backgroundTint="@color/yellow"
-                        android:imeOptions="actionNext"
-                        android:inputType="text" />
+                        android:layout_centerHorizontal="true"
+                        android:hint="Enter Place Here"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:background="@drawable/layout_back_b"
+                        android:padding="8sp"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/colorGray" />
                 </RelativeLayout>
             </LinearLayout>
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:background="@drawable/layout_back_b"
-                android:hint="Enter Place Here"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:padding="8sp"
-                android:textColorHint="@color/colorGray" />
-
 
             <LinearLayout
                 android:layout_width="match_parent"

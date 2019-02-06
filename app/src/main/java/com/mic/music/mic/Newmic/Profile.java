@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +39,11 @@ import com.google.android.exoplayer2.util.Util;
 import com.mic.music.mic.Newmic.Adapter.MyVideoAdapter;
 import com.mic.music.mic.Newmic.Fragment.EditProfileFragment;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.login_responce.LoginModel1;
+import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.user_responce.CompetitionContent;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -57,7 +64,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
     Fragment fragment;
     private View rootView;
-    private ImageView editBtn;
+    private ImageView editBtn , btnAudio, btnVideo;
     TextView singernamem, email, contact;
     CircleImageView circleImg;
     MyVideoAdapter adapter;
@@ -67,7 +74,8 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     ArrayList<CompetitionContent> audioList = new ArrayList<>();
     RecyclerView recylerviewgrid;
     SimpleExoPlayer player;
-
+    TextView btnVarify;
+    String emailOtp1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +103,19 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         contact = (TextView) rootView.findViewById(R.id.contact);
         circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
         recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
+        btnAudio = (ImageView) rootView.findViewById(R.id.btnAudio);
+        btnVideo = (ImageView) rootView.findViewById(R.id.btnVideo);
+        btnVarify = (TextView) rootView.findViewById(R.id.btnVarify);
+        editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
+        singernamem = (TextView) rootView.findViewById(R.id.singernamem);
+        email = (TextView) rootView.findViewById(R.id.email);
+        contact = (TextView) rootView.findViewById(R.id.contact);
+        circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
+        recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
         rootView.findViewById(R.id.btnAudio).setOnClickListener(this);
         rootView.findViewById(R.id.btnVideo).setOnClickListener(this);
 
+        btnVarify.setOnClickListener(this);
         profileApi();
 
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +161,16 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(circleImg);
 
+                        /*if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
+                            btnVarify.setText("Verified");
+                            email.setFocusable(false);
+                            btnVarify.setClickable(false);
+                        } else {
+
+                        }*/
+
+                        competitionContentArrayList.addAll(loginModal.getCompetitionContent());
+                        Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
 
@@ -174,7 +202,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         } else {
             cd.show(mContext);
         }
-
     }
 
     @Override
@@ -185,6 +212,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 String url = VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
                 Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                 showDialog(url);
+
                 break;
             case R.id.btnAudio:
                 competitionContentArrayList.clear();
@@ -198,9 +226,87 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 adapter.notifyDataSetChanged();
                 ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                 break;
+            case R.id.btnVarify :
+                getEmail();
+                break;
         }
     }
 
+    private void getEmail() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(email.getText().toString()), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    LoginModel1 loginModal = (LoginModel1) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        showDialog();
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+    public void showDialog(){
+        final Dialog dialog = new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_email_otp);
+
+        TextView text = (TextView) dialog.findViewById(R.id.emailTv);
+        text.setText(email.getText().toString());
+
+        final EditText emailOtp = (EditText) dialog.findViewById(R.id.emailOtpET);
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.emailOTPVarificationBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailOtp1 = emailOtp.getText().toString();
+                if (emailOtp1.length() == 6) {
+                    otpVarification1();
+                } else {
+                    emailOtp.setError("Please Enter OTP");
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void otpVarification1() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(email.getText().toString(),emailOtp1), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    OtpModel loginModal = (OtpModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        btnVarify.setText("Verified");
+                        email.setFocusable(false);
+                        btnVarify.setClickable(false);
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
 
     public void showDialog(String video) {
         final Dialog dialog = new Dialog(mContext);
@@ -211,19 +317,14 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector =
-                new DefaultTrackSelector(videoTrackSelectionFactory);
-
+        TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
         //Initialize the player
         player = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
-
         //Initialize simpleExoPlayerView
         SimpleExoPlayerView simpleExoPlayerView = dialog.findViewById(R.id.video_view);
         simpleExoPlayerView.setPlayer(player);
-
         // Produces DataSource instances through which media data is loaded.
-        DataSource.Factory dataSourceFactory =
-                new DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext, "CloudinaryExoplayer"));
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext, "CloudinaryExoplayer"));
 
         // Produces Extractor instances for parsing the media data.
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
@@ -231,6 +332,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         // This is the MediaSource representing the media to be played.
         Uri videoUri = Uri.parse(video);
         MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);
+
 
         ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -245,9 +347,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.show();
     }
 
-
-    private void initializePlayer() {
-        // Create a default TrackSelector
+    private void initializePlayer(){
 
 
     }

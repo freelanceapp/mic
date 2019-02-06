@@ -308,9 +308,15 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("Login", ".."+data);
                         AppPreference.setStringPreference(mContext, Constant.User_Data, data);
                         User.setUser(loginModal);
-                        Intent intent = new Intent(VerificationActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if (loginModal.getUserType().equals("registered user")) {
+                            Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                         otpTime.setVisibility(View.GONE);
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -350,11 +356,11 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         String strCheck = AppPreference.getStringPreference(mContext, Constant.User_Check );
 
                         if (strCheck.equals("registered user")) {
-                            Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
-                            Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
+                            Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         }

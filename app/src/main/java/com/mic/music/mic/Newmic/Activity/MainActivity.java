@@ -12,22 +12,17 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -41,9 +36,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
@@ -59,22 +54,19 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppLocationService;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 import com.mic.music.mic.utils.LocationAddress;
-import com.mic.music.mic.utils.PlaceJSONParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -82,18 +74,15 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener , AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
@@ -114,8 +103,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
     CircleImageView profile;
-    EditText user_name, user_email, user_phone, user_address , spinner_city;
-    RadioGroup rgGendar,rgOrganisation;
+    EditText user_name, user_email, user_phone, user_address;
+    RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
     private DatePickerDialog fromDatePickerDialog;
@@ -123,7 +112,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
     private String mobileNumber1;
-    private String userName,userEmail,userPhone,userOrgnisation,userAddress,userCity,userGender,userDOB;
+    private String userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,13 +124,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         String data = AppPreference.getStringPreference(mContext, Constant.User_Data);
-        Log.e("Profile ", "..."+data);
+        Log.e("Profile ", "..." + data);
         init();
     }
-    private void init()
-    {
 
-        mobileNumber1 = AppPreference.getStringPreference(mContext , Constant.User_Mobile);
+    private void init() {
+        mobileNumber1 = AppPreference.getStringPreference(mContext, Constant.User_Mobile);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = findViewById(R.id.user_name);
         emailVarificationBtn = findViewById(R.id.emailVarificationBtn);
@@ -154,8 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         show_calender = findViewById(R.id.show_calender);
         select_birth = findViewById(R.id.select_birth);
         tvLocateMe = findViewById(R.id.tvLocateMe);
-        spinner_city = findViewById(R.id.spinner_city);
-        Log.e("USer ID ","..."+User.getUser().getUser().getParticipantId());
+        Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
 
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +177,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         show_calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 fromDatePickerDialog.show();
+
             }
         });
 
@@ -200,7 +191,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                    ButtonSound.getInstance().vibration(mContext);
                     userGender = rb.getText().toString();
                 }
 
@@ -213,7 +206,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                    ButtonSound.getInstance().vibration(mContext);
+                    // Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
                     userOrgnisation = rb.getText().toString();
                 }
 
@@ -223,9 +218,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         submitbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 api();
                 getTextUpdate();
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
             }
         });
 
@@ -234,16 +230,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 userEmail = user_email.getText().toString();
-                if (!userEmail.matches(emailPattern))
-                {
+                if (!userEmail.matches(emailPattern)) {
                     user_email.setError("Enter Email ID");
                     //emailVarificationBtn.setVisibility(View.GONE);
 
-                }else {
-                   // emailVarificationBtn.setVisibility(View.VISIBLE);
+                } else {
+                    // emailVarificationBtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -264,19 +260,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         autoCompView.setOnItemClickListener(this);
-
         setDateTimeField();
     }
 
     public void onItemClick(AdapterView adapterView, View view, int position, long id) {
         String str = (String) adapterView.getItemAtPosition(position);
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-
     }
 
-
-    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
-            = new ResultCallback<PlaceBuffer>() {
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
         @Override
         public void onResult(PlaceBuffer places) {
             if (!places.getStatus().isSuccess()) {
@@ -286,13 +278,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             // Selecting the first object buffer.
             final Place place = places.get(0);
             CharSequence attributions = places.getAttributions();
-
             mNameView.setText(Html.fromHtml(place.getAddress() + ""));
-
-
         }
     };
-
 
     private void setDateTimeField() {
         show_calender.setOnClickListener(this);
@@ -315,7 +303,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 select_birth.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
 
     }
@@ -323,8 +311,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     @Override
     public void onClick(View view) {
         fromDatePickerDialog.show();
-
     }
+
     /*
      * Capture image
      * */
@@ -423,14 +411,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         return "";
     }
 
-
     public void api() {
         String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
-
         if (file == null) {
             Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             if (cd.isNetworkAvailable()) {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
@@ -440,8 +425,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
-                            Alerts.show(mContext, loginModal.getMessage());
-
+                        Alerts.show(mContext, loginModal.getMessage());
                     }
 
                     @Override
@@ -473,7 +457,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     city = null;
             }
             user_address.setText(locationAddress);
-            spinner_city.setText(city);
+            //spinner_city.setText(city);
         }
     }
 
@@ -485,7 +469,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(
-                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);MainActivity.this.startActivity(intent);
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        MainActivity.this.startActivity(intent);
                     }
                 });
         alertDialog.setNegativeButton("Cancel",
@@ -496,8 +481,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 });
         alertDialog.show();
     }
-
-
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
@@ -513,6 +496,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -521,7 +505,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         } else {
             cd.show(mContext);
         }
-
     }
 
     private void getTextUpdate() {
@@ -531,22 +514,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         userPhone = user_email.getText().toString();
         userAddress = user_address.getText().toString();
         userDOB = select_birth.getText().toString();
+        String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
+        String strSplit[] = strCityStateCountry.split(",");
 
-        if (!userEmail.matches(emailPattern))
-        {
+        String strCity = strSplit[0];
+        String strState = strSplit[1];
+        String strCountry = strSplit[2];
+
+        if (!userEmail.matches(emailPattern)) {
             user_email.setError("Enter Email ID");
-        }
-        else {
-
+        } else {
             if (cd.isNetworkAvailable()) {
-                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(userName,userEmail,userGender,strUserId,userDOB,userOrgnisation,userAddress,userCity,"mp","india"), new WebResponse() {
+                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(
+                        userName, userEmail, userGender, strUserId, userDOB, userOrgnisation, userAddress, strCity,
+                        strState, strCountry), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
                         if (!loginModal.getError()) {
                             Alerts.show(mContext, loginModal.getMessage());
-                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
@@ -566,7 +554,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
     }
 
-    public void showDialog(){
+    public void showDialog() {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -595,7 +583,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
     private void otpVarification1() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail,emailOtp1), new WebResponse() {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail, emailOtp1), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     OtpModel loginModal = (OtpModel) result.body();
@@ -608,6 +596,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -617,7 +606,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             cd.show(mContext);
         }
     }
-
 
     public static ArrayList autocomplete(String input) {
         ArrayList resultList = null;
@@ -698,6 +686,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                     }
                     return filterResults;
                 }
+
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
                     if (results != null && results.count > 0) {

@@ -38,6 +38,7 @@ import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.text.DateFormat;
@@ -48,9 +49,6 @@ import java.util.Collections;
 import java.util.Date;
 
 import retrofit2.Response;
-
-import static com.mic.music.mic.Newmic.AudioVedio.CompetitionDialog;
-import static com.mic.music.mic.Newmic.AudioVedio.formant;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.ViewHolder> {
     private View.OnClickListener onClickListener;
@@ -159,6 +157,8 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(context, singleSectionItems, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(context);
                 int pos = Integer.parseInt(view.getTag().toString());
                 CompetitionLevel category = singleSectionItems.get(pos);
                 competitionLevelId = category.getCompetitionLevelId();

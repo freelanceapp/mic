@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -30,6 +30,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity android:name=".Newmic.Activity.NotificationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".Newmic.Activity.HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -57,7 +60,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".RagistrationActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".VideoUpload.VideoFolder"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -108,17 +111,14 @@
             android:name=".Newmic.SoundSetting"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".Newmic.Fragment.ParticipationDetailFragment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".Newmic.OurTeam"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".Newmic.Activity.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -135,7 +135,6 @@
             android:name=".Newmic.AutdioDialog"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".AudioUpload.AudioListActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -150,6 +149,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOx-Hgq_GBt7zstNRcp-Y_6UjqhGSdChA" />

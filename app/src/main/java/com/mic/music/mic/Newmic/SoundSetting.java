@@ -31,6 +31,14 @@ public class SoundSetting extends AppCompatActivity implements
 
         }
 
+        chVibration = AppPreference.getBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION);
+
+        if (chVibration.equals(true)) {
+            scVibrition.setChecked(true);
+        }else {
+
+        }
+
         scSound.setOnCheckedChangeListener(this);
         scVibrition.setOnCheckedChangeListener(this);
 
@@ -50,6 +58,13 @@ public class SoundSetting extends AppCompatActivity implements
                 Log.e("switch_compat sound", b + "");
                 break;
             case R.id.scVibrition:
+                if (b == true)
+                {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION , true);
+                }else {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION , false);
+                }
+
                 Log.e("switch_compat vibrit", b + "");
                 break;
         }
