@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -9,14 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="@color/colorYellow">
+
         <ImageView
+            android:id="@+id/backABtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
             android:layout_gravity="center"
-            android:layout_marginTop="6sp"
-            android:id="@+id/backABtn"/>
+            android:padding="16dp"
+            android:src="@drawable/ic_back" />
     </LinearLayout>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -27,65 +29,102 @@
         android:src="@drawable/logo" />
 
     <TextView
+        android:id="@+id/tvCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="20"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:id="@+id/tvCount"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:visibility="gone"
+        android:id="@+id/aviProgressBar"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        app:indicatorColor="@color/yellow"
+        app:indicatorName="LineScalePulseOutIndicator" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10sp"
+        android:layout_margin="8sp"
         android:background="@drawable/waves1">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout_buttons1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="40sp"
-            android:text="Record"
-            />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/button"
-            android:layout_centerHorizontal="true"
-            android:text="STOP" />
+            <Button
+                android:id="@+id/start_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonborder"
+                android:text="Record"
+                android:textColor="@color/yellow" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/button2"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="Play" />
+            <Button
+                android:id="@+id/stop_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonborder"
+                android:text="STOP"
+                android:textColor="@color/yellow" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="STOP PLAYING RECORDING " />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonborder"
+                android:text="Play"
+                android:textColor="@color/yellow" />
+        </LinearLayout>
 
+            <Button
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_below="@id/layout_buttons1"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/layout_back_b"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="STOP PLAYING RECORDING "
+                android:textColor="@color/yellow" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button4"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="Upload Audio " />
+            <Button
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/button4"
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/layout_back_b"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Upload Audio "
+                android:textColor="@color/yellow" />
     </RelativeLayout>
 </RelativeLayout>

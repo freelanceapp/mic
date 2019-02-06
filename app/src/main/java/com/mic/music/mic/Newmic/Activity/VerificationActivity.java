@@ -353,8 +353,9 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         User.setUser(loginModal);
 
                         String strCheck = AppPreference.getStringPreference(mContext, Constant.User_Check );
+                        Log.e("strCheck ", ".."+strCheck);
 
-                        if (strCheck.equals("registered user")) {
+                        if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
                             Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
