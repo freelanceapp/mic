@@ -300,7 +300,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
-                        AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
                         AppPreference.setStringPreference(mContext, Constant.User_Id, loginModal.getUser().getParticipantId());
 
                         Gson gson = new GsonBuilder().setLenient().create();
@@ -344,7 +343,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
 
-                        AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
                         AppPreference.setStringPreference(mContext, Constant.User_Id, loginModal.getUser().getParticipantId());
 
                         Gson gson = new GsonBuilder().setLenient().create();
