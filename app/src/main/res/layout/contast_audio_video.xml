@@ -97,8 +97,10 @@
                     android:id="@+id/recylerview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" />
-                <include layout="@layout/row_ranking_list" />
+                    android:orientation="vertical"
+                    android:visibility="gone"/>
+                <include layout="@layout/row_ranking_list"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

@@ -13,14 +13,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mic.music.mic.AudioUpload.AudioListActivity;
+import com.mic.music.mic.AudioUpload.AudioRecordActivity;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
 import com.mic.music.mic.Newmic.Adapter.ParticipationListAdapter;
+import com.mic.music.mic.Newmic.AudioVedio;
 import com.mic.music.mic.R;
+import com.mic.music.mic.VideoRecord.VideoRecordActivity;
+import com.mic.music.mic.VideoUpload.VideoFolder;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.Compatition1;
 import com.mic.music.mic.model.User;
@@ -42,10 +51,12 @@ import java.util.ArrayList;
 import retrofit2.Response;
 
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
+import static com.mic.music.mic.Newmic.AudioVedio.formant1;
 
 
 public class ParticipationDetailFragment extends BaseActivity implements View.OnClickListener {
-
+    public RadioButton radioVideoButton;
+    public RadioButton radioAudioButton;
     private View view;
     private RecyclerView rvParticipationList;
     private ParticipationListAdapter adapter;
@@ -130,14 +141,104 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
 
                 if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
                     Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(mContext, HomeActivity.class);
-                    startActivity(i);
-                    finish();
+                    AudioVedio audioVedio = new AudioVedio();
+                    if (formant1 == 0 )
+                    {
+                        showAudioDialog();
+                    }else {
+                        showVideoDialog();
+                    }
                 }else {
                     Alerts.show(mContext,"Yor are not selected");
                     finish();
                 }
                 break;
         }
+    }
+
+
+    public void showAudioDialog() {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.activity_autdio_dialog);
+        ImageView dialogButton = (ImageView) dialog.findViewById(R.id.cancleBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final RadioGroup rgAudio = (RadioGroup) dialog.findViewById(R.id.rgAudio);
+
+        Button btnSelectAudio = (Button) dialog.findViewById(R.id.btnSelectAudio);
+        btnSelectAudio.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                int selectedId = rgAudio.getCheckedRadioButtonId();
+
+                // find the radiobutton by returned id
+                radioAudioButton = (RadioButton) dialog.findViewById(selectedId);
+                if (radioAudioButton.getText().equals("Record Audio"))
+                {
+                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, AudioRecordActivity.class);
+                    mContext.startActivity(intent);
+                }else  if (radioAudioButton.getText().equals("Upload Audio"))
+                {
+                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, AudioListActivity.class);
+                    mContext.startActivity(intent);
+                }
+                else {
+                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
+                }
+
+
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void showVideoDialog() {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.activity_video_dialog_box);
+        final RadioGroup rgVideo = (RadioGroup) dialog.findViewById(R.id.rgVideo);
+        ImageView dialogButton = (ImageView) dialog.findViewById(R.id.cancleVideoBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button btnSelectVideo = (Button) dialog.findViewById(R.id.btnSelectVideo);
+        btnSelectVideo.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                // get selected radio button from radioGroup
+                int selectedId = rgVideo.getCheckedRadioButtonId();
+                // find the radiobutton by returned id
+                radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
+                if (radioVideoButton.getText().equals("Record Video"))
+                {
+                    Intent intent = new Intent(mContext, VideoRecordActivity.class);
+                    mContext.startActivity(intent);
+                }else  if (radioVideoButton.getText().equals("Upload Video"))
+                {
+                    Intent intent = new Intent(mContext, VideoFolder.class);
+                    mContext.startActivity(intent);
+                }
+                else {
+                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

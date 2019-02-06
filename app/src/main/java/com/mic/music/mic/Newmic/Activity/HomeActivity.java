@@ -73,8 +73,6 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         //user_id = AppPreference.getStringPreference(mContext, Constant.User_Id);
 
-
-
         Gson gson = new Gson();
         String data = AppPreference.getStringPreference(mContext, Constant.User_Data);
         Log.e("Profile ", "..."+data);
@@ -85,8 +83,8 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         user_id = completionModel.getUser().getParticipantId();
 
 
-        Log.e("token", f_token);
-        Log.e("Device", android_id);
+//        Log.e("token", f_token);
+ //       Log.e("Device", android_id);
 
         tokenApi();
         fragment = new AudioVedio();
@@ -132,32 +130,38 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 fragment = new AudioVedio();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.profile:
                 fragment = new Profile();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.notification:
                 fragment = new AllNotificationFragment();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.competition:
                 fragment = new MicCompetitions();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
 
             case R.id.analytics:
                 fragment = new Performance();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.setting:
                 fragment = new Setting();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 break;
         }
         itemCycleMenuWidget.close(true);
@@ -210,6 +214,6 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        //finish();
     }
 }

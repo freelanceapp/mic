@@ -21,7 +21,6 @@ public class ConnectionDetector {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
     public void show(Context context ){
         Toast.makeText(context, context.getResources().getString(R.string.connection), Toast.LENGTH_SHORT).show();
     }

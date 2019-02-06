@@ -11,6 +11,7 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+<<<<<<< HEAD
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
@@ -19,6 +20,28 @@
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="D:\infobiteproject\projectdata\mic\mic_clone\instragram.svg" />
                             <entry key="width" value="40" />
+=======
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_power_settings_new_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="color" value="ea0903" />
+                            <entry key="outputName" value="ic_logout" />
+                            <entry key="sourceFile" value="C:\Users\amar" />
+>>>>>>> 7fe5ae1bb9b2910904939575ca1385bb443fbddd
                           </map>
                         </option>
                       </PersistentState>

@@ -67,6 +67,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
@@ -236,6 +239,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 getTextUpdate();
+                api();
             }
         });
 
@@ -539,6 +543,39 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             cd.show(mContext);
         }
     }
+
+
+    public void api() {
+        String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+
+        if (file == null) {
+            Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
+        }
+        else {
+            if (cd.isNetworkAvailable()) {
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                RequestBody id = RequestBody.create(MediaType.parse("text/plain"), strUserId);
+                RetrofitService.profileimage(new Dialog(mContext), retrofitApiClient.profileimage(id, fileToUpload), new WebResponse() {
+                    @Override
+                    public void onResponseSuccess(Response<?> result) {
+                        TokenModel loginModal = (TokenModel) result.body();
+                        assert loginModal != null;
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                    }
+
+                    @Override
+                    public void onResponseFailed(String error) {
+                        Alerts.show(mContext, error);
+                    }
+                });
+            } else {
+                cd.show(mContext);
+            }
+        }
+    }
+
     private void getTextUpdate() {
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();

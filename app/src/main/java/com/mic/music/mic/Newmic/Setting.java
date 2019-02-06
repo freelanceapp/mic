@@ -1,6 +1,8 @@
 package com.mic.music.mic.Newmic;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
+import com.mic.music.mic.Newmic.Activity.NotificationActivity;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
-import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -21,7 +26,9 @@ import retrofit2.Response;
 
 public class Setting extends BaseFragment implements View.OnClickListener {
 
-    private LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting, notificationsetting, ourteam, performance;
+    LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting,
+            notificationsetting, ourteam, performance, logoutBtn;
+
     private String pageTitle, pageContent;
     private View view;
     private AppContentMainModal appContentMainModal;
@@ -40,7 +47,6 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
-
     private void init() {
         performance = view.findViewById(R.id.performance);
         ourteam = view.findViewById(R.id.ourteam);
@@ -51,6 +57,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         refundpolicy = view.findViewById(R.id.refundpolicy);
         soundsetting = view.findViewById(R.id.soundsetting);
         notificationsetting = view.findViewById(R.id.notification);
+
         performance.setOnClickListener(this);
         ourteam.setOnClickListener(this);
         about.setOnClickListener(this);
@@ -60,7 +67,8 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         refundpolicy.setOnClickListener(this);
         soundsetting.setOnClickListener(this);
         notificationsetting.setOnClickListener(this);
-
+        logoutBtn = view.findViewById(R.id.logoutBtn);
+        logoutBtn.setOnClickListener(this);
         getPageContent();
     }
 
@@ -107,7 +115,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                     intent2.putExtra("pagecontent", strAboutData);
                     startActivity(intent2);
                 } else {
-                 cd.show(mContext);
+                    cd.show(mContext);
                 }
                 break;
             case R.id.reachus:
@@ -124,7 +132,6 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 } else {
                     cd.show(mContext);
                 }
-
                 break;
             case R.id.privacypolicy:
                 if (cd.isNetworkAvailable()) {
@@ -154,10 +161,31 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 startActivity(intent7);
                 break;
             case R.id.notification:
-                Intent intent8 = new Intent(getActivity(), Notification.class);
+                Intent intent8 = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent8);
                 break;
+            case R.id.logoutBtn:
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Confirmation PopUp!").
+                        setMessage("You sure, that you want to logout?");
+                builder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+                                Intent i = new Intent(mContext, Mobile_Ragistration.class);
+                                startActivity(i);
+                                getActivity().finish();
+                            }
+                        });
+                builder.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+                break;
         }
-
     }
 }

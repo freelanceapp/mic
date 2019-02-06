@@ -61,15 +61,16 @@ import retrofit2.Response;
 
 
 public class AudioVedio extends BaseFragment implements View.OnClickListener {
-    LinearLayout audiodialog, videodialog;
-    public  RadioButton radioVideoButton, radioAudioButton;
+    public LinearLayout audiodialog, videodialog;
+    public RadioButton radioVideoButton;
+    public RadioButton radioAudioButton;
     private  View view;
-    private Fragment fragment;
+    public Fragment fragment;
     String videoSelect, audioSelect;
     private ArrayList<Competition> arrayList = new ArrayList<>();
     private ArrayList<CompetitionLevel> itemsList = new ArrayList<>();
     private CompetitionsAdapter adapter;
-    public static int formant = 0;
+    public static int formant1 = 0;
     public static Dialog CompetitionDialog;
     @Override
     public void onClick(View view) {
@@ -123,7 +124,11 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 //showCompetitionDialog();
+                formant1 = 0;
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
+
                 Log.e("Company ", ".."+strCompany);
                 if (strCompany.equals(""))
                 {
@@ -139,7 +144,9 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
         videodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
+                formant1 = 1;
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
                 Log.e("Company ", ".."+strCompany);
                 if (strCompany.equals(""))
@@ -182,12 +189,12 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 {
                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext,AudioRecordActivity.class);
-                    startActivity(intent);
+                    mContext.startActivity(intent);
                 }else  if (radioAudioButton.getText().equals("Upload Audio"))
                 {
                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(mContext, AudioListActivity.class);
-                    startActivity(intent);
+                    mContext.startActivity(intent);
                 }
                 else {
                     Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
@@ -225,11 +232,11 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 if (radioVideoButton.getText().equals("Record Video"))
                 {
                     Intent intent = new Intent(mContext,VideoRecordActivity.class);
-                    startActivity(intent);
+                    mContext.startActivity(intent);
                 }else  if (radioVideoButton.getText().equals("Upload Video"))
                 {
                     Intent intent = new Intent(mContext,VideoFolder.class);
-                    startActivity(intent);
+                    mContext.startActivity(intent);
                 }
                 else {
                     Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
@@ -240,7 +247,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
         dialog.show();
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);

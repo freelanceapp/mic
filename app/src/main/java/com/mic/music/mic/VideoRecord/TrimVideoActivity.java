@@ -2,13 +2,10 @@ package com.mic.music.mic.VideoRecord;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mic.music.mic.R;
 import com.mic.music.mic.VideoUpload.UploadVideoActivity;
@@ -20,7 +17,7 @@ import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
 public class TrimVideoActivity extends Activity implements OnTrimVideoListener {
 
     String str_video;
-   // VideoView vv_video;
+    // VideoView vv_video;
     String mCurrentPhotoPath;
     private K4LVideoTrimmer mVideoTrimmer;
     private ProgressDialog mProgressDialog;
@@ -38,20 +35,21 @@ public class TrimVideoActivity extends Activity implements OnTrimVideoListener {
         mProgressDialog.setCancelable(false);
         mProgressDialog.setMessage("Start progress");
         mVideoTrimmer = ((K4LVideoTrimmer) findViewById(R.id.timeLine));
+        mVideoTrimmer.setMaxDuration(90);
         str_video = getIntent().getStringExtra("filePath");
        /* vv_video.setVideoPath(str_video);
         vv_video.start();*/
 
         if (mVideoTrimmer != null) {
-            mVideoTrimmer.setMaxDuration(140);
+            mVideoTrimmer.setMaxDuration(90);
             mVideoTrimmer.setOnTrimVideoListener(this);
             mVideoTrimmer.getDrawingTime();
             //mVideoTrimmer.setOnK4LVideoListener(this);
             //mVideoTrimmer.setDestinationPath("/storage/emulated/0/DCIM/CameraCustom/");
             mVideoTrimmer.setVideoURI(Uri.parse(str_video));
             //mVideoTrimmer.setVideoInformationVisibility(true);
-            }
         }
+    }
 
    /* @Override
     public void onTrimStarted() {
@@ -71,9 +69,9 @@ public class TrimVideoActivity extends Activity implements OnTrimVideoListener {
 
         //mCurrentPhotoPath = uri.getPath();
         //new VideoCompressAsyncTask(this).execute(mCurrentPhotoPath, uri.getPath());
-        Log.e("Video Path ","..."+uri.getPath());
-        Intent intent_gallery = new Intent(TrimVideoActivity.this,UploadVideoActivity.class);
-        intent_gallery.putExtra("video1",uri.getPath());
+        Log.e("Video Path ", "..." + uri.getPath());
+        Intent intent_gallery = new Intent(TrimVideoActivity.this, UploadVideoActivity.class);
+        intent_gallery.putExtra("video1", uri.getPath());
         startActivity(intent_gallery);
         finish();
 

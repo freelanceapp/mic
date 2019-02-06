@@ -10,6 +10,8 @@ android {
         versionCode 7
         versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'int', 'DEFAULT_ANIMATION_DURATION', '750'
     }
     buildTypes {
         release {

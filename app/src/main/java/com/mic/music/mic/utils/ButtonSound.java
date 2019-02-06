@@ -3,7 +3,10 @@ package com.mic.music.mic.utils;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,7 +16,6 @@ import com.mic.music.mic.constant.Constant;
 
 import java.util.HashMap;
 
-import static com.mic.music.mic.Newmic.AudioVedio.formant;
 
 public class ButtonSound
 {
@@ -21,7 +23,8 @@ public class ButtonSound
 
         private static final ButtonSound INSTANCE = new ButtonSound();
 
-        Boolean chSound;
+
+        Boolean chSound, chVibration;
         // Sound ID can't be 0 (zero)
         public static final int SOUND_1 = 1;
 
@@ -61,8 +64,28 @@ public class ButtonSound
                     public void run() {
                         soundPool.stop(soundId);
                     }
-                }, 100);
+                }, 300);
             }else {
+            }
+        }
+
+
+        public void vibration(Context context)
+        {
+            this.context = context;
+            chVibration = AppPreference.getBooleanPreference(context, Constant.APP_VIBRATION);
+
+            if (chVibration.equals(true)) {
+                Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 500 milliseconds
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    //deprecated in API 26
+                    v.vibrate(300);
+                }
+            }else {
+
             }
         }
 }

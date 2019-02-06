@@ -18,7 +18,7 @@ public class BaseFragment extends Fragment {
     public RetrofitApiClient retrofitApiClient;
     public RetrofitApiClient retrofitRxClient;
     public ConnectionDetector cd;
-    public Context mContext;
+    public static Context mContext;
     public Activity activity;
 
     public BaseFragment() {
