@@ -1,6 +1,7 @@
 package com.mic.music.mic.Newmic;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
 import com.mic.music.mic.Newmic.Adapter.MyVideoAdapter;
 import com.mic.music.mic.Newmic.Fragment.EditProfileFragment;
 import com.mic.music.mic.R;
@@ -49,6 +51,7 @@ import com.mic.music.mic.model.user_responce.UserProfileModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -64,7 +67,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
     Fragment fragment;
     private View rootView;
-    private ImageView editBtn , btnAudio, btnVideo;
+    private ImageView editBtn , btnAudio, btnVideo , logoutBtn;
     TextView singernamem, email, contact;
     CircleImageView circleImg;
     MyVideoAdapter adapter;
@@ -105,6 +108,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
         btnAudio = (ImageView) rootView.findViewById(R.id.btnAudio);
         btnVideo = (ImageView) rootView.findViewById(R.id.btnVideo);
+        logoutBtn = (ImageView) rootView.findViewById(R.id.logoutBtn);
         btnVarify = (TextView) rootView.findViewById(R.id.btnVarify);
         editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
         singernamem = (TextView) rootView.findViewById(R.id.singernamem);
@@ -160,14 +164,16 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(circleImg);
+                        Log.e("Url ", ".."+loginModal.getUser().getParticipantImage());
+                        if (loginModal.getUser().getParticipantEmailVerificationStatus() != null) {
+                            if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
+                                btnVarify.setText("Verified");
+                                email.setFocusable(false);
+                                btnVarify.setClickable(false);
+                            } else {
 
-                        /*if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
-                            btnVarify.setText("Verified");
-                            email.setFocusable(false);
-                            btnVarify.setClickable(false);
-                        } else {
-
-                        }*/
+                            }
+                        }
 
                         competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
@@ -228,6 +234,12 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btnVarify :
                 getEmail();
+                break;
+            case R.id.logoutBtn :
+                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+                Intent intent = new Intent(getActivity() , Mobile_Ragistration.class);
+                startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }

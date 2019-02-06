@@ -190,8 +190,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         show_calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
-                ButtonSound.getInstance().vibration(mContext);
                 fromDatePickerDialog.show();
 
             }
@@ -205,8 +203,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
                     //Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
-                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
-                    ButtonSound.getInstance().vibration(mContext);
                     userGender = rb.getText().toString();
                 }
 
@@ -219,8 +215,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
-                    ButtonSound.getInstance().vibration(mContext);
                    // Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
                     userOrgnisation = rb.getText().toString();
                 }
@@ -234,8 +228,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
                 api();
                 getTextUpdate();
-                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
-                ButtonSound.getInstance().vibration(mContext);
 
             }
         });
@@ -557,6 +549,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
                         assert loginModal != null;
                         if (!loginModal.getError()) {
                             Alerts.show(mContext, loginModal.getMessage());
+                            AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
                             Intent intent = new Intent(MainActivity.this,HomeActivity.class);
                             startActivity(intent);
                             finish();

@@ -5,9 +5,6 @@
       <map>
         <entry key="vectorWizard">
           <value>
-<<<<<<< HEAD
-            <PersistentState />
-=======
             <PersistentState>
               <option name="children">
                 <map>
@@ -21,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_power_settings_new_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -31,8 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_dismis" />
-                            <entry key="sourceFile" value="C:\Users\Windows 7" />
+                            <entry key="color" value="ea0903" />
+                            <entry key="outputName" value="ic_logout" />
+                            <entry key="sourceFile" value="C:\Users\amar" />
                           </map>
                         </option>
                       </PersistentState>
@@ -41,7 +39,6 @@
                 </map>
               </option>
             </PersistentState>
->>>>>>> e39a7552d4b882f99c6671e710925b2ad57539cd
           </value>
         </entry>
       </map>
