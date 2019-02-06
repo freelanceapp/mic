@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mic_background">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/layout_back_b"
+        android:layout_margin="4sp"
+        android:padding="4sp">
+
+
+        <ImageView
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:src="@drawable/ic_cancel"
+            android:layout_gravity="end"
+            android:layout_margin="6sp"
+            android:id="@+id/btnNotificationCancle"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textSize="18sp"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="4sp"
+            android:layout_margin="4sp"
+            android:id="@+id/tvNotificationName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textSize="12sp"
+            android:textColor="@color/yellow"
+            android:textStyle="normal"
+            android:padding="4sp"
+            android:layout_margin="4sp"
+            android:id="@+id/tvNotificatioDatail"/>
+
+    </LinearLayout>
+</RelativeLayout>

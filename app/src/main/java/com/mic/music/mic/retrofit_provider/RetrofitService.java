@@ -15,6 +15,7 @@ import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.participation_responce.ParticipationModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
+import com.mic.music.mic.model.winner_responce.WinnersModel;
 import com.mic.music.mic.utils.AppProgressDialog;
 
 import java.util.concurrent.TimeUnit;
@@ -119,6 +120,30 @@ public class RetrofitService {
 
             @Override
             public void onFailure(Call<CompletionModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+
+    //winner api
+    public static void getwinner(final Dialog dialog, final Call<WinnersModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<WinnersModel>() {
+            @Override
+            public void onResponse(Call<WinnersModel> call, Response<WinnersModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<WinnersModel> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());

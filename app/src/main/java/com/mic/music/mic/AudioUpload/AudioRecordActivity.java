@@ -40,6 +40,7 @@ import retrofit2.Response;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class AudioRecordActivity extends BaseActivity implements ProgressRequestBody.UploadCallbacks {
     Button buttonStart, buttonStop, buttonPlayLastRecordAudio,
@@ -225,7 +226,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
 
     private void newPostFeedApi() {
         File file = new File(AudioSavePathInDevice);
-        String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
+        String strId = user_id;
         String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
         String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
 

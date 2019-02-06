@@ -313,6 +313,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                             finish();
                         }else {
                             Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            intent.putExtra("user_id",loginModal.getUser().getParticipantId());
                             startActivity(intent);
                             finish();
                         }
@@ -359,6 +360,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                             finish();
                         }else {
                             Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            intent.putExtra("user_id",loginModal.getUser().getParticipantId());
                             startActivity(intent);
                             finish();
                         }
