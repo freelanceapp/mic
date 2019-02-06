@@ -69,22 +69,42 @@
                     android:textColor="@color/yellow"
                     android:textSize="16dp" />
 
-                <TextView
-                    android:id="@+id/email"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/singernamem"
                     android:layout_alignParentRight="true"
-                    android:inputType="textEmailAddress"
-                    android:text="david@gmail.com"
-                    android:textColor="@color/yellow"
-                    android:textSize="16dp" />
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/singernamem"
+                    android:id="@+id/llemail">
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="david@gmail.com"
+                        android:textColor="@color/yellow"
+                        android:textSize="16dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="varify"
+                        android:background="@drawable/btn_color1"
+                        android:textColor="@color/yellow"
+                        android:paddingLeft="6dp"
+                        android:textSize="12sp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingRight="6sp"
+                        android:layout_margin="2dp"
+                        android:id="@+id/btnVarify"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/email"
+                    android:layout_below="@+id/llemail"
                     android:layout_alignParentRight="true"
                     android:inputType="number"
                     android:text="+91 9987598875"

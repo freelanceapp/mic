@@ -32,8 +32,6 @@ import com.mic.music.mic.utils.ConnectionDetector;
 import retrofit2.Response;
 
 public class SplashScreen extends BaseActivity {
-
-    public static String MY_PREFS_NAME = "SRIL_APP";
     private static final int MY_PERMISSIONS_REQUEST_CODE = 123;
     public String f_token;
     public String android_id;
@@ -42,10 +40,8 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
         f_token = FirebaseInstanceId.getInstance().getToken();
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-
         mContext = this;
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
@@ -54,7 +50,6 @@ public class SplashScreen extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission();
         }
-
     }
 
     protected void checkPermission() {
@@ -80,10 +75,8 @@ public class SplashScreen extends BaseActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ActivityCompat.requestPermissions(
                                 (Activity) mContext,
-                                new String[]{Manifest.permission.CAMERA,
-                                        Manifest.permission.READ_CONTACTS,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                        Manifest.permission.ACCESS_FINE_LOCATION
+                                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION
                                 },
                                 MY_PERMISSIONS_REQUEST_CODE
                         );
@@ -102,36 +95,35 @@ public class SplashScreen extends BaseActivity {
                 ActivityCompat.requestPermissions(
                         (Activity) mContext,
                         new String[]{
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.READ_CONTACTS,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.ACCESS_FINE_LOCATION
+                                Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION
                         },
                         MY_PERMISSIONS_REQUEST_CODE
                 );
             }
         } else {
-            // Do something, when permissions are already granted
-           // Toast.makeText(mContext, "Permissions already granted", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (AppPreference.getBooleanPreference(mContext, Constant.Is_Login)) {
-                        Gson gson = new Gson();
-                        String userData = AppPreference.getStringPreference(mContext, Constant.User_Data);
-                        OtpModel loginModal = gson.fromJson(userData, OtpModel.class);
-                        User.setUser(loginModal);
-                        Intent i = new Intent(SplashScreen.this, HomeActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    } else {
-                        Intent i = new Intent(SplashScreen.this, Mobile_Ragistration.class);
-                        startActivity(i);
-                        finish();
+            if (cd.isNetworkAvailable()) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (AppPreference.getBooleanPreference(mContext, Constant.Is_Login)) {
+                            Gson gson = new Gson();
+                            String userData = AppPreference.getStringPreference(mContext, Constant.User_Data);
+                            OtpModel loginModal = gson.fromJson(userData, OtpModel.class);
+                            User.setUser(loginModal);
+                            Intent i = new Intent(SplashScreen.this, HomeActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Intent i = new Intent(SplashScreen.this, Mobile_Ragistration.class);
+                            startActivity(i);
+                            finish();
+                        }
                     }
-                }
-            }, 3000);
+                }, 3000);
+            }else {
+                cd.show(mContext);
+            }
         }
     }
 
@@ -151,25 +143,29 @@ public class SplashScreen extends BaseActivity {
                 ) {
                     // Permissions are granted
                   //  Toast.makeText(mContext, "Permissions granted.", Toast.LENGTH_SHORT).show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (AppPreference.getBooleanPreference(mContext, Constant.Is_Login)) {
-                                Gson gson = new Gson();
-                                String userData = AppPreference.getStringPreference(mContext, Constant.User_Data);
-                                OtpModel loginModal = gson.fromJson(userData, OtpModel.class);
-                                User.setUser(loginModal);
-                                Intent i = new Intent(SplashScreen.this, HomeActivity.class);
-                                startActivity(i);
-                                finish();
+                    if (cd.isNetworkAvailable()) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (AppPreference.getBooleanPreference(mContext, Constant.Is_Login)) {
+                                    Gson gson = new Gson();
+                                    String userData = AppPreference.getStringPreference(mContext, Constant.User_Data);
+                                    OtpModel loginModal = gson.fromJson(userData, OtpModel.class);
+                                    User.setUser(loginModal);
+                                    Intent i = new Intent(SplashScreen.this, HomeActivity.class);
+                                    startActivity(i);
+                                    finish();
 
-                            } else {
-                                Intent i = new Intent(SplashScreen.this, Mobile_Ragistration.class);
-                                startActivity(i);
-                                finish();
+                                } else {
+                                    Intent i = new Intent(SplashScreen.this, Mobile_Ragistration.class);
+                                    startActivity(i);
+                                    finish();
+                                }
                             }
-                        }
-                    }, 3000);
+                        }, 3000);
+                    }else {
+                        cd.show(mContext);
+                    }
                     // close this activity
                 } else {
                     // Permissions are denied
@@ -181,9 +177,7 @@ public class SplashScreen extends BaseActivity {
         }
     }
 
-
     private void tokenApi() {
-
         if (cd.isNetworkAvailable()) {
             RetrofitService.appversion(new Dialog(mContext), retrofitApiClient.getapp(), new WebResponse() {
                 @Override
@@ -195,9 +189,7 @@ public class SplashScreen extends BaseActivity {
                     } else {
                         Alerts.show(mContext, "Update App");
                     }
-
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -207,7 +199,5 @@ public class SplashScreen extends BaseActivity {
         } else {
             cd.show(mContext);
         }
-
     }
-
 }

@@ -43,7 +43,7 @@ public class TrimVideoActivity extends Activity implements OnTrimVideoListener {
         vv_video.start();*/
 
         if (mVideoTrimmer != null) {
-            mVideoTrimmer.setMaxDuration(140);
+            mVideoTrimmer.setMaxDuration(90);
             mVideoTrimmer.setOnTrimVideoListener(this);
             mVideoTrimmer.getDrawingTime();
             //mVideoTrimmer.setOnK4LVideoListener(this);

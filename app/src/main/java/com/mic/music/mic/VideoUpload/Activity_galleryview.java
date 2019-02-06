@@ -41,7 +41,7 @@ public class Activity_galleryview extends Activity implements OnTrimVideoListene
         vv_video.start();*/
 
         if (mVideoTrimmer != null) {
-            mVideoTrimmer.setMaxDuration(120);
+            mVideoTrimmer.setMaxDuration(90);
             mVideoTrimmer.setOnTrimVideoListener(this);
             mVideoTrimmer.getDrawingTime();
             //mVideoTrimmer.setOnK4LVideoListener(this);

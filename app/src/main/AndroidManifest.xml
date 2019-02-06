@@ -7,17 +7,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- For android.media.audiofx.Visualizer -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -28,8 +29,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Newmic.Activity.HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Newmic.Activity.NotificationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Newmic.Activity.HomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -48,13 +52,13 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".OtpActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".RagistrationActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".VideoUpload.VideoFolder"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -105,16 +109,14 @@
             android:name=".Newmic.SoundSetting"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
-        <activity android:name=".Newmic.Fragment.ParticipationDetailFragment"
+        <activity
+            android:name=".Newmic.Fragment.ParticipationDetailFragment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
-
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Newmic.OurTeam"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".Newmic.Activity.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -131,7 +133,6 @@
             android:name=".Newmic.AutdioDialog"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".AudioUpload.AudioListActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -140,11 +141,13 @@
             android:name=".AudioUpload.AudioRecordActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
+
         <service android:name=".Notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOx-Hgq_GBt7zstNRcp-Y_6UjqhGSdChA" />

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.mic.music.mic.Newmic.Activity.NotificationActivity;
 import com.mic.music.mic.R;
 
 public class Setting extends Fragment {
@@ -92,7 +93,7 @@ public class Setting extends Fragment {
         notificationsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Notification.class);
+                Intent intent = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,5 +114,8 @@ public class Setting extends Fragment {
 
         return view;
     }
+
+
+
 
 }

@@ -93,7 +93,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
     private void compressVideo(String strOriginalVIdeo) {
         destPath = outputDir + File.separator + "VID_" +
                 new SimpleDateFormat("yyyyMMdd_HHmmss", getLocale()).format(new Date()) + ".mp4";
-        VideoCompress.compressVideoLow(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
+        VideoCompress.compressVideoMedium(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
             @Override
             public void onStart() {
                 dialogCompressProgress = new Dialog(mContext);

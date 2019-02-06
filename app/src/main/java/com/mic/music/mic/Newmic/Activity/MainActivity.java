@@ -59,6 +59,7 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppLocationService;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
+import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 import com.mic.music.mic.utils.LocationAddress;
 import com.mic.music.mic.utils.PlaceJSONParser;
@@ -189,7 +190,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         show_calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
                 fromDatePickerDialog.show();
+
             }
         });
 
@@ -200,7 +204,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                    ButtonSound.getInstance().vibration(mContext);
                     userGender = rb.getText().toString();
                 }
 
@@ -213,7 +219,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                    ButtonSound.getInstance().vibration(mContext);
+                   // Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
                     userOrgnisation = rb.getText().toString();
                 }
 
@@ -226,6 +234,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
 
                 api();
                 getTextUpdate();
+                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
+                ButtonSound.getInstance().vibration(mContext);
+
             }
         });
 
