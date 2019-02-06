@@ -1,50 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_about1"
+        android:id="@+id/tv_about_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="About"
         android:textColor="@color/yellow"
         android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/about_text1"
+        android:fitsSystemWindows="true"
+        android:padding="16dp"
+        android:id="@+id/tv_about_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/about_text"
         android:textColor="@color/white" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/yellow"
-        android:textColor="@color/yellow" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/yellow"
-        android:textColor="@color/yellow" />
-
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/yellow"
-        android:textColor="@color/yellow" />
 
 </LinearLayout>

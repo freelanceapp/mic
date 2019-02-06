@@ -1,8 +1,10 @@
 package com.mic.music.mic.AudioUpload;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,8 +66,8 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         progressDialog = new ProgressDialog(mContext);
-        buttonStart = (Button) findViewById(R.id.button);
-        buttonStop = (Button) findViewById(R.id.button2);
+        buttonStart = (Button) findViewById(R.id.start_record);
+        buttonStop = (Button) findViewById(R.id.stop_record);
         buttonPlayLastRecordAudio = (Button) findViewById(R.id.button3);
         buttonStopPlayingRecording = (Button)findViewById(R.id.button4);
         button5 = (Button)findViewById(R.id.button5);
@@ -84,6 +87,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
         random = new Random();
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 if(checkPermission()) {
@@ -93,6 +97,12 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                     try {
                         mediaRecorder.prepare();
                         mediaRecorder.start();
+                        ((AVLoadingIndicatorView)findViewById(R.id.aviProgressBar)).setVisibility(View.VISIBLE);
+                        buttonStart.setBackground(getResources().getDrawable(R.drawable.yellow_background_shape));
+                        buttonStart.setTextColor(Color.BLACK);
+                        buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                        buttonStop.setTextColor(Color.parseColor("#f3C800"));
+
                     } catch (IllegalStateException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -106,6 +116,8 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
 
                     Toast.makeText(AudioRecordActivity.this, "Recording started ", Toast.LENGTH_LONG).show();
                 } else {
+                    buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                    buttonStart.setTextColor(R.color.yellow);
                     requestPermission();
                 }
 
@@ -113,6 +125,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
         });
 
         buttonStop.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint({"ResourceAsColor", "ResourceType"})
             @Override
             public void onClick(View view) {
                 mediaRecorder.stop();
@@ -120,6 +133,11 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                 buttonPlayLastRecordAudio.setEnabled(true);
                 buttonStart.setEnabled(true);
                 buttonStopPlayingRecording.setEnabled(false);
+                ((AVLoadingIndicatorView)findViewById(R.id.aviProgressBar)).setVisibility(View.GONE);
+                buttonStop.setBackground(getResources().getDrawable(R.drawable.yellow_background_shape));
+                buttonStop.setTextColor(Color.BLACK);
+                buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStart.setTextColor(Color.parseColor("#f3C800"));
 
                 Toast.makeText(AudioRecordActivity.this, "Recording Completed", Toast.LENGTH_LONG).show();
             }

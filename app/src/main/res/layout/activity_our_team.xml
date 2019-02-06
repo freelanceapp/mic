@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
     android:orientation="vertical"
-    tools:context=".OurTeam">
+    tools:context=".Newmic.OurTeam">
 
     <TextView
         android:layout_width="match_parent"

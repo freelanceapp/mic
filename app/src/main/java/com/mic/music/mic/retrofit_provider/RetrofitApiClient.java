@@ -6,6 +6,7 @@ import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
+import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
 import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.notification_responce.NotificationModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
@@ -133,12 +134,15 @@ public interface RetrofitApiClient {
                                    @Field("participant_address") String participant_address,
                                    @Field("participant_city") String participant_city,
                                    @Field("participant_state") String participant_state,
-                                   @Field("participant_country") String participant_country
-    );
+                                   @Field("participant_country") String participant_country);
 
     /*
      * Download image
      * */
     @GET
     Call<ResponseBody> getImageDetails(@Url String fileUrl);
+
+    // Page content API
+    @GET(Constant.PAGE_CONTENT)
+    Call<AppContentMainModal> getPageContent();
 }

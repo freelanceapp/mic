@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@color/black">
     <LinearLayout
+        android:id="@+id/layout_custom_audio"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,7 +16,7 @@
             android:text="Name"
             android:textSize="16sp"
             android:textColor="@color/colorYellow"
-            android:padding="4sp"
+            android:padding="6sp"
             android:id="@+id/tvName"/>
         <TextView
             android:layout_width="match_parent"
@@ -22,9 +24,10 @@
             android:text="Path"
             android:textSize="16sp"
             android:textColor="@color/colorYellow"
-            android:padding="4sp"
+            android:padding="6sp"
             android:id="@+id/tvPath"/>
         <LinearLayout
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -34,7 +37,7 @@
                 android:text="Album"
                 android:textSize="16sp"
                 android:textColor="@color/colorYellow"
-                android:padding="4sp"
+                android:padding="6sp"
                 android:id="@+id/tvAlbum"
                 android:layout_weight="1"/>
             <TextView
@@ -43,25 +46,29 @@
                 android:text="Artist"
                 android:textSize="16sp"
                 android:textColor="@color/colorYellow"
-                android:padding="4sp"
+                android:padding="6sp"
                 android:layout_weight="1"
                 android:id="@+id/tvArtist"/>
         </LinearLayout>
 
         <Button
+            android:layout_margin="4dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="  Upload Audio  "
-            android:background="@color/yellow"
+            android:background="@drawable/buttonborder"
             android:textSize="12sp"
+            android:textColor="@color/yellow"
             android:id="@+id/btnUploadAudio"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1sp"
-            android:layout_marginTop="4sp"
-            android:layout_marginBottom="4sp"
-            android:background="@color/colorWhite"/>
     </LinearLayout>
+    <View
+        android:layout_below="@+id/layout_custom_audio"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="4sp"
+        android:layout_marginBottom="6sp"
+        android:background="@color/colorwhite1"/>
 </RelativeLayout>

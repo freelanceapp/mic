@@ -133,7 +133,7 @@
                         android:layout_gravity="center"
                         android:background="@drawable/buttonborder"
                         android:gravity="center"
-                        android:text="varify"
+                        android:text="verify"
                         android:textAllCaps="false"
                         android:textColor="@color/yellow"
                         android:textStyle="bold"

@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingTop="8dp"
-                        android:text="Tearms of Use"
+                        android:text="Terms of Use"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
