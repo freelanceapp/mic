@@ -81,8 +81,9 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                 if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
                     //we are connected to a network
-                    compressVideo(video1);
+                    //compressVideo(video1);
                     // ApiCallkyc();
+                    newPostFeedApi(video1);
                 } else {
                     Toast.makeText(UploadVideoActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
@@ -112,7 +113,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
             @Override
             public void onSuccess() {
                 dialogCompressProgress.dismiss();
-                newPostFeedApi(destPath);
+
             }
 
             @Override
@@ -129,7 +130,6 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
             }
         });
     }
-
 
     private void newPostFeedApi(String strFilePath) {
         File file = new File(strFilePath);

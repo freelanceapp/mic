@@ -1,15 +1,12 @@
 package com.mic.music.mic.Newmic;
 
 import android.app.Dialog;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -40,11 +36,8 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.mic.music.mic.Newmic.Activity.MainActivity;
 import com.mic.music.mic.Newmic.Adapter.MyVideoAdapter;
-import com.mic.music.mic.Newmic.Adapter.ParticipationListAdapter;
 import com.mic.music.mic.Newmic.Fragment.EditProfileFragment;
-import com.mic.music.mic.Newmic.Fragment.ParticipationDetailFragment;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
@@ -56,7 +49,6 @@ import com.mic.music.mic.model.user_responce.UserProfileModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
-import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -69,14 +61,17 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 import static com.mic.music.mic.constant.Constant.VIDEO_URL;
 
 public class Profile extends BaseFragment implements View.OnClickListener {
+
     Fragment fragment;
-    private View view;
-    private ImageView editBtn;
-    TextView singernamem,email,contact;
+    private View rootView;
+    private ImageView editBtn , btnAudio, btnVideo;
+    TextView singernamem, email, contact;
     CircleImageView circleImg;
-    ImageView btnVideo,btnAudio;
     MyVideoAdapter adapter;
     ArrayList<CompetitionContent> competitionContentArrayList = new ArrayList<>();
+    ArrayList<CompetitionContent> allAudioVideoList = new ArrayList<>();
+    ArrayList<CompetitionContent> videoList = new ArrayList<>();
+    ArrayList<CompetitionContent> audioList = new ArrayList<>();
     RecyclerView recylerviewgrid;
     SimpleExoPlayer player;
     TextView btnVarify;
@@ -86,12 +81,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_profile, container, false);
+        rootView = inflater.inflate(R.layout.activity_profile, container, false);
         mContext = getActivity();
         activity = getActivity();
         cd = new ConnectionDetector(mContext);
@@ -99,20 +93,27 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         retrofitApiClient = RetrofitService.getRetrofit();
         init();
 
-        return view;
+        return rootView;
     }
 
-    private void init()
-    {
-        editBtn = (ImageView)view.findViewById(R.id.editBtn);
-        singernamem = (TextView) view.findViewById(R.id.singernamem);
-        email = (TextView) view.findViewById(R.id.email);
-        contact = (TextView) view.findViewById(R.id.contact);
-        circleImg = (CircleImageView) view.findViewById(R.id.circleImg);
-        recylerviewgrid = (RecyclerView) view.findViewById(R.id.recylerviewgrid);
-        btnAudio = (ImageView) view.findViewById(R.id.btnAudio);
-        btnVideo = (ImageView) view.findViewById(R.id.btnVideo);
-        btnVarify = (TextView) view.findViewById(R.id.btnVarify);
+    private void init() {
+        editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
+        singernamem = (TextView) rootView.findViewById(R.id.singernamem);
+        email = (TextView) rootView.findViewById(R.id.email);
+        contact = (TextView) rootView.findViewById(R.id.contact);
+        circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
+        recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
+        btnAudio = (ImageView) rootView.findViewById(R.id.btnAudio);
+        btnVideo = (ImageView) rootView.findViewById(R.id.btnVideo);
+        btnVarify = (TextView) rootView.findViewById(R.id.btnVarify);
+        editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
+        singernamem = (TextView) rootView.findViewById(R.id.singernamem);
+        email = (TextView) rootView.findViewById(R.id.email);
+        contact = (TextView) rootView.findViewById(R.id.contact);
+        circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
+        recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
+        rootView.findViewById(R.id.btnAudio).setOnClickListener(this);
+        rootView.findViewById(R.id.btnVideo).setOnClickListener(this);
 
         btnVarify.setOnClickListener(this);
         profileApi();
@@ -144,13 +145,13 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     }
 
     private void profileApi() {
-
         if (cd.isNetworkAvailable()) {
             RetrofitService.getProfile(new Dialog(mContext), retrofitApiClient.getProfile(user_id), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     UserProfileModel loginModal = (UserProfileModel) result.body();
                     assert loginModal != null;
+                    allAudioVideoList.clear();
                     competitionContentArrayList.clear();
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -160,21 +161,35 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(circleImg);
 
-                        if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
+                        /*if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
                             btnVarify.setText("Verified");
                             email.setFocusable(false);
                             btnVarify.setClickable(false);
                         } else {
 
-                        }
+                        }*/
 
                         competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
+                        allAudioVideoList.addAll(loginModal.getCompetitionContent());
+                        Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
+
+                        /* Separate audio and video */
+                        if (allAudioVideoList.size() > 0) {
+                            for (int i = 0; i < allAudioVideoList.size(); i++) {
+                                if (allAudioVideoList.get(i).getCompetitionContentType().equals("audio")) {
+                                    audioList.add(allAudioVideoList.get(i));
+                                } else {
+                                    videoList.add(allAudioVideoList.get(i));
+                                }
+                            }
+                            competitionContentArrayList.addAll(videoList);
+
+                            ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+                        }
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
-
                     }
-
                     adapter.notifyDataSetChanged();
                 }
 
@@ -191,14 +206,25 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
-        switch (view.getId())
-        {
-            case R.id.videoBtn :
+        switch (view.getId()) {
+            case R.id.videoBtn:
                 int pos = Integer.parseInt(view.getTag().toString());
-                String url = VIDEO_URL+competitionContentArrayList.get(pos).getCompetitionContentUrl();
-                Toast.makeText(mContext ,  url ,Toast.LENGTH_SHORT).show();
+                String url = VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
+                Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                 showDialog(url);
+
+                break;
+            case R.id.btnAudio:
+                competitionContentArrayList.clear();
+                competitionContentArrayList.addAll(audioList);
+                adapter.notifyDataSetChanged();
+                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
+                break;
+            case R.id.btnVideo:
+                competitionContentArrayList.clear();
+                competitionContentArrayList.addAll(videoList);
+                adapter.notifyDataSetChanged();
+                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                 break;
             case R.id.btnVarify :
                 getEmail();
@@ -282,10 +308,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    public void showDialog(String video){
+    public void showDialog(String video) {
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_video_upload);
+        dialog.setCancelable(false);
 
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory =
@@ -305,13 +332,24 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         // This is the MediaSource representing the media to be played.
         Uri videoUri = Uri.parse(video);
         MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);
+
+
+        ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                player.stop();
+                dialog.dismiss();
+            }
+        });
+
         // Prepare the player with the source.
         player.prepare(videoSource);
         dialog.show();
     }
 
     private void initializePlayer(){
-        // Create a default TrackSelector
+
+
     }
 
 }
