@@ -500,9 +500,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         return "";
     }
 
-
     private void profileApi() {
-
         if (cd.isNetworkAvailable()) {
             RetrofitService.getProfile(new Dialog(mContext), retrofitApiClient.getProfile(user_id), new WebResponse() {
                 @Override
@@ -511,15 +509,24 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
-
                         user_name.setText(loginModal.getUser().getParticipantName());
+                        user_email.setText(loginModal.getUser().getParticipantEmail());
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
                         user_address.setText(loginModal.getUser().getParticipantAddress());
+                       /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))
+                        {
+                            user_email.setError("Please varified Email Id");
+                            emailVarificationBtn.setVisibility(View.VISIBLE);
+                            user_email.setFocusable(false);
 
+                        }else {
+                            emailVarificationBtn.setText("varified");
+                            user_email.setFocusable(false);
+                            emailVarificationBtn.setClickable(false);
+                        }*/
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
-
                     }
                 }
 
@@ -528,14 +535,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     Alerts.show(mContext, error);
                 }
             });
-
         } else {
             cd.show(mContext);
         }
-
     }
-
-
     private void getTextUpdate() {
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();

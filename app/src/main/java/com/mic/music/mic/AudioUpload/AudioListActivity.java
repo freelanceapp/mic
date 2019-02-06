@@ -3,6 +3,7 @@ package com.mic.music.mic.AudioUpload;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +64,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
     private AudioListAdapter adapter;
     private RecyclerView rvAudioList;
     private ImageView backBtn;
+    private ProgressDialog progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +74,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
-
+        progressBar = new ProgressDialog(mContext);
         // Get the application context
         mContext = getApplicationContext();
         mActivity = AudioListActivity.this;
@@ -245,6 +248,9 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
             ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
             MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
+            progressBar.setMessage("Uploading...");
+            progressBar.setCancelable(true);
+            progressBar.show();
             RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
@@ -259,12 +265,17 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
 
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+
                         //finish();
                     }
+                    progressBar.dismiss();
                 }
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
+                    progressBar.dismiss();
+
                 }
             });
         } else {

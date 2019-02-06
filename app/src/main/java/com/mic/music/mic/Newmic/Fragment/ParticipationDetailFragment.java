@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
@@ -39,6 +40,8 @@ import com.mic.music.mic.utils.ConnectionDetector;
 import java.util.ArrayList;
 
 import retrofit2.Response;
+
+import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 
 public class ParticipationDetailFragment extends BaseActivity implements View.OnClickListener {
@@ -91,7 +94,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
 
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation("16", "2"), new WebResponse() {
+            RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation(companyId, user_id), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     ParticipationModel loginModal = (ParticipationModel) result.body();
@@ -126,6 +129,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 AppPreference.setStringPreference(mContext,Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
 
                 if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
+                    Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(mContext, HomeActivity.class);
                     startActivity(i);
                     finish();

@@ -159,6 +159,8 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         //finish();
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+
                     }
                 }
 

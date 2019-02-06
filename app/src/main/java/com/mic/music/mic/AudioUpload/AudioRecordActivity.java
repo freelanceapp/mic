@@ -1,6 +1,7 @@
 package com.mic.music.mic.AudioUpload;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -51,6 +52,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
     MediaPlayer mediaPlayer ;
     ImageView backABtn;
     TextView tvCount;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
-
+        progressDialog = new ProgressDialog(mContext);
         buttonStart = (Button) findViewById(R.id.button);
         buttonStop = (Button) findViewById(R.id.button2);
         buttonPlayLastRecordAudio = (Button) findViewById(R.id.button3);
@@ -235,6 +237,9 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
             ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
             MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
+            progressDialog.setMessage("Uploading...");
+            progressDialog.setCancelable(true);
+            progressDialog.show();
             RetrofitService.getNewPostData(new Dialog(mContext), retrofitApiClient.getNewPostData(competition,level,participet,type,videoFileUpload), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
@@ -249,12 +254,17 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
 
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
+                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+
                         //finish();
                     }
+                    progressDialog.dismiss();
                 }
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
+                    progressDialog.dismiss();
+
                 }
             });
         } else {

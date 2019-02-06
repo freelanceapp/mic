@@ -204,7 +204,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                         Alerts.show(context, loginModal.getMessage());
                     }
                     Intent intent = new Intent(context,ParticipationDetailFragment.class);
-                    intent.putExtra("companyId", competitionLevelId);
+                    intent.putExtra("companyId", competitionId);
                     context.startActivity(intent);
                 }
 

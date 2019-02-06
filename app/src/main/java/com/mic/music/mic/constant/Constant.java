@@ -24,6 +24,7 @@ public class Constant {
     public static final String FILE_UPLOAD = "api/user-content-upload.php";
     public static final String FAQ = "api/select-faq.php";
     public static final String SUPPORT = "api/user-support.php";
+    public static final String VIDEO_URL = "http://onlinemic.in/images/video/";
 
     // Fragment constant
     public static final String Login_Fragment = "Login_Fragment";

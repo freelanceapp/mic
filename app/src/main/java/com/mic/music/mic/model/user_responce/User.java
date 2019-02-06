@@ -19,6 +19,12 @@ public class User implements Parcelable
     @SerializedName("participant_gendar")
     @Expose
     private String participantGendar;
+    @SerializedName("participant_email")
+    @Expose
+    private String participantEmail;
+    @SerializedName("participant_mobile_number")
+    @Expose
+    private String participantMobileNumber;
     @SerializedName("participant_dob")
     @Expose
     private String participantDob;
@@ -73,6 +79,8 @@ public class User implements Parcelable
         this.participantId = ((String) in.readValue((String.class.getClassLoader())));
         this.participantName = ((String) in.readValue((String.class.getClassLoader())));
         this.participantGendar = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantEmail = ((String) in.readValue((String.class.getClassLoader())));
+        this.participantMobileNumber = ((String) in.readValue((String.class.getClassLoader())));
         this.participantDob = ((String) in.readValue((String.class.getClassLoader())));
         this.participantOrganization = ((String) in.readValue((String.class.getClassLoader())));
         this.participantAddress = ((String) in.readValue((String.class.getClassLoader())));
@@ -125,6 +133,32 @@ public class User implements Parcelable
 
     public User withParticipantGendar(String participantGendar) {
         this.participantGendar = participantGendar;
+        return this;
+    }
+
+    public String getParticipantEmail() {
+        return participantEmail;
+    }
+
+    public void setParticipantEmail(String participantEmail) {
+        this.participantEmail = participantEmail;
+    }
+
+    public User withParticipantEmail(String participantEmail) {
+        this.participantEmail = participantEmail;
+        return this;
+    }
+
+    public String getParticipantMobileNumber() {
+        return participantMobileNumber;
+    }
+
+    public void setParticipantMobileNumber(String participantMobileNumber) {
+        this.participantMobileNumber = participantMobileNumber;
+    }
+
+    public User withParticipantMobileNumber(String participantMobileNumber) {
+        this.participantMobileNumber = participantMobileNumber;
         return this;
     }
 
@@ -275,6 +309,8 @@ public class User implements Parcelable
         dest.writeValue(participantId);
         dest.writeValue(participantName);
         dest.writeValue(participantGendar);
+        dest.writeValue(participantEmail);
+        dest.writeValue(participantMobileNumber);
         dest.writeValue(participantDob);
         dest.writeValue(participantOrganization);
         dest.writeValue(participantAddress);
