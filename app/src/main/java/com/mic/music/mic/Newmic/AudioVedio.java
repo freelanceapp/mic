@@ -255,7 +255,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                     assert loginModal != null;
                     participationArrayList.clear();
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                   //     Alerts.show(mContext, loginModal.getMessage());
                         participationArrayList.addAll(loginModal.getParticipation());
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());

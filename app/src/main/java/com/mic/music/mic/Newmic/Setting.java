@@ -8,11 +8,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
 import com.mic.music.mic.Newmic.Activity.NotificationActivity;
 import com.mic.music.mic.R;
+import com.mic.music.mic.VideoRecord.VideoRecordActivity;
+import com.mic.music.mic.VideoUpload.VideoFolder;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -79,7 +87,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 public void onResponseSuccess(Response<?> result) {
                     appContentMainModal = (AppContentMainModal) result.body();
                     if (!appContentMainModal.getError()) {
-                        Alerts.show(mContext, appContentMainModal.getMessage());
+                     //   Alerts.show(mContext, appContentMainModal.getMessage());
                     } else {
                         Alerts.show(mContext, appContentMainModal.getMessage());
                     }
@@ -95,6 +103,43 @@ public class Setting extends BaseFragment implements View.OnClickListener {
             cd.show(mContext);
         }
     }
+
+/*    public void showVideoDialog() {
+        final Dialog dialog = new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.layout_logout_box);
+        final RadioGroup rgVideo = (RadioGroup) dialog.findViewById(R.id.rgVideo);
+        ImageView dialogButton = (ImageView) dialog.findViewById(R.id.cancleVideoBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button btnSelectVideo = (Button) dialog.findViewById(R.id.btnSelectVideo);
+        btnSelectVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get selected radio button from radioGroup
+                int selectedId = rgVideo.getCheckedRadioButtonId();
+                // find the radiobutton by returned id
+                radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
+                if (radioVideoButton.getText().equals("Record Video")) {
+                    Intent intent = new Intent(mContext, VideoRecordActivity.class);
+                    mContext.startActivity(intent);
+                } else if (radioVideoButton.getText().equals("Upload Video")) {
+                    Intent intent = new Intent(mContext, VideoFolder.class);
+                    mContext.startActivity(intent);
+                } else {
+                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }*/
+
 
     @Override
     public void onClick(View v) {
@@ -166,8 +211,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.logoutBtn:
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Confirmation PopUp!").
-                        setMessage("You sure, that you want to logout?");
+                builder.setMessage("Are you sure you want to logout?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {

@@ -158,7 +158,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     allAudioVideoList.clear();
                     competitionContentArrayList.clear();
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                       // Alerts.show(mContext, loginModal.getMessage());
                         singernamem.setText(loginModal.getUser().getParticipantName());
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
@@ -187,7 +187,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 }
                             }
                             competitionContentArrayList.addAll(videoList);
-                            ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+                           // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                         }
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -218,13 +218,13 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 competitionContentArrayList.clear();
                 competitionContentArrayList.addAll(audioList);
                 adapter.notifyDataSetChanged();
-                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
+              //  ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
                 break;
             case R.id.btnVideo:
                 competitionContentArrayList.clear();
                 competitionContentArrayList.addAll(videoList);
                 adapter.notifyDataSetChanged();
-                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+               // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                 break;
             case R.id.btnVarify :
                 getEmail();

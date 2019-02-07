@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
             imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
             competitionll = (LinearLayout) v.findViewById(R.id.competitionll);
-            imgArrowA.setOnClickListener(new View.OnClickListener() {
+            ((RelativeLayout) v.findViewById(R.id.rl_competitions_list)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (num1 == 0) {
@@ -183,11 +184,11 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                     TokenModel loginModal = (TokenModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(context, loginModal.getMessage());
+                     //   Alerts.show(context, loginModal.getMessage());
                         Log.e("message ", "..." + loginModal.getMessage());
 
                     } else {
-                        Alerts.show(context, loginModal.getMessage());
+                      //  Alerts.show(context, loginModal.getMessage());
                     }
                     Intent intent = new Intent(context, ParticipationDetailFragment.class);
                     intent.putExtra("companyId", competitionId);
