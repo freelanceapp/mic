@@ -54,7 +54,6 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppLocationService;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
-import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 import com.mic.music.mic.utils.LocationAddress;
 
@@ -546,7 +545,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 cd.show(mContext);
             }
         }
-
     }
 
     public void showDialog() {

@@ -25,6 +25,8 @@ public class Constant {
     public static final String FAQ = "api/select-faq.php";
     public static final String SUPPORT = "api/user-support.php";
     public static final String VIDEO_URL = "http://onlinemic.in/images/video/";
+
+    public static final String GRAPH_URL = "api/graph.php";
     public static final String WINNER_API = "api/winner.php";
     public static final String PAGE_CONTENT = "api/page_content.php";
 

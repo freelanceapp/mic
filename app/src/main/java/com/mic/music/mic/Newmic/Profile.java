@@ -1,11 +1,26 @@
 package com.mic.music.mic.Newmic;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,8 +32,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -55,6 +72,7 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -64,7 +82,9 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 import static com.mic.music.mic.constant.Constant.VIDEO_URL;
 
 public class Profile extends BaseFragment implements View.OnClickListener {
-
+    private Uri Download_Uri;
+    private DownloadManager downloadManager;
+    private long refid;
     Fragment fragment;
     private View rootView;
     private ImageView editBtn , btnAudio, btnVideo , logoutBtn;
@@ -100,6 +120,9 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     }
 
     private void init() {
+
+        downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+        mContext.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
         singernamem = (TextView) rootView.findViewById(R.id.singernamem);
         email = (TextView) rootView.findViewById(R.id.email);
@@ -212,7 +235,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 String url = VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
                 Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                 showDialog(url);
-
+                //getSongUrl(url);
                 break;
             case R.id.btnAudio:
                 competitionContentArrayList.clear();
@@ -320,7 +343,42 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setContentView(R.layout.custom_video_upload);
         dialog.setCancelable(false);
 
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+
+        MediaController mediaController= new MediaController(mContext);
+        VideoView video1 = (VideoView)dialog.findViewById(R.id.video);
+        final ProgressDialog  pd = new ProgressDialog(mContext);
+
+        pd.setMessage("Buffering video please wait...");
+        pd.show();
+
+        Uri uri = Uri.parse(video);
+        video1.setVideoURI(uri);
+        mediaController.setAnchorView(video1);
+        video1.setMediaController(mediaController);
+        video1.setVideoURI(uri);
+        video1.requestFocus();
+        video1.start();
+
+        Uri myUri = Uri.parse(video); // initialize Uri here
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(mContext, myUri);
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mediaPlayer.start();
+
+        video1.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                //close the progress dialog when buffering is done
+                pd.dismiss();
+            }
+        });
+        /*BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory =
                 new AdaptiveTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
@@ -337,19 +395,19 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
         // This is the MediaSource representing the media to be played.
         Uri videoUri = Uri.parse(video);
-        MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);
+        MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);*/
 
 
         ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.stop();
+               // player.stop();
                 dialog.dismiss();
             }
         });
 
         // Prepare the player with the source.
-        player.prepare(videoSource);
+        //player.prepare(videoSource);
         dialog.show();
     }
 
@@ -357,5 +415,91 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
 
     }
+
+
+
+
+    private void getSongUrl(String videourl) {
+        Download_Uri = Uri.parse(videourl);
+
+            downLoadManagerSong(videourl);
+    }
+
+    private void downLoadManagerSong(String video) {
+        DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setAllowedOverRoaming(false);
+        request.setTitle("Mic");
+        request.setDescription("Downloading " );
+        request.setVisibleInDownloadsUi(true);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/mic/" + video);
+        refid = downloadManager.enqueue(request);
+        Log.e("OUT", "" + refid);
+
+    }
+
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
+            long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            Log.e("IN", "" + referenceId);
+            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
+                    intent, PendingIntent.FLAG_ONE_SHOT);
+           /* list.remove(referenceId);
+            if (list.isEmpty()) {
+                Log.e("INSIDE", "" + referenceId);
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(ctx.getApplicationContext())
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("Clean Sys")
+                               *//* .setContentIntent(pendingIntent)*//*;
+
+                NotificationManager notificationManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(455, mBuilder.build());
+            }*/
+
+            Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT);
+            Uri uri = Uri.parse("/Download/mic/"); // a directory
+            intent1.setDataAndType(uri, "*/*");
+            showNotification(intent1, "Clean Sys", "Complete");
+
+        }
+    };
+
+
+    private void showNotification(Intent intent, String title, String message) {
+        int notifyID = 1;
+        String CHANNEL_ID = "my_channel_01";// The id of the channel.
+        CharSequence name = "Cleansys Job";// The user-visible name of the channel.
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+
+        Notification notification;
+        NotificationChannel mChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
+                intent, PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext)
+                .setSmallIcon(R.drawable.logo)
+                .setTicker(title)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri).setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(mChannel);
+        } else {
+            notificationManager.notify(0, notificationBuilder.build());
+        }
+    }
+
+
 
 }

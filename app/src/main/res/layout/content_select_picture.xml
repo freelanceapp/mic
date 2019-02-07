@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/mic_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".VideoRecord.SelectPictureActivity"
+    tools:showIn="@layout/activity_select_picture">
+
+
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/VideoView"/>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:id="@+id/picture_layout"
+        android:visibility="visible">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_camera"
+            android:id="@+id/photo"
+            />
+        <ImageView
+            android:id="@+id/videoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/video_record"/>
+    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Name: nice_pic\nFile size: 20KB\nwidth: 700\nHeight: 1000"
+            android:id="@+id/pic_description"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/yellow"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:id="@+id/compressionMsg"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:progressTint="@color/yellow"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/video_is_being_compress"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

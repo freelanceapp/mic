@@ -30,7 +30,6 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
-import com.mic.music.mic.video_compressor_classes.VideoCompress;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -91,7 +90,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
         });
     }
 
-    private void compressVideo(String strOriginalVIdeo) {
+   /* private void compressVideo(String strOriginalVIdeo) {
         destPath = outputDir + File.separator + "VID_" +
                 new SimpleDateFormat("yyyyMMdd_HHmmss", getLocale()).format(new Date()) + ".mp4";
         VideoCompress.compressVideoMedium(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
@@ -130,7 +129,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
             }
         });
     }
-
+*/
     private void newPostFeedApi(String strFilePath) {
         File file = new File(strFilePath);
         String strId = user_id;

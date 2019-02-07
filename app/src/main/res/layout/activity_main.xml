@@ -376,13 +376,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:background="@drawable/layout_back_b"
                         android:hint="Enter Place Here"
                         android:imeOptions="actionDone"
                         android:inputType="text"
-                        android:background="@drawable/layout_back_b"
                         android:padding="8sp"
-                        android:textSize="14sp"
-                        android:textColorHint="@color/colorGray" />
+                        android:textColorHint="@color/colorGray"
+                        android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
 

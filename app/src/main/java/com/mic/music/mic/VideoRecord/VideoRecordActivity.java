@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -46,6 +47,7 @@ import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -73,6 +75,7 @@ public class VideoRecordActivity extends BaseActivity implements View.OnClickLis
     ProgressDialog pDialog;
     String videoname;
     File file;
+    String filePath;
     private static final int REQUEST_PERMISSIONS = 100;
 
     @Override
@@ -313,4 +316,7 @@ public class VideoRecordActivity extends BaseActivity implements View.OnClickLis
         finish();
         return;
     }
+
+
+
 }
