@@ -105,7 +105,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
 
     /**
      * Returns an instance of Poolable.  If get() is called with an empty pool, the pool will be
-     * replenished.  If the pool capacity is sufficiently large, this could come at a performance
+     * replenished.  If the pool capacity is sufficiently large, this could come at a row_performance_list
      * cost.
      *
      * @return An instance of Poolable object T
@@ -149,7 +149,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     }
 
     /**
-     * Recycle a List of Poolables that this pool is capable of generating.
+     * Recycle a PerformanceList of Poolables that this pool is capable of generating.
      * The T instances passed must not already exist inside this or any other ObjectPool instance.
      *
      * @param objects A list of objects of type T to recycle
@@ -189,7 +189,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     /**
      * Returns the capacity of this object pool.  Note : The pool will automatically resize
      * to contain additional objects if the user tries to add more objects than the pool's
-     * capacity allows, but this comes at a performance cost.
+     * capacity allows, but this comes at a row_performance_list cost.
      *
      * @return The capacity of the pool.
      */

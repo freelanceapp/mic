@@ -179,7 +179,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         mBorderPaint.setStrokeWidth(Utils.convertDpToPixel(1f));
     }
 
-    // for performance tracking
+    // for row_performance_list tracking
     private long totalTime = 0;
     private long drawCycles = 0;
 

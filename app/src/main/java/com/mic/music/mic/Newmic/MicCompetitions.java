@@ -92,7 +92,7 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                         Log.e("Login", ".."+data);
                         AppPreference.setStringPreference(mContext, Constant.Comptition_Data, data);
                         Compatition1.setCompletionModel(loginModal);
-                        Alerts.show(mContext, loginModal.getMessage());
+                      //  Alerts.show(mContext, loginModal.getMessage());
                         arrayList.addAll(loginModal.getCompetition());
 
 

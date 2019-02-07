@@ -20,6 +20,7 @@
             android:src="@drawable/mic_splash_new" />
 
         <TextView
+            android:id="@+id/change_text_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -33,25 +34,45 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <EditText
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:hint="+ 91 9874561230"
-            android:inputType="number"
-            android:padding="5dp"
-            android:textColor="@color/yellow"
-            android:textColorHint="@color/hint_color"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:id="@+id/etNumber"/>
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="+91"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <EditText
+                android:padding="5dp"
+                android:id="@+id/etNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="Enter Mobile Number"
+                android:inputType="number"
+                android:textColor="@color/yellow"
+                android:textColorHint="@color/hint_color"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <EditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -67,8 +88,7 @@
             android:textColorHint="@color/hint_color"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:id="@+id/etEmail"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <View
             android:layout_width="fill_parent"
@@ -111,7 +131,6 @@
             android:gravity="center"
             android:text="Login with Email"
             android:textColor="@color/white" />
-
 
 
     </LinearLayout>

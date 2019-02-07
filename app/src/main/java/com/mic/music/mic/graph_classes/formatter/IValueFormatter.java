@@ -15,7 +15,7 @@ public interface IValueFormatter
 
     /**
      * Called when a value (from labels inside the chart) is formatted
-     * before being drawn. For performance reasons, avoid excessive calculations
+     * before being drawn. For row_performance_list reasons, avoid excessive calculations
      * and memory allocations inside this method.
      *
      * @param value           the value to be formatted

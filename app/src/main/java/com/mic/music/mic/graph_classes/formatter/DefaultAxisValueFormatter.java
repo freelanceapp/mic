@@ -39,7 +39,7 @@ public class DefaultAxisValueFormatter extends ValueFormatter
 
     @Override
     public String getFormattedValue(float value) {
-        // avoid memory allocations here (for performance)
+        // avoid memory allocations here (for row_performance_list)
         return mFormat.format(value);
     }
 

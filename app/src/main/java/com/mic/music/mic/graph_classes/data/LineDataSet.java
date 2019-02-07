@@ -23,7 +23,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     private LineDataSet.Mode mMode = Mode.LINEAR;
 
     /**
-     * List representing all colors that are used for the circles
+     * PerformanceList representing all colors that are used for the circles
      */
     private List<Integer> mCircleColors = null;
 
@@ -212,7 +212,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
     /**
      * Enables the line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
-     * Keep in mind that hardware acceleration boosts performance.
+     * Keep in mind that hardware acceleration boosts row_performance_list.
      *
      * @param lineLength  the length of the line pieces
      * @param spaceLength the length of space in between the pieces

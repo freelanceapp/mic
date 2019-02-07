@@ -580,7 +580,7 @@ public class Legend extends ComponentBase {
     /**
      * Should the legend word wrap? / this is currently supported only for:
      * BelowChartLeft, BelowChartRight, BelowChartCenter. / note that word
-     * wrapping a legend takes a toll on performance. / you may want to set
+     * wrapping a legend takes a toll on row_performance_list. / you may want to set
      * maxSizePercent when word wrapping, to set the point where the text wraps.
      * / default: false
      *

@@ -76,7 +76,7 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class EditProfileFragment extends BaseFragment implements View.OnClickListener , AdapterView.OnItemClickListener{
    private View view;
-    EditText user_name, user_email, user_phone, user_address , spinner_city;
+    EditText user_name, user_email, user_phone, user_address , spinner_city,et_home_fr,et_city_fr,et_state_fr;
     RadioGroup rgGendar,rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -125,6 +125,11 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
     public void init()
     {
+
+        et_home_fr = view.findViewById(R.id.et_home_fr);
+        et_city_fr = view.findViewById(R.id.et_city_fr);
+        et_state_fr = view.findViewById(R.id.et_home_fr);
+
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = view.findViewById(R.id.user_name1);
         emailVarificationBtn = view.findViewById(R.id.emailVarificationBtn);
@@ -137,7 +142,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         show_calender = view.findViewById(R.id.show_calender);
         select_birth = view.findViewById(R.id.select_birth);
         tvLocateMe = view.findViewById(R.id.tvLocateMe);
-        spinner_city = view.findViewById(R.id.spinner_city1);
+       // spinner_city = view.findViewById(R.id.spinner_city1);
         rd_school = view.findViewById(R.id.rd_school);
         rd_college = view.findViewById(R.id.rd_college);
         rd_other = view.findViewById(R.id.rd_other);
@@ -147,6 +152,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         profileApi();
 
         setDateTimeField();
+
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +168,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
             }
         });
+
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -518,6 +525,9 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
                         user_address.setText(loginModal.getUser().getParticipantAddress());
+                        et_home_fr.setText(loginModal.getUser().getParticipantAddress());
+                        et_city_fr.setText(loginModal.getUser().getParticipantCity());
+                        et_state_fr.setText(loginModal.getUser().getParticipantState());
                        /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))
                         {
                             user_email.setError("Please varified Email Id");

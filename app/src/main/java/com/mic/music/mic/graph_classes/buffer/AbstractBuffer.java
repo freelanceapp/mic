@@ -2,7 +2,7 @@
 package com.mic.music.mic.graph_classes.buffer;
 
 /**
- * Buffer class to boost performance while drawing. Concept: Replace instead of
+ * Buffer class to boost row_performance_list while drawing. Concept: Replace instead of
  * recreate.
  * 
  * @author Philipp Jahoda

@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
     CircleImageView profile;
-    EditText user_name, user_email, user_phone, user_address;
+    EditText user_name, user_email, user_phone, user_address,et_home_ma,et_city_ma,et_state_ma;
     RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
     private String mobileNumber1;
-    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB;
+    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,userhomeadd,usercityadd,userstateadd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +128,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void init() {
+
+        et_home_ma = findViewById(R.id.et_home_add);
+        et_city_ma = findViewById(R.id.et_city_add);
+        et_state_ma = findViewById(R.id.et_state_add);
+
         userId = getIntent().getStringExtra("user_id");
         mobileNumber1 = AppPreference.getStringPreference(mContext, Constant.User_Mobile);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
@@ -135,14 +140,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         emailVarificationBtn = findViewById(R.id.emailVarificationBtn);
         user_email = findViewById(R.id.user_email);
         user_phone = findViewById(R.id.user_phone);
-        user_address = findViewById(R.id.user_loaction);
+       // user_address = findViewById(R.id.user_loaction);
         submitbutton = findViewById(R.id.submit_button);
         profile = findViewById(R.id.user_profile);
         rgGendar = findViewById(R.id.rgGendar);
         rgOrganisation = findViewById(R.id.rgOrganisation);
         show_calender = findViewById(R.id.show_calender);
         select_birth = findViewById(R.id.select_birth);
-        tvLocateMe = findViewById(R.id.tvLocateMe);
+      //  tvLocateMe = findViewById(R.id.tvLocateMe);
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
 
@@ -250,10 +255,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             }
         });
 
-        AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+      /*  AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         autoCompView.setOnItemClickListener(this);
-        setDateTimeField();
+        setDateTimeField();*/
     }
 
     public void onItemClick(AdapterView adapterView, View view, int position, long id) {
@@ -504,23 +509,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         //String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();
-        userPhone = user_email.getText().toString();
-        userAddress = user_address.getText().toString();
+        userPhone = user_phone.getText().toString();
+       // userAddress = user_address.getText().toString();
         userDOB = select_birth.getText().toString();
-        String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
-        String strSplit[] = strCityStateCountry.split(",");
+        userhomeadd  = et_home_ma.getText().toString();
+        usercityadd = et_city_ma.getText().toString();
+        userstateadd = et_state_ma.getText().toString();
+       // String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
+      //  String strSplit[] = strCityStateCountry.split(",");
 
-        String strCity = strSplit[0];
+      /*  String strCity = strSplit[0];
         String strState = strSplit[1];
-        String strCountry = strSplit[2];
+        String strCountry = strSplit[2];*/
 
         if (!userEmail.matches(emailPattern)) {
             user_email.setError("Enter Email ID");
         } else {
             if (cd.isNetworkAvailable()) {
                 RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(
-                        userName, userEmail, userGender, userId, userDOB, userOrgnisation, userAddress, strCity,
-                        strState, strCountry), new WebResponse() {
+                        userName, userEmail, userGender, userId, userDOB,userPhone, userOrgnisation, userhomeadd,
+                        usercityadd, userstateadd), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();

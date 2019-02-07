@@ -172,7 +172,7 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
 
     /**
      * If set to true, a grey area is drawn behind each bar that indicates the maximum value. Enabling his will reduce
-     * performance by about 50%.
+     * row_performance_list by about 50%.
      *
      * @param enabled
      */

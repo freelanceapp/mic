@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
@@ -270,7 +271,8 @@
                     android:textSize="12sp" />
             </RadioGroup>
 
-            <RelativeLayout
+            <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -294,53 +296,33 @@
                     android:text="Address"
                     android:textColor="@color/yellow"
                     android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_home_add"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="Home Address"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-                <RelativeLayout
+            <!--    <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@+id/tv_location">
 
                     <RelativeLayout
+
+                        android:gravity="center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="-8dp"
                         android:layout_toLeftOf="@+id/tvLocateMe"
                         android:background="@drawable/layout_back_a">
-
-                        <EditText
-                            android:id="@+id/user_loaction"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/edittext_back_transparent"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:paddingLeft="8dp"
-                            android:textColor="@color/yellow"
-                            android:textColorHint="@color/hint_color" />
-
-                        <RadioButton
-                            android:id="@+id/radioLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:buttonTint="@color/yellow"
-                            android:scaleX="0.8"
-                            android:scaleY="0.8" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tvLocateMe"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:text="Locate me"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
-
-                </RelativeLayout>
-            </RelativeLayout>
+-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -349,6 +331,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/city_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -364,27 +347,73 @@
                     android:text="City"
                     android:textColor="@color/yellow"
                     android:textSize="16dp" />
-
-                <RelativeLayout
+                <EditText
+                    android:id="@+id/et_city_add"
+                    android:layout_marginLeft="40dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="City"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="32dp">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/layout_back_b"
-                        android:hint="Enter Place Here"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:padding="8sp"
-                        android:textColorHint="@color/colorGray"
-                        android:textSize="14sp" />
-                </RelativeLayout>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/iv_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_city" />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:backgroundTint="@color/yellow"
+                    android:text="State"
+                    android:textColor="@color/yellow"
+                    android:textSize="16dp" />
+                <EditText
+                    android:id="@+id/et_state_add"
+                    android:layout_marginLeft="30dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="State"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+            <!-- <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="16dp"
+                 android:layout_marginRight="32dp">
+
+                 <AutoCompleteTextView
+                     android:id="@+id/autoCompleteTextView"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_centerHorizontal="true"
+                     android:background="@drawable/layout_back_b"
+                     android:hint="Enter Place Here"
+                     android:imeOptions="actionDone"
+                     android:inputType="text"
+                     android:padding="8sp"
+                     android:textColorHint="@color/colorGray"
+                     android:textSize="14sp" />
+             </RelativeLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"

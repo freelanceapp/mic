@@ -169,7 +169,7 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             cubicFillPath.reset();
             cubicFillPath.addPath(cubicPath);
-            // create a new path, this is bad for performance
+            // create a new path, this is bad for row_performance_list
             drawCubicFill(mBitmapCanvas, dataSet, cubicFillPath, trans, mXBounds);
         }
 

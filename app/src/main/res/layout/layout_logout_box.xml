@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+
+    android:padding="20dp"
+    android:layout_height="180dp"
+    android:layout_gravity="center"
+    android:background="@drawable/layout_back_c"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Logout"
+        android:textColor="@color/yellow"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Are you sure you want to logout"
+        android:textColor="@color/white" />
+    <LinearLayout
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/layout_back_b"
+            android:text="NO"
+            android:textColor="@color/yellow"
+            android:id="@+id/btn_no"/>
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/layout_back_b"
+            android:text="Cancel"
+            android:textColor="@color/yellow"
+            android:id="@+id/btn_yes"/>
+    </LinearLayout>
+
+
+</LinearLayout>

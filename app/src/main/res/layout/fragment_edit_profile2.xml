@@ -125,7 +125,6 @@
                         android:inputType="textEmailAddress"
                         android:paddingLeft="8dp"
                         android:layout_toRightOf="@id/emailpic"
-                        android:layout_toLeftOf="@id/emailVarificationBtn"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
                     <Button
@@ -135,13 +134,13 @@
                         android:layout_gravity="center"
                         android:background="@drawable/buttonborder"
                         android:gravity="center"
-                        android:text="verify"
+                        android:text="verified"
                         android:textAllCaps="false"
                         android:textColor="@color/yellow"
                         android:textStyle="bold"
                         android:layout_alignParentRight="true"
                         android:visibility="gone"/>
-
+-->
 
                 </RelativeLayout>
 
@@ -230,126 +229,235 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </RadioGroup>
-            <RelativeLayout
+            <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/location_icon"
+                    android:id="@+id/iv_homr_fr"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_location" />
 
                 <TextView
-                    android:id="@+id/tv_location"
+                    android:id="@+id/tv_home_fr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="6dp"
                     android:layout_toRightOf="@+id/location_icon"
                     android:gravity="center"
-                    android:text="Address"
+                    android:text="Home Address"
                     android:textColor="@color/yellow"
                     android:textSize="16sp" />
-
-                <RelativeLayout
+                <EditText
+                    android:id="@+id/et_home_fr"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="Home Address"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toRightOf="@+id/tv_location">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="-8dp"
-                        android:layout_toLeftOf="@+id/tvLocateMe"
-                        android:background="@drawable/layout_back_a">
-
-                        <EditText
-                            android:id="@+id/user_loaction1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/edittext_back_transparent"
-                            android:inputType="text"
-                            android:paddingLeft="8dp"
-                            android:textColor="@color/yellow"
-                            android:textColorHint="@color/hint_color" />
-
-                        <RadioButton
-                            android:id="@+id/radioLocation1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:buttonTint="@color/yellow"
-                            android:scaleX="0.8"
-                            android:scaleY="0.8" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tvLocateMe"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:text="Locate me"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
-
-                </RelativeLayout>
-            </RelativeLayout>
-
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/city_icon"
+                    android:id="@+id/iv_city_fr"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_city" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location" />
 
                 <TextView
-                    android:id="@+id/tv_city"
+                    android:id="@+id/tv_city_fr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="8dp"
-                    android:backgroundTint="@color/yellow"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:gravity="center"
                     android:text="City"
                     android:textColor="@color/yellow"
-                    android:textSize="16dp" />
-
-                <RelativeLayout
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_city_fr"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="City"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="44dp"
-                    android:layout_marginRight="32dp"
-                    android:background="@drawable/layout_back_b">
-
-                    <EditText
-                        android:id="@+id/spinner_city1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:backgroundTint="@color/yellow" />
-                </RelativeLayout>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+            <LinearLayout
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:padding="8sp"
-                android:hint="Enter Place Here"
-                android:textColorHint="@color/colorGray"
-                android:background="@drawable/layout_back_b"/>
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/iv_st"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tv_st_fr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:gravity="center"
+                    android:text="State"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_st_fr"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="State"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="20dp"
+                 android:orientation="horizontal">
+
+                 <ImageView
+                     android:id="@+id/location_icon"
+                     android:layout_width="24dp"
+                     android:layout_height="24dp"
+                     android:layout_gravity="center"
+                     android:src="@drawable/ic_location" />
+
+                 <TextView
+                     android:id="@+id/tv_location"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_marginLeft="6dp"
+                     android:layout_toRightOf="@+id/location_icon"
+                     android:gravity="center"
+                     android:text="Address"
+                     android:textColor="@color/yellow"
+                     android:textSize="16sp" />
+
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="16dp"
+                     android:layout_toRightOf="@+id/tv_location">
+
+                     <RelativeLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginRight="-8dp"
+                         android:layout_toLeftOf="@+id/tvLocateMe"
+                         android:background="@drawable/layout_back_a">
+
+                         <EditText
+                             android:id="@+id/user_loaction1"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="@drawable/edittext_back_transparent"
+                             android:inputType="text"
+                             android:paddingLeft="8dp"
+                             android:textColor="@color/yellow"
+                             android:textColorHint="@color/hint_color" />
+
+                         <RadioButton
+                             android:id="@+id/radioLocation1"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_alignParentRight="true"
+                             android:buttonTint="@color/yellow"
+                             android:scaleX="0.8"
+                             android:scaleY="0.8" />
+                     </RelativeLayout>
+
+                     <TextView
+                         android:id="@+id/tvLocateMe"
+                         android:layout_width="40dp"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentRight="true"
+                         android:gravity="center"
+                         android:text="Locate me"
+                         android:textColor="@color/white"
+                         android:textSize="10sp" />
+
+                 </RelativeLayout>
+             </RelativeLayout>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="22dp"
+                 android:orientation="horizontal">
+
+                 <ImageView
+                     android:id="@+id/city_icon"
+                     android:layout_width="24dp"
+                     android:layout_height="24dp"
+                     android:src="@drawable/ic_city" />
+
+                 <TextView
+                     android:id="@+id/tv_city"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_vertical"
+                     android:layout_marginLeft="8dp"
+                     android:backgroundTint="@color/yellow"
+                     android:text="City"
+                     android:textColor="@color/yellow"
+                     android:textSize="16dp" />
+
+                 <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginLeft="44dp"
+                     android:layout_marginRight="32dp"
+                     android:background="@drawable/layout_back_b">
+
+                     <EditText
+                         android:id="@+id/spinner_city1"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentRight="true"
+                         android:backgroundTint="@color/yellow" />
+                 </RelativeLayout>
+             </LinearLayout>
+           <AutoCompleteTextView
+               android:visibility="gone"
+                 android:id="@+id/autoCompleteTextView"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_centerHorizontal="true"
+                 android:layout_margin="10dp"
+                 android:padding="8sp"
+                 android:hint="Enter Place Here"
+                 android:textColorHint="@color/colorGray"
+                 android:background="@drawable/layout_back_b"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

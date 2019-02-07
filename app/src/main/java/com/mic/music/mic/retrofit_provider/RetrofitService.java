@@ -2,15 +2,14 @@ package com.mic.music.mic.retrofit_provider;
 
 import android.app.Dialog;
 
-
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
-import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.notification_responce.NotificationModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.participation_responce.ParticipationModel;
@@ -127,7 +126,6 @@ public class RetrofitService {
             }
         });
     }
-
 
 
     //winner api
@@ -419,6 +417,7 @@ public class RetrofitService {
             }
         });
     }
+
     // app page contents
     public static void appContentPage(final Dialog dialog, final Call<AppContentMainModal> method, final WebResponse webResponse) {
         if (dialog != null)
@@ -434,6 +433,27 @@ public class RetrofitService {
 
             @Override
             public void onFailure(Call<AppContentMainModal> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    public static void getGraphData(final Dialog dialog, final Call<GraphMainModal> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<GraphMainModal>() {
+            @Override
+            public void onResponse(Call<GraphMainModal> call, Response<GraphMainModal> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<GraphMainModal> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());

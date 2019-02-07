@@ -92,18 +92,28 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
             @Override
             public void onClick(View view) {
                 if(checkPermission()) {
+
+                    tvCount.setVisibility(View.GONE);
+
                     AudioSavePathInDevice = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + CreateRandomAudioFileName(5) + "MicAudioRecording.mp3";
                     MediaRecorderReady();
+                    buttonStart.setBackground(getResources().getDrawable(R.drawable.yellow_background_shape));
+                    buttonStart.setTextColor(Color.BLACK);
+                    buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                    buttonStop.setTextColor(Color.parseColor("#f3C800"));
+                    buttonPlayLastRecordAudio.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                    buttonPlayLastRecordAudio.setTextColor(Color.parseColor("#f3C800"));
+                    buttonStopPlayingRecording.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                    buttonStopPlayingRecording.setTextColor(Color.parseColor("#f3C800"));
+                    button5.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                    button5.setTextColor(Color.parseColor("#f3C800"));
 
                     try {
                         mediaRecorder.prepare();
                         mediaRecorder.start();
                         ((AVLoadingIndicatorView)findViewById(R.id.aviProgressBar)).setVisibility(View.VISIBLE);
-                        buttonStart.setBackground(getResources().getDrawable(R.drawable.yellow_background_shape));
-                        buttonStart.setTextColor(Color.BLACK);
-                        buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
-                        buttonStop.setTextColor(Color.parseColor("#f3C800"));
-                        tvCount.setVisibility(View.GONE);
+
+
 
                     } catch (IllegalStateException e) {
                         // TODO Auto-generated catch block
@@ -118,8 +128,8 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
 
                     Toast.makeText(AudioRecordActivity.this, "Recording started ", Toast.LENGTH_LONG).show();
                 } else {
-                    buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
-                    buttonStart.setTextColor(R.color.yellow);
+               //     buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                 //   buttonStart.setTextColor(R.color.yellow);
                     requestPermission();
                 }
 
@@ -142,6 +152,13 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                 buttonStop.setTextColor(Color.BLACK);
                 buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
                 buttonStart.setTextColor(Color.parseColor("#f3C800"));
+                buttonPlayLastRecordAudio.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonPlayLastRecordAudio.setTextColor(Color.parseColor("#f3C800"));
+                buttonStopPlayingRecording.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                buttonStopPlayingRecording.setTextColor(Color.parseColor("#f3C800"));
+                button5.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                button5.setTextColor(Color.parseColor("#f3C800"));
+
 
                 Toast.makeText(AudioRecordActivity.this, "Recording Completed", Toast.LENGTH_LONG).show();
             }
@@ -156,6 +173,17 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                 buttonStart.setEnabled(false);
                 buttonStopPlayingRecording.setEnabled(true);
                 tvCount.setVisibility(View.GONE);
+
+                buttonPlayLastRecordAudio.setBackground(getResources().getDrawable(R.drawable.yellow_background_shape));
+                buttonPlayLastRecordAudio.setTextColor(Color.BLACK);
+                buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStart.setTextColor(Color.parseColor("#f3C800"));
+                buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStop.setTextColor(Color.parseColor("#f3C800"));
+                buttonStopPlayingRecording.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                buttonStopPlayingRecording.setTextColor(Color.parseColor("#f3C800"));
+                button5.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                button5.setTextColor(Color.parseColor("#f3C800"));
 
                 mediaPlayer = new MediaPlayer();
                 try {
@@ -179,6 +207,17 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                 buttonPlayLastRecordAudio.setEnabled(true);
                 tvCount.setVisibility(View.GONE);
 
+                buttonStopPlayingRecording.setBackground(getResources().getDrawable(R.drawable.layout_background_c));
+                buttonStopPlayingRecording.setTextColor(Color.BLACK);
+                buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStart.setTextColor(Color.parseColor("#f3C800"));
+                buttonPlayLastRecordAudio.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonPlayLastRecordAudio.setTextColor(Color.parseColor("#f3C800"));
+                buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStop.setTextColor(Color.parseColor("#f3C800"));
+                button5.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                button5.setTextColor(Color.parseColor("#f3C800"));
+
                 if(mediaPlayer != null){
                     mediaPlayer.stop();
                     mediaPlayer.release();
@@ -191,7 +230,20 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                button5.setBackground(getResources().getDrawable(R.drawable.layout_background_c));
+                button5.setTextColor(Color.BLACK);
+                buttonStart.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStart.setTextColor(Color.parseColor("#f3C800"));
+                buttonPlayLastRecordAudio.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonPlayLastRecordAudio.setTextColor(Color.parseColor("#f3C800"));
+                buttonStopPlayingRecording.setBackground(getResources().getDrawable(R.drawable.layout_back_b));
+                buttonStopPlayingRecording.setTextColor(Color.parseColor("#f3C800"));
+                buttonStop.setBackground(getResources().getDrawable(R.drawable.buttonborder));
+                buttonStop.setTextColor(Color.parseColor("#f3C800"));
+
                 newPostFeedApi();
+
             }
         });
     }
@@ -271,7 +323,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                     assert responseBody != null;
                     if (!responseBody.getError())
                     {
-                        Alerts.show(mContext, responseBody.getMessage());
+                      //  Alerts.show(mContext, responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");

@@ -11,6 +11,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -181,7 +183,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     allAudioVideoList.clear();
                     competitionContentArrayList.clear();
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                       // Alerts.show(mContext, loginModal.getMessage());
                         singernamem.setText(loginModal.getUser().getParticipantName());
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
@@ -195,7 +197,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                             } else {
                             }
                         }
-                        competitionContentArrayList.addAll(loginModal.getCompetitionContent());
+                       // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
@@ -209,8 +211,8 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                     videoList.add(allAudioVideoList.get(i));
                                 }
                             }
-                            competitionContentArrayList.addAll(videoList);
-                            ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+                            competitionContentArrayList.addAll(audioList);
+                           // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                         }
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -238,16 +240,25 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 //getSongUrl(url);
                 break;
             case R.id.btnAudio:
-                competitionContentArrayList.clear();
-                competitionContentArrayList.addAll(audioList);
-                adapter.notifyDataSetChanged();
-                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
+                btnAudio.setImageTintList(ColorStateList.valueOf(Color.WHITE));
+                btnVideo.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                adapter = new MyVideoAdapter(mContext, audioList, this);
+                RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
+                recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
+                recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
+                recylerviewgrid.setAdapter(adapter);
+
+              //  ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
                 break;
             case R.id.btnVideo:
-                competitionContentArrayList.clear();
-                competitionContentArrayList.addAll(videoList);
-                adapter.notifyDataSetChanged();
-                ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+                btnVideo.setImageTintList(ColorStateList.valueOf(Color.WHITE));
+                btnAudio.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                adapter = new MyVideoAdapter(mContext, videoList, this);
+                RecyclerView.LayoutManager recyclerViewLayoutManager1 = new GridLayoutManager(mContext, 2);
+                recylerviewgrid.setLayoutManager(recyclerViewLayoutManager1);
+                recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
+                recylerviewgrid.setAdapter(adapter);
+               // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                 break;
             case R.id.btnVarify :
                 getEmail();
