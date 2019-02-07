@@ -181,7 +181,6 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
     }
 
     private void tokenApi() {
-
         if (cd.isNetworkAvailable()) {
             RetrofitService.gettoken(new Dialog(mContext), retrofitApiClient.gettoken(android_id,f_token,user_id), new WebResponse() {
                 @Override
@@ -189,27 +188,20 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                     TokenModel loginModal = (TokenModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
-
-
+                        //Alerts.show(mContext, loginModal.getMessage());
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
-
                     }
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
                 }
             });
-
         } else {
             cd.show(mContext);
         }
-
     }
-
 
     @Override
     public void onBackPressed() {

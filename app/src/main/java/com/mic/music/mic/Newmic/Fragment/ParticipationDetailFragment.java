@@ -28,6 +28,7 @@ import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
 import com.mic.music.mic.Newmic.Adapter.ParticipationListAdapter;
 import com.mic.music.mic.Newmic.AudioVedio;
 import com.mic.music.mic.R;
+import com.mic.music.mic.VideoRecord.SelectPictureActivity;
 import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
 import com.mic.music.mic.constant.Constant;

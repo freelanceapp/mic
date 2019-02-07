@@ -31,6 +31,8 @@
         tools:ignore="AllowBackup"
         tools:replace="android:appComponentFactory">
 
+        <activity android:name=".VideoRecord.SelectPictureActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Newmic.Activity.NotificationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -51,7 +53,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
+
+
         </activity>
+       <!-- <provider
+            android:name=".provider.GenericFileProvider"
+            android:authorities="com.mic.music.mic.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>-->
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"

@@ -308,6 +308,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         AppPreference.setStringPreference(mContext, Constant.User_Data, data);
                         User.setUser(loginModal);
                         if (loginModal.getUserType().equals("registered user")) {
+                            AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
                             Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
@@ -356,6 +357,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("strCheck ", ".."+strCheck);
 
                         if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
+                            AppPreference.setBooleanPreference(mContext, Constant.Is_Login, true);
                             Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

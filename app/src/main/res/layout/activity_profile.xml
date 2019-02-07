@@ -155,7 +155,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/hmike" />
+                    android:src="@drawable/hmike"
+                    />
 
                 <ImageView
                     android:id="@+id/btnVideo"

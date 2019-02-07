@@ -19,5 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgDismis"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/video"
+        android:layout_below="@+id/imgDismis"
+        />
 </RelativeLayout>

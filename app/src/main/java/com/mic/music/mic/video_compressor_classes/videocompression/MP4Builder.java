@@ -1,4 +1,12 @@
-package com.mic.music.mic.video_compressor_classes;
+/*
+ * This is the source code of Telegram for Android v. 1.7.x.
+ * It is licensed under GNU GPL v. 2 or later.
+ * You should have received a copy of the license in this archive (see LICENSE).
+ *
+ * Copyright Nikolai Kudashov, 2013-2014.
+ */
+
+package com.mic.music.mic.video_compressor_classes.videocompression;
 
 import android.annotation.TargetApi;
 import android.media.MediaCodec;
@@ -43,6 +51,7 @@ import java.util.List;
 
 @TargetApi(16)
 public class MP4Builder {
+
     private InterleaveChunkMdat mdat = null;
     private Mp4Movie currentMp4Movie = null;
     private FileOutputStream fos = null;
