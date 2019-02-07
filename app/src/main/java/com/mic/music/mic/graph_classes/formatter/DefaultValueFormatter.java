@@ -51,7 +51,7 @@ public class DefaultValueFormatter extends ValueFormatter
     public String getFormattedValue(float value) {
 
         // put more logic here ...
-        // avoid memory allocations here (for performance reasons)
+        // avoid memory allocations here (for row_performance_list reasons)
 
         return mFormat.format(value);
     }

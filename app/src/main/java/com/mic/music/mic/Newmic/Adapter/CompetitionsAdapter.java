@@ -4,10 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -20,18 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mic.music.mic.Adapter.NotificationAdapter;
-import com.mic.music.mic.Newmic.Activity.HomeActivity;
-import com.mic.music.mic.Newmic.Activity.MainActivity;
 import com.mic.music.mic.Newmic.AudioVedio;
 import com.mic.music.mic.Newmic.Fragment.ParticipationDetailFragment;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.competition_responce.Competition;
 import com.mic.music.mic.model.competition_responce.CompetitionLevel;
-import com.mic.music.mic.model.competition_responce.CompletionModel;
-import com.mic.music.mic.model.notification_responce.Notification;
-import com.mic.music.mic.model.participation_responce.ParticipationModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitApiClient;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -41,12 +31,7 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
 import retrofit2.Response;
 
@@ -60,6 +45,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     int num1 = 0;
     String competitionId, competitionLevelId, paymentType, UserId;
     String strPayment;
+
     public CompetitionsAdapter() {
     }
 
@@ -166,7 +152,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 strPayment = singleSectionItems.get(pos).getCompetitionLevelPaymentType();
                 competitionId = competitionArrayList.get(position).getCompetitionId();
                 UserId = AppPreference.getStringPreference(context, Constant.User_Id);
-                Toast.makeText(view.getContext(), competitionId+"  "+competitionLevelId + " "+ strPayment, Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), competitionId + "  " + competitionLevelId + " " + strPayment, Toast.LENGTH_SHORT).show();
                 AudioVedio audioVedio = new AudioVedio();
                 competitionApi();
             }
@@ -198,12 +184,12 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(context, loginModal.getMessage());
-                        Log.e("message ", "..."+ loginModal.getMessage());
+                        Log.e("message ", "..." + loginModal.getMessage());
 
                     } else {
                         Alerts.show(context, loginModal.getMessage());
                     }
-                    Intent intent = new Intent(context,ParticipationDetailFragment.class);
+                    Intent intent = new Intent(context, ParticipationDetailFragment.class);
                     intent.putExtra("companyId", competitionId);
                     context.startActivity(intent);
                 }

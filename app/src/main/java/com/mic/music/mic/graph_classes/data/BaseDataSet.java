@@ -25,7 +25,7 @@ import java.util.List;
 public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
 
     /**
-     * List representing all colors that are used for this DataSet
+     * PerformanceList representing all colors that are used for this DataSet
      */
     protected List<Integer> mColors = null;
 
@@ -34,7 +34,7 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
     protected List<GradientColor> mGradientColors = null;
 
     /**
-     * List representing all colors that are used for drawing the actual values for this DataSet
+     * PerformanceList representing all colors that are used for drawing the actual values for this DataSet
      */
     protected List<Integer> mValueColors = null;
 

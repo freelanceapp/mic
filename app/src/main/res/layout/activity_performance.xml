@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
@@ -39,7 +38,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="300dp">
 
                 <com.mic.music.mic.graph_classes.charts.LineChart
                     android:id="@+id/chart1"
@@ -141,12 +140,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/performance" />
-
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewPerformanceList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </ScrollView>

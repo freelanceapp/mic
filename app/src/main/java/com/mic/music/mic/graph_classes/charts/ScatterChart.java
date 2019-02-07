@@ -11,8 +11,8 @@ import com.mic.music.mic.graph_classes.renderer.ScatterChartRenderer;
 
 /**
  * The ScatterChart. Draws dots, triangles, squares and custom shapes into the
- * Chart-View. CIRCLE and SCQUARE offer the best performance, TRIANGLE has the
- * worst performance.
+ * Chart-View. CIRCLE and SCQUARE offer the best row_performance_list, TRIANGLE has the
+ * worst row_performance_list.
  *
  * @author Philipp Jahoda
  */

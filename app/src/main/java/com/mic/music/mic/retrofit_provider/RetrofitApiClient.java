@@ -4,10 +4,10 @@ import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
-import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.notification_responce.NotificationModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.participation_responce.ParticipationModel;
@@ -26,30 +26,28 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Url;
-import rx.Observable;
 
 public interface RetrofitApiClient {
 
     @Multipart
     @POST(Constant.USER_REGISTRATION)
     Call<RequestBody> userRegistration(@Part("name") RequestBody name, @Part MultipartBody.Part file,
-                                      @Part("email") RequestBody email, @Part("password") RequestBody password,
-                                      @Part("mobile_number") RequestBody mobile_number);
-
+                                       @Part("email") RequestBody email, @Part("password") RequestBody password,
+                                       @Part("mobile_number") RequestBody mobile_number);
 
 
     @FormUrlEncoded
     @POST(Constant.FIREBSE_TOKEN)
     Call<TokenModel> gettoken(@Field("user_ip") String user_ip,
-                                 @Field("token") String token,
-                                 @Field("participant_id") String participant_id);
+                              @Field("token") String token,
+                              @Field("participant_id") String participant_id);
 
     @FormUrlEncoded
     @POST(Constant.USER_PARTICIPATION)
     Call<TokenModel> getParticipation(@Field("competition_level") String competition_level,
-                              @Field("competition") String competition,
-                              @Field("user_id") String user_id,
-                              @Field("type") String type);
+                                      @Field("competition") String competition,
+                                      @Field("user_id") String user_id,
+                                      @Field("type") String type);
 
 
     @FormUrlEncoded
@@ -100,20 +98,13 @@ public interface RetrofitApiClient {
     @FormUrlEncoded
     @POST(Constant.OTP_EMAIL_VARIFICATION)
     Call<OtpModel> getOtp1(@Field("email") String email,
-                          @Field("otp_number") String opt_number);
-
-  /*  @FormUrlEncoded
-    @POST(Constant.APP_VERSION)
-    Observable<ResponseBody> addShortedList();*/
-
-
+                           @Field("otp_number") String opt_number);
 
     //Ragister API
     @Multipart
     @POST(Constant.PROFILE_IMAGE)
     Call<TokenModel> profileimage(@Part("user_id") RequestBody user_id,
                                   @Part MultipartBody.Part file);
-
 
     //Ragister API
     @Multipart
@@ -124,20 +115,19 @@ public interface RetrofitApiClient {
                                        @Part("type") RequestBody type,
                                        @Part MultipartBody.Part file);
 
-
     //Ragister API
     @FormUrlEncoded
     @POST(Constant.PROFILE_UPDATE)
     Call<TokenModel> updateProfile1(@Field("username") String username,
-                                   @Field("email") String email,
-                                   @Field("gendar") String gendar,
-                                   @Field("user_id") String user_id,
-                                   @Field("user_dob") String user_dob,
-                                   @Field("participant_organization") String participant_organization,
-                                   @Field("participant_address") String participant_address,
-                                   @Field("participant_city") String participant_city,
-                                   @Field("participant_state") String participant_state,
-                                   @Field("participant_country") String participant_country);
+                                    @Field("email") String email,
+                                    @Field("gendar") String gendar,
+                                    @Field("user_id") String user_id,
+                                    @Field("user_dob") String user_dob,
+                                    @Field("participant_organization") String participant_organization,
+                                    @Field("participant_address") String participant_address,
+                                    @Field("participant_city") String participant_city,
+                                    @Field("participant_state") String participant_state,
+                                    @Field("participant_country") String participant_country);
 
     /*
      * Download image
@@ -148,4 +138,7 @@ public interface RetrofitApiClient {
     // Page content API
     @GET(Constant.PAGE_CONTENT)
     Call<AppContentMainModal> getPageContent();
+
+    @GET(Constant.GRAPH_URL)
+    Call<GraphMainModal> getGraphData();
 }

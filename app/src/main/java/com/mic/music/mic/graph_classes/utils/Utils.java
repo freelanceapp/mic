@@ -380,7 +380,7 @@ public abstract class Utils {
     }
 
     /**
-     * Converts the provided Integer List to an int array.
+     * Converts the provided Integer PerformanceList to an int array.
      *
      * @param integers
      * @return
@@ -402,7 +402,7 @@ public abstract class Utils {
     }
 
     /**
-     * Converts the provided String List to a String array.
+     * Converts the provided String PerformanceList to a String array.
      *
      * @param strings
      * @return

@@ -76,7 +76,7 @@ public class FileUtils {
         // // Get the text file
         // File file = new File(sdcard, path);
         //
-        // List<Entry> entries = new ArrayList<Entry>();
+        // PerformanceList<Entry> entries = new ArrayList<Entry>();
         // String label = "";
         //
         // try {
@@ -153,7 +153,7 @@ public class FileUtils {
         return entries;
 
         // String label = null;
-        // List<Entry> entries = new ArrayList<Entry>();
+        // PerformanceList<Entry> entries = new ArrayList<Entry>();
         //
         // BufferedReader reader = null;
         // try {
@@ -212,7 +212,7 @@ public class FileUtils {
         }
         try
         {
-            // BufferedWriter for performance, true to set append to file flag
+            // BufferedWriter for row_performance_list, true to set append to file flag
             BufferedWriter buf = new BufferedWriter(new FileWriter(saved, true));
 
             for (Entry e : entries) {

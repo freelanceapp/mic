@@ -76,7 +76,7 @@ public interface IDataSet<T extends Entry> {
      * If the no Entry at the specified x-value is found, this method
      * returns the Entry at the closest x-value according to the rounding.
      * INFORMATION: This method does calculations at runtime. Do
-     * not over-use in performance critical situations.
+     * not over-use in row_performance_list critical situations.
      *
      * @param xValue the x-value
      * @param closestToY If there are multiple y-values for the specified x-value,
@@ -94,7 +94,7 @@ public interface IDataSet<T extends Entry> {
      * If the no Entry at the specified x-value is found, this method
      * returns the Entry at the closest x-value.
      * INFORMATION: This method does calculations at runtime. Do
-     * not over-use in performance critical situations.
+     * not over-use in row_performance_list critical situations.
      *
      *
      * @param xValue the x-value
@@ -107,7 +107,7 @@ public interface IDataSet<T extends Entry> {
      * Returns all Entry objects found at the given x-value with binary
      * search. An empty array if no Entry object at that x-value.
      * INFORMATION: This method does calculations at runtime. Do
-     * not over-use in performance critical situations.
+     * not over-use in row_performance_list critical situations.
      *
      * @param xValue
      * @return
@@ -128,7 +128,7 @@ public interface IDataSet<T extends Entry> {
      * If the no Entry at the specified x-value is found, this method
      * returns the Entry at the closest x-value according to the rounding.
      * INFORMATION: This method does calculations at runtime. Do
-     * not over-use in performance critical situations.
+     * not over-use in row_performance_list critical situations.
      *
      * @param xValue the x-value
      * @param closestToY If there are multiple y-values for the specified x-value,
@@ -151,7 +151,7 @@ public interface IDataSet<T extends Entry> {
     /**
      * This method returns the actual
      * index in the Entry array of the DataSet for a given xIndex. IMPORTANT: This method does
-     * calculations at runtime, do not over-use in performance critical
+     * calculations at runtime, do not over-use in row_performance_list critical
      * situations.
      *
      * @param xIndex
@@ -226,7 +226,7 @@ public interface IDataSet<T extends Entry> {
     /**
      * Checks if this DataSet contains the specified Entry. Returns true if so,
      * false if not. NOTE: Performance is pretty bad on this one, do not
-     * over-use in performance critical situations.
+     * over-use in row_performance_list critical situations.
      *
      * @param entry
      * @return
@@ -279,7 +279,7 @@ public interface IDataSet<T extends Entry> {
 
     /**
      * Returns the first color (index 0) of the colors-array this DataSet
-     * contains. This is only used for performance reasons when only one color is in the colors array (size == 1)
+     * contains. This is only used for row_performance_list reasons when only one color is in the colors array (size == 1)
      *
      * @return
      */

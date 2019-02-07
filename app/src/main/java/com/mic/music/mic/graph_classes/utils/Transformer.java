@@ -89,7 +89,7 @@ public class Transformer {
     protected float[] valuePointsForGenerateTransformedValuesScatter = new float[1];
 
     /**
-     * Transforms an List of Entry into a float array containing the x and
+     * Transforms an PerformanceList of Entry into a float array containing the x and
      * y values transformed with all matrices for the SCATTERCHART.
      *
      * @param data
@@ -126,7 +126,7 @@ public class Transformer {
     protected float[] valuePointsForGenerateTransformedValuesBubble = new float[1];
 
     /**
-     * Transforms an List of Entry into a float array containing the x and
+     * Transforms an PerformanceList of Entry into a float array containing the x and
      * y values transformed with all matrices for the BUBBLECHART.
      *
      * @param data
@@ -162,7 +162,7 @@ public class Transformer {
     protected float[] valuePointsForGenerateTransformedValuesLine = new float[1];
 
     /**
-     * Transforms an List of Entry into a float array containing the x and
+     * Transforms an PerformanceList of Entry into a float array containing the x and
      * y values transformed with all matrices for the LINECHART.
      *
      * @param data
@@ -200,7 +200,7 @@ public class Transformer {
     protected float[] valuePointsForGenerateTransformedValuesCandle = new float[1];
 
     /**
-     * Transforms an List of Entry into a float array containing the x and
+     * Transforms an PerformanceList of Entry into a float array containing the x and
      * y values transformed with all matrices for the CANDLESTICKCHART.
      *
      * @param data
@@ -379,7 +379,7 @@ public class Transformer {
     }
 
     /**
-     * buffer for performance
+     * buffer for row_performance_list
      */
     float[] ptsBuffer = new float[2];
 

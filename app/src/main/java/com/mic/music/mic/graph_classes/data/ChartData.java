@@ -287,7 +287,7 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
     /**
      * Retrieve the index of a DataSet with a specific label from the ChartData.
      * Search can be case sensitive or not. IMPORTANT: This method does
-     * calculations at runtime, do not over-use in performance critical
+     * calculations at runtime, do not over-use in row_performance_list critical
      * situations.
      *
      * @param dataSets   the DataSet array to search
@@ -344,7 +344,7 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
     /**
      * Returns the DataSet object with the given label. Search can be case
      * sensitive or not. IMPORTANT: This method does calculations at runtime.
-     * Use with care in performance critical situations.
+     * Use with care in row_performance_list critical situations.
      *
      * @param label
      * @param ignorecase

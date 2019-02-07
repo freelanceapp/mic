@@ -1,13 +1,17 @@
 package com.mic.music.mic.Newmic;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mic.music.mic.Adapter.PerformanceListAdapter;
 import com.mic.music.mic.R;
 import com.mic.music.mic.graph_classes.charts.LineChart;
 import com.mic.music.mic.graph_classes.components.Legend;
@@ -19,13 +23,27 @@ import com.mic.music.mic.graph_classes.data.LineDataSet;
 import com.mic.music.mic.graph_classes.highlight.Highlight;
 import com.mic.music.mic.graph_classes.listener.OnChartValueSelectedListener;
 import com.mic.music.mic.graph_classes.utils.ColorTemplate;
+import com.mic.music.mic.model.graph_modal.GraphMainModal;
+import com.mic.music.mic.model.graph_modal.PerformanceGraph;
+import com.mic.music.mic.model.graph_modal.PerformanceList;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.BaseFragment;
+import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Performance extends Fragment implements OnChartValueSelectedListener {
+import retrofit2.Response;
+
+public class Performance extends BaseFragment implements OnChartValueSelectedListener {
 
     private LineChart chart;
     private View view;
+    private RecyclerView recyclerViewPerformanceList;
+    private PerformanceListAdapter performanceListAdapter;
+    private List<PerformanceList> performanceLists = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,14 +54,28 @@ public class Performance extends Fragment implements OnChartValueSelectedListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.activity_performance, container, false);
-        setChartData();
+        mContext = getActivity();
+        activity = getActivity();
+        cd = new ConnectionDetector(mContext);
+        retrofitApiClient = RetrofitService.getRetrofit();
 
-        setData(5, 50);
-        chart.invalidate();
+        init();
         return view;
     }
 
-    private void setChartData() {
+    private void init() {
+        recyclerViewPerformanceList = view.findViewById(R.id.recyclerViewPerformanceList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+        recyclerViewPerformanceList.setLayoutManager(mLayoutManager);
+        recyclerViewPerformanceList.setItemAnimator(new DefaultItemAnimator());
+
+        performanceListAdapter = new PerformanceListAdapter(mContext, performanceLists);
+        recyclerViewPerformanceList.setAdapter(performanceListAdapter);
+
+        graphChartInit();
+    }
+
+    private void graphChartInit() {
         chart = view.findViewById(R.id.chart1);
         chart.setOnChartValueSelectedListener(this);
 
@@ -108,14 +140,47 @@ public class Performance extends Fragment implements OnChartValueSelectedListene
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawZeroLine(false);
         rightAxis.setGranularityEnabled(false);
+
+        graphDataApi();
     }
 
-    private void setData(int count, float range) {
+    private void graphDataApi() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getGraphData(new Dialog(mContext), retrofitApiClient.getGraphData(), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    GraphMainModal graphMainModal = (GraphMainModal) result.body();
+                    performanceLists.clear();
+                    if (graphMainModal != null) {
+                        if (graphMainModal.getGraph().size() > 0) {
+                            performanceLists.addAll(graphMainModal.getList());
+                            setData(graphMainModal.getGraph().size(), graphMainModal.getGraph());
+                            chart.invalidate();
+                        } else {
+                            Alerts.show(mContext, "No graph data!!!");
+                        }
+                    } else {
+                        Alerts.show(mContext, "No data!!!");
+                    }
+                    performanceListAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+    private void setData(int count, java.util.List<PerformanceGraph> graphDataList) {
 
         ArrayList<Entry> values1 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * (range / 2f)) + 50;
+            float val = graphDataList.get(i).getPoint();
             values1.add(new Entry(i, val));
         }
 
@@ -153,9 +218,8 @@ public class Performance extends Fragment implements OnChartValueSelectedListene
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         Log.i("Entry selected", e.toString());
-
-        chart.centerViewToAnimated(e.getX(), e.getY(), chart.getData().getDataSetByIndex(h.getDataSetIndex())
-                .getAxisDependency(), 500);
+        chart.centerViewToAnimated(e.getX(), e.getY(),
+                chart.getData().getDataSetByIndex(h.getDataSetIndex()).getAxisDependency(), 500);
     }
 
     @Override

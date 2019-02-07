@@ -524,7 +524,7 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Enables the grid line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
-     * Keep in mind that hardware acceleration boosts performance.
+     * Keep in mind that hardware acceleration boosts row_performance_list.
      *
      * @param lineLength  the length of the line pieces
      * @param spaceLength the length of space in between the pieces
@@ -539,7 +539,7 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Enables the grid line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
-     * Keep in mind that hardware acceleration boosts performance.
+     * Keep in mind that hardware acceleration boosts row_performance_list.
      *
      * @param effect the DashPathEffect
      */
@@ -576,7 +576,7 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Enables the axis line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
-     * Keep in mind that hardware acceleration boosts performance.
+     * Keep in mind that hardware acceleration boosts row_performance_list.
      *
      * @param lineLength  the length of the line pieces
      * @param spaceLength the length of space in between the pieces
@@ -591,7 +591,7 @@ public abstract class AxisBase extends ComponentBase {
     /**
      * Enables the axis line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
-     * Keep in mind that hardware acceleration boosts performance.
+     * Keep in mind that hardware acceleration boosts row_performance_list.
      *
      * @param effect the DashPathEffect
      */
