@@ -229,114 +229,6 @@
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </RadioGroup>
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/iv_homr_fr"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_location" />
-
-                <TextView
-                    android:id="@+id/tv_home_fr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:gravity="center"
-                    android:text="Home Address"
-                    android:textColor="@color/yellow"
-                    android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/et_home_fr"
-                    android:layout_marginLeft="10dp"
-                    android:textColorHint="@color/colorGray"
-                    android:hint="Home Address"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    android:background="@drawable/layout_back_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/iv_city_fr"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_location" />
-
-                <TextView
-                    android:id="@+id/tv_city_fr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:gravity="center"
-                    android:text="City"
-                    android:textColor="@color/yellow"
-                    android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/et_city_fr"
-                    android:layout_marginLeft="10dp"
-                    android:textColorHint="@color/colorGray"
-                    android:hint="City"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    android:background="@drawable/layout_back_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/iv_st"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_location" />
-
-                <TextView
-                    android:id="@+id/tv_st_fr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:gravity="center"
-                    android:text="State"
-                    android:textColor="@color/yellow"
-                    android:textSize="16sp" />
-                <EditText
-                    android:id="@+id/et_st_fr"
-                    android:layout_marginLeft="10dp"
-                    android:textColorHint="@color/colorGray"
-                    android:hint="State"
-                    android:textColor="@color/white"
-                    android:padding="6dp"
-                    android:background="@drawable/layout_back_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
 
              <RelativeLayout
                  android:layout_width="match_parent"
@@ -408,8 +300,81 @@
 
                  </RelativeLayout>
              </RelativeLayout>
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_st"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tv_st_fr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:gravity="center"
+                    android:text="State"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_st_fr"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="State"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_coutnry_fr"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/tv_country_fr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:gravity="center"
+                    android:text="Country"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_country_fr"
+                    android:layout_marginLeft="10dp"
+                    android:textColorHint="@color/colorGray"
+                    android:hint="Country"
+                    android:textColor="@color/white"
+                    android:padding="6dp"
+                    android:background="@drawable/layout_back_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
              <LinearLayout
+                 android:visibility="gone"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="22dp"

@@ -104,41 +104,30 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         }
     }
 
-/*    public void showVideoDialog() {
+   public void showVideoDialog() {
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_logout_box);
-        final RadioGroup rgVideo = (RadioGroup) dialog.findViewById(R.id.rgVideo);
-        ImageView dialogButton = (ImageView) dialog.findViewById(R.id.cancleVideoBtn);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        final Button btnyes = (Button) dialog.findViewById(R.id.btn_yes);
+       Button btncencel = (Button) dialog.findViewById(R.id.btn_no);
+       btncencel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        Button btnSelectVideo = (Button) dialog.findViewById(R.id.btnSelectVideo);
-        btnSelectVideo.setOnClickListener(new View.OnClickListener() {
+        btnyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get selected radio button from radioGroup
-                int selectedId = rgVideo.getCheckedRadioButtonId();
-                // find the radiobutton by returned id
-                radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
-                if (radioVideoButton.getText().equals("Record Video")) {
-                    Intent intent = new Intent(mContext, VideoRecordActivity.class);
-                    mContext.startActivity(intent);
-                } else if (radioVideoButton.getText().equals("Upload Video")) {
-                    Intent intent = new Intent(mContext, VideoFolder.class);
-                    mContext.startActivity(intent);
-                } else {
-                    Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
-                }
+                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+                Intent intent = new Intent(mContext,Mobile_Ragistration.class);
+                startActivity(intent);
                 dialog.dismiss();
             }
         });
         dialog.show();
-    }*/
+    }
 
 
     @Override
@@ -210,7 +199,8 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 startActivity(intent8);
                 break;
             case R.id.logoutBtn:
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                showVideoDialog();
+               /* AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setMessage("Are you sure you want to logout?");
                 builder.setPositiveButton("Yes",
                         new DialogInterface.OnClickListener() {
@@ -228,7 +218,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                             }
                         });
                 AlertDialog alert11 = builder.create();
-                alert11.show();
+                alert11.show();*/
                 break;
         }
     }

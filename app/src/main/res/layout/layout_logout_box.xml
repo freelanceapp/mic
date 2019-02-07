@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:background="@drawable/layout_back_b"
-            android:text="NO"
+            android:text="No"
             android:textColor="@color/yellow"
             android:id="@+id/btn_no"/>
         <Button
@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:background="@drawable/layout_back_b"
-            android:text="Cancel"
+            android:text="Yes"
             android:textColor="@color/yellow"
             android:id="@+id/btn_yes"/>
     </LinearLayout>

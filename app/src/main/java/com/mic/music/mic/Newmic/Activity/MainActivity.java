@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
     CircleImageView profile;
-    EditText user_name, user_email, user_phone, user_address,et_home_ma,et_city_ma,et_state_ma;
+    EditText user_name, user_email, user_phone, user_address,et_home_ma,et_country_ma,et_state_ma;
     RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -129,9 +129,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void init() {
 
-        et_home_ma = findViewById(R.id.et_home_add);
-        et_city_ma = findViewById(R.id.et_city_add);
+       // et_home_ma = findViewById(R.id.et_home_add);
+        et_country_ma = findViewById(R.id.et_coutnry_add);
         et_state_ma = findViewById(R.id.et_state_add);
+        tvLocateMe = findViewById(R.id.tvLocateMe);
 
         userId = getIntent().getStringExtra("user_id");
         mobileNumber1 = AppPreference.getStringPreference(mContext, Constant.User_Mobile);
@@ -140,7 +141,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         emailVarificationBtn = findViewById(R.id.emailVarificationBtn);
         user_email = findViewById(R.id.user_email);
         user_phone = findViewById(R.id.user_phone);
-       // user_address = findViewById(R.id.user_loaction);
+       user_address = findViewById(R.id.user_loaction);
         submitbutton = findViewById(R.id.submit_button);
         profile = findViewById(R.id.user_profile);
         rgGendar = findViewById(R.id.rgGendar);
@@ -150,6 +151,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
       //  tvLocateMe = findViewById(R.id.tvLocateMe);
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
+
+        setDateTimeField();
 
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,11 +185,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         show_calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 fromDatePickerDialog.show();
 
             }
         });
-
 
         rgGendar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("ResourceType")
@@ -455,7 +458,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     city = null;
             }
             user_address.setText(locationAddress);
-            //spinner_city.setText(city);
+           // spinner_city.setText(city);
         }
     }
 
@@ -510,10 +513,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();
         userPhone = user_phone.getText().toString();
-       // userAddress = user_address.getText().toString();
+       userAddress = user_address.getText().toString();
         userDOB = select_birth.getText().toString();
-        userhomeadd  = et_home_ma.getText().toString();
-        usercityadd = et_city_ma.getText().toString();
+        userAddress = user_address.getText().toString();
+      //  userhomeadd  = et_home_ma.getText().toString();
+        usercityadd = et_country_ma.getText().toString();
         userstateadd = et_state_ma.getText().toString();
        // String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
       //  String strSplit[] = strCityStateCountry.split(",");
