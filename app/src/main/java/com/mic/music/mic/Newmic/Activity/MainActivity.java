@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
     private String mobileNumber1;
-    private String userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB;
+    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void init() {
+        userId = getIntent().getStringExtra("user_id");
         mobileNumber1 = AppPreference.getStringPreference(mContext, Constant.User_Mobile);
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = findViewById(R.id.user_name);
@@ -404,14 +405,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     public void api() {
-        String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        //String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         if (file == null) {
             Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
         } else {
             if (cd.isNetworkAvailable()) {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
-                RequestBody id = RequestBody.create(MediaType.parse("text/plain"), strUserId);
+                RequestBody id = RequestBody.create(MediaType.parse("text/plain"), userId);
                 RetrofitService.profileimage(new Dialog(mContext), retrofitApiClient.profileimage(id, fileToUpload), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
@@ -500,7 +501,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void getTextUpdate() {
-        String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        //String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();
         userPhone = user_email.getText().toString();
@@ -518,7 +519,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             if (cd.isNetworkAvailable()) {
                 RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(
-                        userName, userEmail, userGender, strUserId, userDOB, userOrgnisation, userAddress, strCity,
+                        userName, userEmail, userGender, userId, userDOB, userOrgnisation, userAddress, strCity,
                         strState, strCountry), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {

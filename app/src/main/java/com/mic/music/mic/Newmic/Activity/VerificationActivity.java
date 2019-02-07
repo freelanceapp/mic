@@ -313,6 +313,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                             finish();
                         }else {
                             Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            intent.putExtra("user_id",loginModal.getUser().getParticipantId());
                             startActivity(intent);
                             finish();
                         }
@@ -352,13 +353,15 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         User.setUser(loginModal);
 
                         String strCheck = AppPreference.getStringPreference(mContext, Constant.User_Check );
+                        Log.e("strCheck ", ".."+strCheck);
 
-                        if (strCheck.equals("registered user")) {
+                        if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
                             Intent intent = new Intent(VerificationActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
                             Intent intent = new Intent(VerificationActivity.this, MainActivity.class);
+                            intent.putExtra("user_id",loginModal.getUser().getParticipantId());
                             startActivity(intent);
                             finish();
                         }

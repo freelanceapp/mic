@@ -300,7 +300,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
     private void otpVarification1() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail,emailOtp1), new WebResponse() {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail,"111111"), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     OtpModel loginModal = (OtpModel) result.body();

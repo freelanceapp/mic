@@ -51,6 +51,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 
+import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
+
 public class AudioListActivity extends BaseActivity implements View.OnClickListener, ProgressRequestBody.UploadCallbacks {
     private Context mContext;
     private Activity mActivity;
@@ -236,7 +238,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
 
     private void newPostFeedApi() {
         File file = new File(urlAudio);
-        String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
+        String strId = user_id;
         String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
         String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
 
@@ -266,6 +268,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        Log.e("true message ", ".. "+ responseBody.getMessage());
 
                         //finish();
                     }
@@ -274,6 +277,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
+                    Log.e("error ", ".. "+ error);
                     progressBar.dismiss();
 
                 }

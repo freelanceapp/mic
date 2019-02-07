@@ -159,7 +159,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     competitionContentArrayList.clear();
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
-
                         singernamem.setText(loginModal.getUser().getParticipantName());
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
@@ -171,10 +170,8 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 email.setFocusable(false);
                                 btnVarify.setClickable(false);
                             } else {
-
                             }
                         }
-
                         competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
@@ -190,7 +187,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 }
                             }
                             competitionContentArrayList.addAll(videoList);
-
                             ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                         }
                     } else {
@@ -198,13 +194,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     }
                     adapter.notifyDataSetChanged();
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
                 }
             });
-
         } else {
             cd.show(mContext);
         }

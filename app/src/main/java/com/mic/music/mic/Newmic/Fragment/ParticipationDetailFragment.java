@@ -140,14 +140,14 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 AppPreference.setStringPreference(mContext,Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
 
                 if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
-                    Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
                     AudioVedio audioVedio = new AudioVedio();
-                    if (formant1 == 0 )
+                    if (formant1 == 1 )
                     {
                         showAudioDialog();
-                    }else {
+                    }else if (formant1 == 2){
                         showVideoDialog();
-                    }
+                    }else {
+                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();                    }
                 }else {
                     Alerts.show(mContext,"Yor are not selected");
                     finish();
@@ -155,7 +155,6 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 break;
         }
     }
-
 
     public void showAudioDialog() {
         final Dialog dialog = new Dialog(mContext);

@@ -11,7 +11,7 @@
     <string name="video_compression_complete">Video Compression Complete</string>
 
     <string name="checkbox_text">I agree to Terms of Use and Policies of the Online Signing Competition - MIC.</string>
-    <string name="name_hint">(The name will your enter not will be Changed throughout the competition)</string>
+    <string name="name_hint">(The name you entered will not be Changed throughout the competition)</string>
     <string name="email_hin">(This mail ID will be used to retrieve your account and for alternate signin)</string>
     <string name="about_text">MIC is an Online Singing Competition Platform, designed and developed with the vision of bringing Transparency, Recognition and Queless Crowd. The platform brings Ease and Economical Relief to Young, Budding and Passionate Singers.</string>
     <string name="who_we_are">MIC is a unit of Admere Selvyn Private Limited. The idea of helping young artists, earn recognition and win a cheering fan base was given by Mr. Ritesh Anand, CEO and Founder of worlds first digital singing competition paltform.</string>
@@ -124,7 +124,9 @@
     <string name="soud_description">The sound setting are only applicable for this application only</string>
     <string name="ourteam_subtitle">Great things is any Field are never never done by one person.They\'are done by a team of people.</string>
     <string name="connection">Network error !!!</string>
+    <string name="address">Admere Selvyn Private Limited 156, Admere Villa,Kusum Vihar,BCCL Township Dhanbad, Jharkhand -826005</string>
+    <string name="contact">+91 9430177775</string>
+    <string name="mail">care@onlinemic.in</string>
     <string name="user_data">I am Maixans ameerican singer. i alsoI am Maixans ameerican singer.I am Maixans ameerican singer.</string>
-
 
 </resources>

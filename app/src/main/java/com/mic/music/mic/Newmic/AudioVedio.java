@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,12 +33,18 @@ import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
 import com.cleveroad.sy.cyclemenuwidget.OnMenuItemClickListener;
 import com.cleveroad.sy.cyclemenuwidget.OnStateChangedListener;
 import com.google.gson.Gson;
+import com.mic.music.mic.Adapter.NotificationAdapter;
+import com.mic.music.mic.Api.RequestHandler;
+import com.mic.music.mic.Api.URLs;
 import com.mic.music.mic.AudioUpload.AudioListActivity;
 import com.mic.music.mic.AudioUpload.AudioRecordActivity;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
 import com.mic.music.mic.Newmic.Activity.SplashScreen;
 import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
+import com.mic.music.mic.Newmic.Adapter.WinnerAdapter1;
+import com.mic.music.mic.Newmic.Adapter.WinnersAdapter;
+import com.mic.music.mic.Newmic.Fragment.AllNotificationFragment;
 import com.mic.music.mic.R;
 import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
@@ -46,7 +53,10 @@ import com.mic.music.mic.model.User;
 import com.mic.music.mic.model.competition_responce.Competition;
 import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
+import com.mic.music.mic.model.notification_responce.Notification;
 import com.mic.music.mic.model.otp_responce.OtpModel;
+import com.mic.music.mic.model.winner_responce.Participation;
+import com.mic.music.mic.model.winner_responce.WinnersModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
@@ -55,7 +65,12 @@ import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Response;
 
@@ -69,9 +84,12 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
     String videoSelect, audioSelect;
     private ArrayList<Competition> arrayList = new ArrayList<>();
     private ArrayList<CompetitionLevel> itemsList = new ArrayList<>();
+    private ArrayList<Participation> participationArrayList = new ArrayList<>();
+    private WinnerAdapter1 winnersAdapter;
     private CompetitionsAdapter adapter;
     public static int formant1 = 0;
     public static Dialog CompetitionDialog;
+    private RecyclerView recylerview;
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -119,12 +137,22 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
 
         audiodialog = view.findViewById(R.id.audio_dialog);
         videodialog = view.findViewById(R.id.video_dialog);
+        recylerview = view.findViewById(R.id.recylerview);
+
+       // winnerApi();
+
+        WinnerUser notificationUser = new WinnerUser();
+        notificationUser.execute();
+
+
+
+
 
         audiodialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //showCompetitionDialog();
-                formant1 = 0;
+                formant1 = 1;
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 ButtonSound.getInstance().vibration(mContext);
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
@@ -146,7 +174,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
             public void onClick(View v) {
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 ButtonSound.getInstance().vibration(mContext);
-                formant1 = 1;
+                formant1 =2;
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
                 Log.e("Company ", ".."+strCompany);
                 if (strCompany.equals(""))
@@ -308,6 +336,100 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    private void winnerApi() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getwinner(new Dialog(mContext), retrofitApiClient.getwinner(), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    WinnersModel loginModal = (WinnersModel) result.body();
+                    assert loginModal != null;
+                    arrayList.clear();
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        participationArrayList.addAll(loginModal.getParticipation());
 
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                    }
+                    winnersAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+
+    class WinnerUser extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... voids) {
+            //creating request handler object
+            RequestHandler requestHandler = new RequestHandler();
+
+            //creating request parameters
+            HashMap<String, String> params = new HashMap<>();
+
+            //returing the response
+            return requestHandler.sendPostRequest(URLs.URL_WINNER, params);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //displaying the progress bar while user registers on the server
+            // notification_progress.setVisibility(View.VISIBLE);
+
+           // participationArrayList.clear();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //hiding the progressbar after completion
+            //notification_progress.setVisibility(View.GONE);
+
+            try {
+                //converting response to json object
+                JSONObject obj = new JSONObject(s);
+                //if no error in response
+                if (!obj.getBoolean("error")) {
+                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    JSONArray jsonArray = obj.getJSONArray("participation");
+                    Log.e("parti" , ".."+jsonArray.length());
+
+                    for (int i = 0 ; i<jsonArray.length() ; i++)
+                    {
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        Participation n = new Participation();
+                        Log.e("parti" , ".."+object.getString("competition"));
+                        n.setCompetition(object.getString("competition"));
+                        n.setCompetitionLevel(object.getString("competition_level"));
+                        n.setId(object.getString("id"));
+                        n.setImage(object.getString("image"));
+                        n.setName(object.getString("name"));
+                        n.setResultStatus(object.getString("result_status"));
+                        participationArrayList.add(n);
+                    }
+                    winnersAdapter = new WinnerAdapter1(getActivity(),participationArrayList);
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+                    recylerview.setLayoutManager(mLayoutManager);
+                    recylerview.setItemAnimator(new DefaultItemAnimator());
+                    recylerview.setAdapter(adapter);
+
+                } else {
+                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

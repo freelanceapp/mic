@@ -9,4 +9,5 @@ public class URLs {
     public static final String URL_EVENT = "http://www.onlinemic.in/admere/api/events.php";
     public static final String URL_RATING = "http://www.onlinemic.in/admere/api/select-ranking.php";
     public static final String URL_VIRSION = "http://www.onlinemic.in/admere/api/check-version.php";
+    public static final String URL_WINNER = "http://onlinemic.in/admin/api/winner.php";
 }
