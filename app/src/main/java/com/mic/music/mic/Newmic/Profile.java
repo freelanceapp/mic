@@ -178,6 +178,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 email.setFocusable(false);
                                 btnVarify.setClickable(false);
                             } else {
+                                btnVarify.setText("Verify");
                             }
                         }
                        // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
@@ -224,7 +225,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btnAudio:
                 btnAudio.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnVideo.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                btnVideo.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
                 adapter = new MyVideoAdapter(mContext, audioList, this);
                 RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
                 recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
@@ -235,7 +236,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btnVideo:
                 btnVideo.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnAudio.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                btnAudio.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
                 adapter = new MyVideoAdapter(mContext, videoList, this);
                 RecyclerView.LayoutManager recyclerViewLayoutManager1 = new GridLayoutManager(mContext, 2);
                 recylerviewgrid.setLayoutManager(recyclerViewLayoutManager1);
@@ -257,10 +258,10 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(email.getText().toString()), new WebResponse() {
+            RetrofitService.getEmaillogin(new Dialog(mContext), retrofitApiClient.getLogin1(email.getText().toString()), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
-                    LoginModel1 loginModal = (LoginModel1) result.body();
+                    LoginModel loginModal = (LoginModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -314,7 +315,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     OtpModel loginModal = (OtpModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        btnVarify.setText("Verified");
+                         btnVarify.setText("Verified");
                         email.setFocusable(false);
                         btnVarify.setClickable(false);
                     } else {

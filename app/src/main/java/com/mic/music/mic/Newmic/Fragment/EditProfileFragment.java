@@ -76,7 +76,7 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class EditProfileFragment extends BaseFragment implements View.OnClickListener , AdapterView.OnItemClickListener{
    private View view;
-    EditText user_name, user_email, user_phone, user_address , spinner_city,et_home_fr,et_city_fr,et_state_fr;
+    EditText user_name, user_email, user_phone, user_address , spinner_city,et_home_fr,et_country_fr,et_state_fr, et_city_fr;
     RadioGroup rgGendar,rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -126,9 +126,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     public void init()
     {
 
-        et_home_fr = view.findViewById(R.id.et_home_fr);
+     //   et_home_fr = view.findViewById(R.id.et_home_fr);
+        et_country_fr = view.findViewById(R.id.et_country_fr);
+        et_state_fr = view.findViewById(R.id.et_st_fr);
         et_city_fr = view.findViewById(R.id.et_city_fr);
-        et_state_fr = view.findViewById(R.id.et_home_fr);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = view.findViewById(R.id.user_name1);
@@ -142,12 +143,12 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         show_calender = view.findViewById(R.id.show_calender);
         select_birth = view.findViewById(R.id.select_birth);
         tvLocateMe = view.findViewById(R.id.tvLocateMe);
-       // spinner_city = view.findViewById(R.id.spinner_city1);
+         spinner_city = view.findViewById(R.id.spinner_city1);
         rd_school = view.findViewById(R.id.rd_school);
         rd_college = view.findViewById(R.id.rd_college);
         rd_other = view.findViewById(R.id.rd_other);
         rd_work = view.findViewById(R.id.rd_work);
-
+        user_email.setFocusable(false);
 
         profileApi();
 
@@ -191,7 +192,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     emailVarificationBtn.setVisibility(View.GONE);
 
                 }else {
-                    emailVarificationBtn.setVisibility(View.VISIBLE);
+                 //   emailVarificationBtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -205,7 +206,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         emailVarificationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getEmail();
+                //getEmail();
             }
         });
 
@@ -246,7 +247,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 getTextUpdate();
-                api();
+                //api();
             }
         });
 
@@ -254,10 +255,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getlogin(new Dialog(mContext), retrofitApiClient.getLogin(userEmail), new WebResponse() {
+            RetrofitService.getEmaillogin(new Dialog(mContext), retrofitApiClient.getLogin1(userEmail), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
-                    LoginModel1 loginModal = (LoginModel1) result.body();
+                    LoginModel loginModal = (LoginModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -394,7 +395,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         public void handleMessage(Message message) {
             String locationAddress;
             String city;
-            String contry;
+            String contry = null;
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
@@ -407,11 +408,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     city = null;
             }
             user_address.setText(locationAddress);
-            spinner_city.setText(city);
+            et_city_fr.setText(city);
+            et_country_fr.setText(contry);
         }
     }
-
-
 
     /*
      * Capture image
@@ -519,15 +519,16 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     UserProfileModel loginModal = (UserProfileModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                      //  Alerts.show(mContext, loginModal.getMessage());
                         user_name.setText(loginModal.getUser().getParticipantName());
                         user_email.setText(loginModal.getUser().getParticipantEmail());
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
                         user_address.setText(loginModal.getUser().getParticipantAddress());
-                        et_home_fr.setText(loginModal.getUser().getParticipantAddress());
+                       // et_home_fr.setText(loginModal.getUser().getParticipantAddress());
                         et_city_fr.setText(loginModal.getUser().getParticipantCity());
                         et_state_fr.setText(loginModal.getUser().getParticipantState());
+                        et_country_fr.setText(loginModal.getUser().getParticipantCountry());
                        /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))
                         {
                             user_email.setError("Please varified Email Id");
@@ -571,7 +572,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
-                        Alerts.show(mContext, loginModal.getMessage());
+                       // Alerts.show(mContext, loginModal.getMessage());
 
                     }
 
@@ -607,6 +608,9 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         assert loginModal != null;
                         if (!loginModal.getError()) {
                             Alerts.show(mContext, loginModal.getMessage());
+                            Intent intent = new Intent(mContext, HomeActivity.class);
+                            mContext.startActivity(intent);
+                            getActivity().finish();
                         } else {
                             Alerts.show(mContext, loginModal.getMessage());
                         }

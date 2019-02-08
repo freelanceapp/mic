@@ -84,7 +84,7 @@ public class RecentNotificationFragment extends Fragment {
                 //if no error in response
                 if (!obj.getBoolean("error")) {
 
-                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray = obj.getJSONArray("notification");
                     for (int i = 0 ; i<jsonArray.length() ; i++)
                     {

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.mic.music.mic.Api.AndroidMultiPartEntity;
+import com.mic.music.mic.AudioUpload.AudioRecordActivity;
+import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.Notification.Config;
 import com.mic.music.mic.R;
 import com.mic.music.mic.Responce.VideoResponce;
@@ -175,12 +178,16 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                         Log.e("url", ".. " + responseBody.getMessage());
                         Log.e("url", ".. " + responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-
+                        Intent intent = new Intent(UploadVideoActivity.this , HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         //finish();
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-
+                        Intent intent = new Intent(UploadVideoActivity.this , HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }
 

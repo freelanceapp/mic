@@ -188,7 +188,7 @@ public class SplashScreen extends BaseActivity {
                     AppVersion loginModal = (AppVersion) result.body();
                     assert loginModal != null;
                     if (loginModal.getVersion().equals("1")) {
-                        Alerts.show(mContext, loginModal.getVersion());
+                       // Alerts.show(mContext, loginModal.getVersion());
                     } else {
                         Alerts.show(mContext, "Update App");
                     }

@@ -88,7 +88,9 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
 
         tokenApi();
         fragment = new AudioVedio();
-        loadFragment(fragment);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.commit();
 
         itemCycleMenuWidget = findViewById(R.id.itemCycleMenuWidget);
         itemCycleMenuWidget.setMenuRes(R.menu.cycle_menu);
@@ -139,7 +141,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.notification:
-                fragment = new AllNotificationFragment();
+                fragment = new NotificationFragment();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 ButtonSound.getInstance().vibration(mContext);

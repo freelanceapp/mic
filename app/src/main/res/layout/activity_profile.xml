@@ -103,9 +103,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="varified"
                             android:background="@drawable/btn_color1"
                             android:textColor="@color/yellow"
+                            android:text="Verify"
                             android:paddingLeft="6dp"
                             android:textSize="12sp"
                             android:paddingTop="2dp"
@@ -149,6 +149,7 @@
                 android:weightSum="2">
 
                 <ImageView
+                    android:tint="@color/white"
                     android:id="@+id/btnAudio"
                     android:layout_width="30dp"
                     android:layout_height="30dp"

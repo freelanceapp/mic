@@ -2,6 +2,7 @@ package com.mic.music.mic.Newmic.Fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class AllNotificationFragment extends BaseFragment {
     RecyclerView all_list;
     ArrayList<Notification> notifications = new ArrayList<>();
     NotificationAdapter adapter;
+    private SharedPreferences sharedPreferences;
 
     public AllNotificationFragment() {
         // Required empty public constructor
@@ -57,15 +59,14 @@ public class AllNotificationFragment extends BaseFragment {
         notificationUser.execute();
         return view;
     }
+
     class NotificationUser extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... voids) {
             //creating request handler object
             RequestHandler requestHandler = new RequestHandler();
-
             //creating request parameters
             HashMap<String, String> params = new HashMap<>();
-
             //returing the response
             return requestHandler.sendPostRequest(URLs.URL_NOTIFICATION, params);
         }
@@ -89,12 +90,14 @@ public class AllNotificationFragment extends BaseFragment {
                 //if no error in response
                 if (!obj.getBoolean("error")) {
 
-                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray = obj.getJSONArray("notification");
                     for (int i = 0 ; i<jsonArray.length() ; i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
                         Notification n = new Notification();
+
+
                         n.setNotificationTitle(object.getString("notification_title"));
                         n.setNotificationMessage(object.getString("notification_message"));
                         notifications.add(n);
@@ -105,6 +108,7 @@ public class AllNotificationFragment extends BaseFragment {
                     all_list.setLayoutManager(mLayoutManager);
                     all_list.setItemAnimator(new DefaultItemAnimator());
                     all_list.setAdapter(adapter);
+
 
                 } else {
                     Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();

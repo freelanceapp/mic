@@ -22,11 +22,11 @@ public class OurTeam extends AppCompatActivity {
         imgrohitprakash = findViewById(R.id.img_rohit_prakash_prit);
         imgakansha = findViewById(R.id.img_akansha_agarwalla);
 
-        Picasso.get().load("http://onlinemic.in/images/Ritesh1.jpg").into(imgriteshanand);
+      /*  Picasso.get().load("http://onlinemic.in/images/Ritesh1.jpg").into(imgriteshanand);
         Picasso.get().load("http://onlinemic.in/images/Rita.jpg").into(imgrita);
         Picasso.get().load("http://onlinemic.in/images/Sneha.jpg").into(imgsneha);
         Picasso.get().load("http://onlinemic.in/images/Rohit Prakash.jpg").into(imgrohitprakash);
         Picasso.get().load("http://onlinemic.in/images/Akansha.jpg").into(imgakansha);
-
+*/
     }
 }

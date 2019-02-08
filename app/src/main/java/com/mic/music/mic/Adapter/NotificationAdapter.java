@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,9 +68,7 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_notification, parent, false);
-
         ViewHolder viewHolder1 = new ViewHolder(view);
 
         return viewHolder1;
@@ -77,11 +76,12 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
 
     @Override
     public void onBindViewHolder(final ViewHolder Vholder, final int position) {
-
-        Vholder.title_tv.setText(notificationArrayList.get(position).getNotificationTitle());
-        Vholder.discription_tv.setText(notificationArrayList.get(position).getNotificationMessage());
+        Notification notification = notificationArrayList.get(position);
+        Vholder.title_tv.setText(notification.getNotificationTitle());
+        Vholder.discription_tv.setText(notification.getNotificationMessage());
 
     }
+
 
     @Override
     public int getItemCount() {

@@ -3,6 +3,7 @@ package com.mic.music.mic.AudioUpload;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.R;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
@@ -327,6 +329,9 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                         Log.e("url", ".. "+ responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        Intent intent = new Intent(AudioRecordActivity.this , HomeActivity.class);
+                        startActivity(intent);
+                        finish();
 
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
@@ -353,7 +358,8 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
     public void onProgressUpdate(int percentage) {
         tvCount.setVisibility(View.VISIBLE);
         tvCount.setText(""+percentage);
-        if (tvCount.getText().equals("99"))
+        int val = Integer.parseInt(tvCount.getText().toString());
+        if (val > 90 && val <100 )
         {
             tvCount.setText("Finish");
         }else {

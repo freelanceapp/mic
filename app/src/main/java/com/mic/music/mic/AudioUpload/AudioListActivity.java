@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 
 import com.mic.music.mic.Adapter.AudioListAdapter;
 import com.mic.music.mic.Adapter.EventAdapter;
+import com.mic.music.mic.Newmic.Activity.HomeActivity;
 import com.mic.music.mic.R;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
@@ -264,6 +266,9 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
                         Log.e("url", ".. "+ responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        Intent intent = new Intent(AudioListActivity.this , HomeActivity.class);
+                        startActivity(intent);
+                        finish();
 
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
@@ -290,7 +295,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onProgressUpdate(int percentage) {
 
-      // Log.e("Loading..."," "+percentage);
+
 
     }
 
