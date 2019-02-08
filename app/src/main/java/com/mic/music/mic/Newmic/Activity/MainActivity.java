@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
     CircleImageView profile;
-    EditText user_name, user_email, user_phone, user_address,et_home_ma,et_country_ma,et_state_ma;
+    EditText user_name, user_email, user_phone, user_address,et_city,et_country_ma,et_state_ma;
     RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
     private String mobileNumber1;
-    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,userhomeadd,usercityadd,userstateadd;
+    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,usercity,usercountry,userstateadd;
 
     private CheckBox checkbox_termconditon;
     private boolean check = false;
@@ -138,9 +138,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void init() {
 
        // et_home_ma = findViewById(R.id.et_home_add);
+
         checkbox_termconditon = findViewById(R.id.checkbox_condition);
         checkbox_termconditon.setOnClickListener(this);
 
+        et_city = findViewById(R.id.et_city_add);
         et_country_ma = findViewById(R.id.et_coutnry_add);
         et_state_ma = findViewById(R.id.et_state_add);
         tvLocateMe = findViewById(R.id.tvLocateMe);
@@ -568,7 +570,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         userDOB = select_birth.getText().toString();
         userAddress = user_address.getText().toString();
       //  userhomeadd  = et_home_ma.getText().toString();
-        usercityadd = et_country_ma.getText().toString();
+        usercity = et_city.getText().toString();
+        usercountry = et_country_ma.getText().toString();
         userstateadd = et_state_ma.getText().toString();
        // String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
       //  String strSplit[] = strCityStateCountry.split(",");
@@ -582,8 +585,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             if (cd.isNetworkAvailable()) {
                 RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(
-                        userName, userEmail, userGender, userId, userDOB,userPhone, userOrgnisation, userhomeadd,
-                        usercityadd, userstateadd), new WebResponse() {
+                        userName, userEmail, userGender, userId, userDOB,userPhone, userOrgnisation,usercity ,
+                        usercountry, userstateadd), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();

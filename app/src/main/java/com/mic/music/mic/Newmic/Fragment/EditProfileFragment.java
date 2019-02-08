@@ -76,7 +76,7 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class EditProfileFragment extends BaseFragment implements View.OnClickListener , AdapterView.OnItemClickListener{
    private View view;
-    EditText user_name, user_email, user_phone, user_address , spinner_city,et_home_fr,et_country_fr,et_state_fr;
+    EditText user_name, user_email, user_phone, user_address , spinner_city,et_city_fr,et_country_fr,et_state_fr;
     RadioGroup rgGendar,rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -127,6 +127,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     {
 
      //   et_home_fr = view.findViewById(R.id.et_home_fr);
+        et_city_fr = view.findViewById(R.id.et_city_fr);
         et_country_fr = view.findViewById(R.id.et_country_fr);
         et_state_fr = view.findViewById(R.id.et_st_fr);
 
@@ -525,7 +526,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
                         user_address.setText(loginModal.getUser().getParticipantAddress());
-                       // et_home_fr.setText(loginModal.getUser().getParticipantAddress());
+                       et_city_fr.setText(loginModal.getUser().getParticipantCity());
                         et_state_fr.setText(loginModal.getUser().getParticipantState());
                         et_country_fr.setText(loginModal.getUser().getParticipantCountry());
                        /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))

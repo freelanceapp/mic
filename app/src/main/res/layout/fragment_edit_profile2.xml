@@ -127,6 +127,12 @@
                         android:layout_toRightOf="@id/emailpic"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                     <Button
                         android:id="@+id/emailVarificationBtn"
                         android:layout_width="wrap_content"
@@ -322,15 +328,15 @@
                     android:layout_marginLeft="6dp"
                     android:layout_toRightOf="@+id/location_icon"
                     android:gravity="center"
-                    android:text="State"
+                    android:text="City"
                     android:textColor="@color/yellow"
                     android:textSize="16sp" />
                 <EditText
                     android:maxLines="1"
                     android:id="@+id/et_city_fr"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="40dp"
                     android:textColorHint="@color/colorGray"
-                    android:hint="State"
+                    android:hint="City"
                     android:textColor="@color/yellow"
                     android:padding="6dp"
                     android:background="@drawable/layout_back_b"
@@ -366,7 +372,7 @@
                 <EditText
                     android:maxLines="1"
                     android:id="@+id/et_st_fr"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="30dp"
                     android:textColorHint="@color/colorGray"
                     android:hint="State"
                     android:textColor="@color/yellow"
