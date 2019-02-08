@@ -33,8 +33,8 @@ public class RetrofitService {
 
     public static RetrofitApiClient client;
     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.MINUTES)
-            .connectTimeout(10, TimeUnit.MINUTES)
+            .readTimeout(100, TimeUnit.MINUTES)
+            .connectTimeout(100, TimeUnit.MINUTES)
             .build();
 
     public RetrofitService() {

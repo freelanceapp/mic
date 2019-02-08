@@ -26,6 +26,7 @@ import com.mic.music.mic.AudioUpload.AudioRecordActivity;
 import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
 import com.mic.music.mic.Newmic.Adapter.WinnersAdapter;
 import com.mic.music.mic.R;
+import com.mic.music.mic.VideoRecord.RecordCompressActivity;
 import com.mic.music.mic.VideoRecord.SelectPictureActivity;
 import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
@@ -226,7 +227,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
 
                 if (radioVideoButton.getText().equals("Record Video")) {
-                    Intent intent = new Intent(mContext, VideoRecordActivity.class);
+                    Intent intent = new Intent(mContext, RecordCompressActivity.class);
                     mContext.startActivity(intent);
                 } else if (radioVideoButton.getText().equals("Upload Video")) {
                     Intent intent = new Intent(mContext, VideoFolder.class);

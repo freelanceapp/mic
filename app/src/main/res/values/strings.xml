@@ -9,7 +9,8 @@
     <string name="choose_a_pic">Choose a picture</string>
     <string name="video_is_being_compress">Compression of the video is in progress</string>
     <string name="video_compression_complete">Video Compression Complete</string>
-
+    <string name="select_file">Select file</string>
+    <string name="compress_video">Compress video</string>
     <string name="checkbox_text">I agree to Terms of Use and Policies of the Online Signing Competition - MIC.</string>
     <string name="name_hint">(The name you entered will not be Changed throughout the competition)</string>
     <string name="email_hin">(This mail ID will be used to retrieve your account and for alternate signin)</string>

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mic.music.mic.R;
+import com.mic.music.mic.VideoRecord.RecordCompressActivity;
 import com.mic.music.mic.VideoRecord.VideoRecordActivity;
 import com.mic.music.mic.VideoUpload.VideoFolder;
 
@@ -41,7 +42,7 @@ public class HomeFragment extends Fragment {
         record_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),VideoRecordActivity.class);
+                Intent intent = new Intent(getActivity(), RecordCompressActivity.class);
                 startActivity(intent);
             }
         });

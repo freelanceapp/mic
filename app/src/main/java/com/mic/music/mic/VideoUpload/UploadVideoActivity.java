@@ -1,13 +1,18 @@
 package com.mic.music.mic.VideoUpload;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.mic.music.mic.Api.AndroidMultiPartEntity;
+import com.mic.music.mic.Notification.Config;
 import com.mic.music.mic.R;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
@@ -31,7 +38,20 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import org.apache.http.HttpConnection;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import java.io.File;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -83,6 +103,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                     //compressVideo(video1);
                     // ApiCallkyc();
                     newPostFeedApi(video1);
+                   // new UploadFileToServer().execute();
                 } else {
                     Toast.makeText(UploadVideoActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
@@ -218,4 +239,114 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
     public static Locale getSystemLocale(Configuration config) {
         return config.getLocales().get(0);
     }
+
+
+
+
+    /**
+     * Uploading the file to server
+     * */
+    private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
+        String strId = user_id;
+        String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
+        String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
+        @Override
+        protected void onPreExecute() {
+            // setting progress bar to zero
+            progressBar.setProgress(0);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            // Making progress bar visible
+            progressBar.setVisibility(View.VISIBLE);
+
+            // updating progress bar value
+            progressBar.setProgress(progress[0]);
+
+            // updating percentage value
+            txtPercentage.setText(String.valueOf(progress[0]) + "%");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return uploadFile();
+        }
+
+        @SuppressWarnings("deprecation")
+        private String uploadFile() {
+            String responseString = null;
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(Constant.FILE_UPLOAD1);
+
+            try {
+                AndroidMultiPartEntity entity = new AndroidMultiPartEntity(new AndroidMultiPartEntity.ProgressListener() {
+                    @Override
+                    public void transferred(long num) {
+                        publishProgress((int) ((num / (float) totalSize) * 100));
+                            }
+                        });
+
+                File sourceFile = new File(video1);
+                // Adding file data to http body
+                entity.addPart("competition", new StringBody(strCompanyId));
+                entity.addPart("competition_level", new StringBody(strLevelId));
+                entity.addPart("participant", new StringBody(user_id));
+                entity.addPart("type", new StringBody("video"));
+                entity.addPart("file", new FileBody(sourceFile));
+
+                totalSize = entity.getContentLength();
+                httppost.setEntity(entity);
+
+                // Making server call
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity r_entity = response.getEntity();
+
+                int statusCode = response.getStatusLine().getStatusCode();
+                Log.e("Responce", "..."+response.toString());
+                if (statusCode == 200) {
+                    // Server response
+                    responseString = EntityUtils.toString(r_entity);
+                } else {
+                    responseString = "Error occurred! Http Status Code: " + statusCode;
+                }
+
+            } catch (ClientProtocolException e) {
+                responseString = e.toString();
+            } catch (IOException e) {
+                responseString = e.toString();
+            }
+            return responseString;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("Upload", "Response from server: " + result);
+
+            // showing the server response in an alert dialog
+            showAlert(result);
+
+            super.onPostExecute(result);
+        }
+
+    }
+
+    /**
+     * Method to show alert dialog
+     * */
+    private void showAlert(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setTitle("Response from Servers")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // do nothing
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }

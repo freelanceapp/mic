@@ -150,8 +150,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
       //  tvLocateMe = findViewById(R.id.tvLocateMe);
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
-
-        tvLocateMe.setOnClickListener(new View.OnClickListener() {
+        setDateTimeField();
+        /*tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Location location = appLocationService.getLocation(LocationManager.GPS_PROVIDER);
@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
 
             }
-        });
+        });*/
 
         emailVarificationBtn.setOnClickListener(new View.OnClickListener() {
             @Override

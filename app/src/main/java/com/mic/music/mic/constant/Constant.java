@@ -22,6 +22,7 @@ public class Constant {
     public static final String USER_PARTICIPATION = "api/user-participation.php";
     public static final String SELECT_PARTICIPATION = "api/select-participation.php";
     public static final String FILE_UPLOAD = "api/user-content-upload.php";
+    public static final String FILE_UPLOAD1 = "http://onlinemic.in/admin/api/user-content-upload.php";
     public static final String FAQ = "api/select-faq.php";
     public static final String SUPPORT = "api/user-support.php";
     public static final String VIDEO_URL = "http://onlinemic.in/images/video/";
