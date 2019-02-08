@@ -48,13 +48,14 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/tv_country_code"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="+91"
-                android:textColor="@color/white"
+                android:textColor="@color/yellow"
                 android:textSize="18dp" />
 
             <EditText

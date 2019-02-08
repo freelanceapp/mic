@@ -60,29 +60,31 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvCompetitionName, tvCompetitionDetail, tvExpDate, tvCompetitionLevelDetail;
         public ImageView imgArrowA;
-        public LinearLayout competitionll;
+        public LinearLayout competitionll,ll_rclv_competitions;
         protected RecyclerView recycler_view_list;
 
         public ViewHolder(View v) {
             super(v);
             this.recycler_view_list = (RecyclerView) v.findViewById(R.id.recycler_view_list);
+
+            ll_rclv_competitions = (LinearLayout) v.findViewById(R.id.ll_rclv_competition);
             tvCompetitionName = (TextView) v.findViewById(R.id.tvCompetitionName);
             tvCompetitionDetail = (TextView) v.findViewById(R.id.tvCompetitionDetail);
             tvExpDate = (TextView) v.findViewById(R.id.tvExpDate);
             tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
             imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
             competitionll = (LinearLayout) v.findViewById(R.id.competitionll);
-            ((RelativeLayout) v.findViewById(R.id.rl_competitions_list)).setOnClickListener(new View.OnClickListener() {
+            ll_rclv_competitions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (num1 == 0) {
-                        competitionll.setVisibility(View.VISIBLE);
-                        num1 = 1;
-                        imgArrowA.setImageResource(R.drawable.ic_open);
-                    } else {
                         competitionll.setVisibility(View.GONE);
-                        num1 = 0;
+                        num1 = 1;
                         imgArrowA.setImageResource(R.drawable.ic_close);
+                    } else {
+                        competitionll.setVisibility(View.VISIBLE);
+                        num1 = 0;
+                        imgArrowA.setImageResource(R.drawable.ic_open);
                     }
                 }
             });

@@ -428,7 +428,7 @@
                     android:layout_marginLeft="30dp"
                     android:textColorHint="@color/colorGray"
                     android:hint="State"
-                    android:textColor="@color/white"
+                    android:textColor="@color/yellow"
                     android:padding="6dp"
                     android:background="@drawable/layout_back_b"
                     android:layout_width="match_parent"
@@ -462,7 +462,7 @@
                     android:layout_marginLeft="40dp"
                     android:textColorHint="@color/colorGray"
                     android:hint="Country"
-                    android:textColor="@color/white"
+                    android:textColor="@color/yellow"
                     android:padding="6dp"
                     android:background="@drawable/layout_back_b"
                     android:layout_width="match_parent"
@@ -595,13 +595,12 @@
 
 
             <CheckBox
-                android:id="@+id/checkbox_chek"
+                android:id="@+id/checkbox_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
                 android:backgroundTint="@color/yellow"
                 android:buttonTint="@color/yellow"
-                android:checked="true"
                 android:gravity="start"
                 android:text="@string/checkbox_text"
                 android:textAlignment="viewStart"

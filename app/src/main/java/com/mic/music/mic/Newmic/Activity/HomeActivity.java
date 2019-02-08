@@ -139,7 +139,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 ButtonSound.getInstance().vibration(mContext);
                 break;
             case R.id.notification:
-                fragment = new AllNotificationFragment();
+                fragment = new NotificationFragment();
                 loadFragment(fragment);
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 ButtonSound.getInstance().vibration(mContext);

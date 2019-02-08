@@ -29,6 +29,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filter;
@@ -81,6 +83,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 
+import static android.widget.Toast.*;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "MainActivity";
@@ -113,6 +117,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private String mobileNumber1;
     private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,userhomeadd,usercityadd,userstateadd;
 
+    private CheckBox checkbox_termconditon;
+    private boolean check = false;
+   private String strchecked = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +138,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void init() {
 
        // et_home_ma = findViewById(R.id.et_home_add);
+        checkbox_termconditon = findViewById(R.id.checkbox_condition);
+        checkbox_termconditon.setOnClickListener(this);
+
         et_country_ma = findViewById(R.id.et_coutnry_add);
         et_state_ma = findViewById(R.id.et_state_add);
         tvLocateMe = findViewById(R.id.tvLocateMe);
@@ -143,6 +154,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         user_phone = findViewById(R.id.user_phone);
        user_address = findViewById(R.id.user_loaction);
         submitbutton = findViewById(R.id.submit_button);
+        submitbutton.setOnClickListener(this);
         profile = findViewById(R.id.user_profile);
         rgGendar = findViewById(R.id.rgGendar);
         rgOrganisation = findViewById(R.id.rgOrganisation);
@@ -153,6 +165,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         user_phone.setText(mobileNumber1);
 
         setDateTimeField();
+
+        checkbox_termconditon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked == true)
+                {
+                     strchecked = "1";
+                }else {
+                    strchecked = "0";
+                }
+            }
+        });
+        submitbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (strchecked.equals("0")){
+                    Toast.makeText(mContext,"Check please Terms and Condition" , Toast.LENGTH_SHORT).show();
+                }else{
+                    api();
+                    getTextUpdate();
+                }
+            }
+        });
 
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,14 +253,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             }
         });
 
-        submitbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                api();
-                getTextUpdate();
-            }
-        });
-
         user_email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -266,7 +293,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     public void onItemClick(AdapterView adapterView, View view, int position, long id) {
         String str = (String) adapterView.getItemAtPosition(position);
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+        makeText(this, str, LENGTH_SHORT).show();
     }
 
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
@@ -311,7 +338,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
-        fromDatePickerDialog.show();
+     //   fromDatePickerDialog.show();
+
+        switch (view.getId()){
+           /* case R.id.checkbox_condition:
+                if (((CheckBox)view).isChecked()){
+                        check = true;
+                    Toast.makeText(this,"Checked",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    check = false;
+                    Toast.makeText(this,"Unchacked",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.submit_button:
+                if (((CheckBox)view).isChecked()){
+                    check = true;
+                    api();
+                    getTextUpdate();
+                }else{
+                    check = false;
+                    checkbox_termconditon.isChecked();
+                    Toast.makeText(MainActivity.this,"Please check terms and condition",Toast.LENGTH_SHORT).show();
+                }
+                break;*/
+        }
     }
 
     /*
@@ -368,12 +419,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
-                    Toast.makeText(mContext, "Image Saved!", Toast.LENGTH_SHORT).show();
+                    makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
                     profile.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
+                    makeText(mContext, "Failed!", LENGTH_SHORT).show();
                 }
             }
 
@@ -381,7 +432,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             profile.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(mContext, "Image Saved!", Toast.LENGTH_SHORT).show();
+            makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
         }
     }
 
@@ -415,7 +466,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void api() {
         //String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         if (file == null) {
-            Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
+            makeText(mContext, "Please select Image", LENGTH_LONG).show();
         } else {
             if (cd.isNetworkAvailable()) {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);

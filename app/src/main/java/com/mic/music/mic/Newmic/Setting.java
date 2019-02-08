@@ -120,9 +120,10 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         btnyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+               AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
                 Intent intent = new Intent(mContext,Mobile_Ragistration.class);
                 startActivity(intent);
+                getActivity().finish();
                 dialog.dismiss();
             }
         });

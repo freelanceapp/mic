@@ -241,7 +241,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btnAudio:
                 btnAudio.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnVideo.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                btnVideo.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
                 adapter = new MyVideoAdapter(mContext, audioList, this);
                 RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
                 recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
@@ -252,7 +252,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btnVideo:
                 btnVideo.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnAudio.setImageTintList(ColorStateList.valueOf(Color.YELLOW));
+                btnAudio.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
                 adapter = new MyVideoAdapter(mContext, videoList, this);
                 RecyclerView.LayoutManager recyclerViewLayoutManager1 = new GridLayoutManager(mContext, 2);
                 recylerviewgrid.setLayoutManager(recyclerViewLayoutManager1);
@@ -261,7 +261,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                 break;
             case R.id.btnVarify :
-                getEmail();
+                //getEmail();
                 break;
             case R.id.logoutBtn :
                 AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
@@ -331,7 +331,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     OtpModel loginModal = (OtpModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        btnVarify.setText("Verified");
+                      //  btnVarify.setText("Verified");
                         email.setFocusable(false);
                         btnVarify.setClickable(false);
                     } else {

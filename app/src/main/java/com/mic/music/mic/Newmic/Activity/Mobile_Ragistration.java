@@ -24,7 +24,7 @@ import com.mic.music.mic.utils.ConnectionDetector;
 import retrofit2.Response;
 
 public class Mobile_Ragistration extends BaseActivity {
-    private TextView loginEmail,change_emage_text;
+    private TextView loginEmail,change_emage_text,countrycode;
     private EditText etNumber, etEmail;
     private String phoneNumber = "121";
     private String emailAddress = "abc@abc.com";
@@ -47,6 +47,7 @@ public class Mobile_Ragistration extends BaseActivity {
         etEmail = (EditText)findViewById(R.id.etEmail);
         loginEmail = (TextView) findViewById(R.id.loginEmail);
         change_emage_text = findViewById(R.id.change_text_email);
+        countrycode = findViewById(R.id.tv_country_code);
 
         Button getOtp = findViewById(R.id.getopt);
         getOtp.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +78,15 @@ public class Mobile_Ragistration extends BaseActivity {
             public void onClick(View view) {
                 if (checkLogin.equals("0")) {
                     loginEmail.setText("Login with Mobile Number");
-                    change_emage_text.setText("Enter Email Address");
                     checkLogin = "1";
+                    change_emage_text.setText("Enter Email Address");
+                    countrycode.setVisibility(View.GONE);
                     etEmail.setVisibility(View.VISIBLE);
                     etNumber.setVisibility(View.GONE);
                     email1 = "1";
                 }else {
+                    change_emage_text.setText("Enter Mobile Number");
+                    countrycode.setVisibility(View.VISIBLE);
                     loginEmail.setText("Login with Email");
                     etEmail.setVisibility(View.GONE);
                     etNumber.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 package com.mic.music.mic.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,8 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment1 = new RecentNotificationFragment();
+                all_btn.setBackground(getResources().getDrawable(R.drawable.mic_background));
+                recent_btn.setBackgroundColor(Color.TRANSPARENT);
                 FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
                 fragmentManager1.beginTransaction().replace(R.id.notification_frame, fragment1).addToBackStack("0").commit();
             }
@@ -44,6 +47,8 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment1 = new AllNotificationFragment();
+                recent_btn.setBackground(getResources().getDrawable(R.drawable.mic_background));
+                all_btn.setBackgroundColor(Color.TRANSPARENT);
                 FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
                 fragmentManager1.beginTransaction().replace(R.id.notification_frame, fragment1).addToBackStack("0").commit();
             }

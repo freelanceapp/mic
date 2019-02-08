@@ -191,7 +191,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     emailVarificationBtn.setVisibility(View.GONE);
 
                 }else {
-                    emailVarificationBtn.setVisibility(View.VISIBLE);
+                 //   emailVarificationBtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -205,7 +205,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         emailVarificationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getEmail();
+                //getEmail();
             }
         });
 
