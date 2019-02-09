@@ -112,7 +112,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                     ParticipationModel loginModal = (ParticipationModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                       // Alerts.show(mContext, loginModal.getMessage());
                         participationArrayList.addAll(loginModal.getParticipation());
 
                     } else {
@@ -235,6 +235,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 }
                 else {
                     Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
+
                 }
                 dialog.dismiss();
             }

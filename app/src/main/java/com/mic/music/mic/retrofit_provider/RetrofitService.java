@@ -330,6 +330,29 @@ public class RetrofitService {
         });
     }
 
+
+    //app resend number
+    public static void getResendMobile(final Dialog dialog, final Call<LoginModel1> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<LoginModel1>() {
+            @Override
+            public void onResponse(Call<LoginModel1> call, Response<LoginModel1> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<LoginModel1> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
     //app login email
     public static void getEmaillogin(final Dialog dialog, final Call<LoginModel> method, final WebResponse webResponse) {
         if (dialog != null)

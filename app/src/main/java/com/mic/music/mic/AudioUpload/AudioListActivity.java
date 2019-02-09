@@ -249,7 +249,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
             RequestBody level = RequestBody.create(MediaType.parse("text/plain"), strLevelId);
             RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), strId);
             RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "audio");
-            ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
+            ProgressRequestBody fileBody = new ProgressRequestBody(file, "*/*", this);
             MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
             progressBar.setMessage("Uploading...");

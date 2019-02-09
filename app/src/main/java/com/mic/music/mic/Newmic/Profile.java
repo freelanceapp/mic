@@ -57,6 +57,7 @@ import com.mic.music.mic.utils.Alerts;
 import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
+import com.mic.music.mic.utils.MyStringRandomGen;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Response;
 
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
+import static com.mic.music.mic.constant.Constant.AUDIO_URL;
 import static com.mic.music.mic.constant.Constant.VIDEO_URL;
 
 public class Profile extends BaseFragment implements View.OnClickListener {
@@ -81,9 +83,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     ArrayList<CompetitionContent> allAudioVideoList = new ArrayList<>();
     ArrayList<CompetitionContent> videoList = new ArrayList<>();
     ArrayList<CompetitionContent> audioList = new ArrayList<>();
-    RecyclerView recylerviewgrid;
+    RecyclerView recylerviewgrid, recylerviewvideo;
     TextView btnVarify;
     String emailOtp1;
+    MediaPlayer mPlayer;
+    MyStringRandomGen myStringRandomGen;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +109,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     }
 
     private void init() {
-
+        myStringRandomGen = new MyStringRandomGen();
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         mContext.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
@@ -114,6 +118,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         contact = (TextView) rootView.findViewById(R.id.contact);
         circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
         recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
+        recylerviewvideo = (RecyclerView) rootView.findViewById(R.id.recylerviewvideo);
         btnAudio = (ImageView) rootView.findViewById(R.id.btnAudio);
         btnVideo = (ImageView) rootView.findViewById(R.id.btnVideo);
         logoutBtn = (ImageView) rootView.findViewById(R.id.logoutBtn);
@@ -142,8 +147,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         adapter = new MyVideoAdapter(mContext, competitionContentArrayList, this);
         RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
         recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
-        /*RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recylerviewgrid.setLayoutManager(mLayoutManager);*/
         recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
         recylerviewgrid.setAdapter(adapter);
     }
@@ -218,31 +221,29 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.videoBtn:
                 int pos = Integer.parseInt(view.getTag().toString());
-                String url = VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
-                Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
-                showDialog(url);
-                //getSongUrl(url);
+                String forment1 = competitionContentArrayList.get(pos).getCompetitionContentType();
+                Log.e("format", "..."+forment1);
+                if (forment1.equals("audio")) {
+                    String url = Constant.AUDIO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
+                    Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
+                    getSongUrl(url);
+                }else {
+                    String url = Constant.VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
+                    Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
+                    getSongUrl(url);
+                }
+
                 break;
             case R.id.btnAudio:
-                btnAudio.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnVideo.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
-                adapter = new MyVideoAdapter(mContext, audioList, this);
-                RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
-                recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
-                recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
-                recylerviewgrid.setAdapter(adapter);
-
-              //  ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + audioList.size() + " " + "audios");
+                competitionContentArrayList.clear();
+                competitionContentArrayList.addAll(audioList);
+                adapter.notifyDataSetChanged();
                 break;
             case R.id.btnVideo:
-                btnVideo.setImageTintList(ColorStateList.valueOf(Color.WHITE));
-                btnAudio.setImageTintList(ColorStateList.valueOf(Color.parseColor("#f3C800")));
-                adapter = new MyVideoAdapter(mContext, videoList, this);
-                RecyclerView.LayoutManager recyclerViewLayoutManager1 = new GridLayoutManager(mContext, 2);
-                recylerviewgrid.setLayoutManager(recyclerViewLayoutManager1);
-                recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
-                recylerviewgrid.setAdapter(adapter);
-               // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
+                competitionContentArrayList.clear();
+                competitionContentArrayList.addAll(videoList);
+                adapter.notifyDataSetChanged();
+
                 break;
             case R.id.btnVarify :
                 getEmail();
@@ -338,7 +339,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setContentView(R.layout.custom_video_upload);
         dialog.setCancelable(false);
 
-
         MediaController mediaController= new MediaController(mContext);
         VideoView video1 = (VideoView)dialog.findViewById(R.id.video);
         final ProgressDialog  pd = new ProgressDialog(mContext);
@@ -373,25 +373,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 pd.dismiss();
             }
         });
-        /*BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelection.Factory videoTrackSelectionFactory =
-                new AdaptiveTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
-        //Initialize the player
-        player = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
-        //Initialize simpleExoPlayerView
-        SimpleExoPlayerView simpleExoPlayerView = dialog.findViewById(R.id.video_view);
-        simpleExoPlayerView.setPlayer(player);
-        // Produces DataSource instances through which media data is loaded.
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(mContext, Util.getUserAgent(mContext, "CloudinaryExoplayer"));
-
-        // Produces Extractor instances for parsing the media data.
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
-        // This is the MediaSource representing the media to be played.
-        Uri videoUri = Uri.parse(video);
-        MediaSource videoSource = new ExtractorMediaSource(videoUri, dataSourceFactory, extractorsFactory, null, null);*/
-
 
         ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -407,16 +388,10 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     }
 
     private void initializePlayer(){
-
-
     }
-
-
-
 
     private void getSongUrl(String videourl) {
         Download_Uri = Uri.parse(videourl);
-
             downLoadManagerSong(videourl);
     }
 
@@ -437,8 +412,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         public void onReceive(Context ctxt, Intent intent) {
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             Log.e("IN", "" + referenceId);
-            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0,
-                    intent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT);
            /* list.remove(referenceId);
             if (list.isEmpty()) {
                 Log.e("INSIDE", "" + referenceId);
@@ -455,7 +429,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             Intent intent1 = new Intent(Intent.ACTION_GET_CONTENT);
             Uri uri = Uri.parse("/Download/mic/"); // a directory
             intent1.setDataAndType(uri, "*/*");
-            showNotification(intent1, "Clean Sys", "Complete");
+            showNotification(intent1, "Mic", "Complete");
 
         }
     };
@@ -464,7 +438,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     private void showNotification(Intent intent, String title, String message) {
         int notifyID = 1;
         String CHANNEL_ID = "my_channel_01";// The id of the channel.
-        CharSequence name = "Cleansys Job";// The user-visible name of the channel.
+        CharSequence name = "MIC ";// The user-visible name of the channel.
         int importance = NotificationManager.IMPORTANCE_HIGH;
 
         Notification notification;
@@ -494,7 +468,5 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             notificationManager.notify(0, notificationBuilder.build());
         }
     }
-
-
 
 }

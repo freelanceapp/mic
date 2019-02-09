@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         record_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), RecordCompressActivity.class);
+                Intent intent = new Intent(getActivity(), VideoRecordActivity.class);
                 startActivity(intent);
             }
         });

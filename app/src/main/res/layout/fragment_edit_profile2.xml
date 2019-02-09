@@ -127,6 +127,12 @@
                         android:layout_toRightOf="@id/emailpic"
                         android:textColor="@color/yellow"
                         android:textColorHint="@color/hint_color" />
+                    <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                     <Button
                         android:id="@+id/emailVarificationBtn"
                         android:layout_width="wrap_content"
@@ -285,7 +291,8 @@
                              android:layout_alignParentRight="true"
                              android:buttonTint="@color/yellow"
                              android:scaleX="0.8"
-                             android:scaleY="0.8" />
+                             android:scaleY="0.8"
+                             android:visibility="gone" />
                      </RelativeLayout>
 
                      <TextView
@@ -296,7 +303,8 @@
                          android:gravity="center"
                          android:text="Locate me"
                          android:textColor="@color/white"
-                         android:textSize="10sp" />
+                         android:textSize="10sp"
+                         android:visibility="gone"/>
 
                  </RelativeLayout>
              </RelativeLayout>
@@ -328,7 +336,7 @@
                 <EditText
                     android:maxLines="1"
                     android:id="@+id/et_city_fr"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="40dp"
                     android:textColorHint="@color/colorGray"
                     android:hint="City"
                     android:textColor="@color/yellow"
@@ -366,7 +374,7 @@
                 <EditText
                     android:maxLines="1"
                     android:id="@+id/et_st_fr"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="30dp"
                     android:textColorHint="@color/colorGray"
                     android:hint="State"
                     android:textColor="@color/yellow"

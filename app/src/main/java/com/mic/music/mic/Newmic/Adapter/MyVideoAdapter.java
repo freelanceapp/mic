@@ -49,11 +49,13 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.SingleIt
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
         CompetitionContent singleItem = itemsList.get(i);
-
-        Glide.with(mContext).load(singleItem.getCompetitionContentId()).into(holder.ivVideo);
-
+        if (singleItem.getCompetitionContentType().equals("video"))
+        {
+            holder.ivVideo.setImageResource(R.drawable.mreecrd);
+        }else {
+            holder.ivVideo.setImageResource(R.drawable.hmike);
+        }
         holder.videoBtn.setTag(i);
         holder.videoBtn.setOnClickListener(onClickListener);
     }

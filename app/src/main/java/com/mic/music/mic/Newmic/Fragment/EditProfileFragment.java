@@ -57,6 +57,7 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 import com.mic.music.mic.utils.LocationAddress;
+import com.mic.music.mic.utils.MyStringRandomGen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,12 +73,15 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
-public class EditProfileFragment extends BaseFragment implements View.OnClickListener , AdapterView.OnItemClickListener{
-   private View view;
-    EditText user_name, user_email, user_phone, user_address , spinner_city,et_home_fr,et_country_fr,et_state_fr, et_city_fr;
-    RadioGroup rgGendar,rgOrganisation;
+public class EditProfileFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+    private View view;
+    EditText user_name, user_email, user_phone, user_address, spinner_city, et_home_fr, et_country_fr, et_state_fr, et_city_fr;
+
+    RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
     private DatePickerDialog fromDatePickerDialog;
@@ -88,13 +92,15 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     TextView tvLocateMe;
     AppLocationService appLocationService;
     private String mobileNumber1;
-    private String userName,userEmail,userPhone,userOrgnisation,userAddress,userCity,userGender,userDOB;
+    private String userName, userEmail, userPhone, userOrgnisation, userAddress, userCity, userGender, userDOB;
     String emailOtp1;
     private File file;
     private int GALLERY = 1, CAMERA = 2;
     private String userChoosenTask;
     private static final String IMAGE_DIRECTORY = "/mic";
-    RadioButton rd_school,rd_college,rd_work,rd_other,rd_male,rd_female,rd_other_gender;
+    RadioButton rd_school, rd_college, rd_work, rd_other, rd_male, rd_female, rd_other_gender;
+    private String profileImage;
+    MyStringRandomGen myStringRandomGen;
     public EditProfileFragment() {
         // Required empty public constructor
     }
@@ -110,7 +116,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_edit_profile2, container, false);
+        view = inflater.inflate(R.layout.fragment_edit_profile2, container, false);
 
         mContext = getActivity();
         activity = getActivity();
@@ -123,10 +129,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         return view;
     }
 
-    public void init()
-    {
+    public void init() {
 
-     //   et_home_fr = view.findViewById(R.id.et_home_fr);
+        //   et_home_fr = view.findViewById(R.id.et_home_fr);
+        et_city_fr = view.findViewById(R.id.et_city_fr);
         et_country_fr = view.findViewById(R.id.et_country_fr);
         et_state_fr = view.findViewById(R.id.et_st_fr);
         et_city_fr = view.findViewById(R.id.et_city_fr);
@@ -143,13 +149,13 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         show_calender = view.findViewById(R.id.show_calender);
         select_birth = view.findViewById(R.id.select_birth);
         tvLocateMe = view.findViewById(R.id.tvLocateMe);
-         spinner_city = view.findViewById(R.id.spinner_city1);
+        spinner_city = view.findViewById(R.id.spinner_city1);
         rd_school = view.findViewById(R.id.rd_school);
         rd_college = view.findViewById(R.id.rd_college);
         rd_other = view.findViewById(R.id.rd_other);
         rd_work = view.findViewById(R.id.rd_work);
         user_email.setFocusable(false);
-
+        myStringRandomGen = new MyStringRandomGen();
         profileApi();
 
         setDateTimeField();
@@ -162,7 +168,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
                     LocationAddress locationAddress = new LocationAddress();
-                    locationAddress.getAddressFromLocation(latitude, longitude, mContext,new GeocoderHandler());
+                    locationAddress.getAddressFromLocation(latitude, longitude, mContext, new GeocoderHandler());
                 } else {
                     showSettingsAlert();
                 }
@@ -183,16 +189,16 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 userEmail = user_email.getText().toString();
-                if (!userEmail.matches(emailPattern))
-                {
+                if (!userEmail.matches(emailPattern)) {
                     user_email.setError("Enter Email ID");
                     emailVarificationBtn.setVisibility(View.GONE);
 
-                }else {
-                 //   emailVarificationBtn.setVisibility(View.VISIBLE);
+                } else {
+                    //   emailVarificationBtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -267,6 +273,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -279,7 +286,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public void showDialog(){
+    public void showDialog() {
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -308,7 +315,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
     private void otpVarification1() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail,"111111"), new WebResponse() {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(userEmail, "111111"), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     OtpModel loginModal = (OtpModel) result.body();
@@ -321,6 +328,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -380,7 +388,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 select_birth.setText(dateFormatter.format(newDate.getTime()));
             }
 
-        },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
 
     }
@@ -467,12 +475,12 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
-                    Toast.makeText(mContext, "Image Saved!", Toast.LENGTH_SHORT).show();
+                    makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
                     profile.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
+                    makeText(mContext, "Failed!", LENGTH_SHORT).show();
                 }
             }
 
@@ -480,7 +488,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             profile.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(mContext, "Image Saved!", Toast.LENGTH_SHORT).show();
+            //makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
         }
     }
 
@@ -495,7 +503,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             wallpaperDirectory.mkdirs();
         }
         try {
-            file = new File(wallpaperDirectory, "MustEatProfile.jpg");
+            file = new File(wallpaperDirectory, myStringRandomGen.generateRandomString()+"_MICProfile.jpg");
             file.createNewFile();
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(bytes.toByteArray());
@@ -519,16 +527,17 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     UserProfileModel loginModal = (UserProfileModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                      //  Alerts.show(mContext, loginModal.getMessage());
+                        //  Alerts.show(mContext, loginModal.getMessage());
                         user_name.setText(loginModal.getUser().getParticipantName());
                         user_email.setText(loginModal.getUser().getParticipantEmail());
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
                         user_address.setText(loginModal.getUser().getParticipantAddress());
-                       // et_home_fr.setText(loginModal.getUser().getParticipantAddress());
+                        // et_home_fr.setText(loginModal.getUser().getParticipantAddress());
                         et_city_fr.setText(loginModal.getUser().getParticipantCity());
                         et_state_fr.setText(loginModal.getUser().getParticipantState());
                         et_country_fr.setText(loginModal.getUser().getParticipantCountry());
+                        profileImage = loginModal.getUser().getParticipantImage();
                        /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))
                         {
                             user_email.setError("Please varified Email Id");
@@ -558,11 +567,10 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
 
     public void api() {
         String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
-
+        Log.e("strUserId", "..."+ strUserId);
         if (file == null) {
-            Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
-        }
-        else {
+           // Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
+            file = new File(profileImage);
             if (cd.isNetworkAvailable()) {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
                 MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
@@ -572,8 +580,29 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
-                       // Alerts.show(mContext, loginModal.getMessage());
+                        // Alerts.show(mContext, loginModal.getMessage());
 
+                    }
+
+                    @Override
+                    public void onResponseFailed(String error) {
+                        Alerts.show(mContext, error);
+                    }
+                });
+            } else {
+                cd.show(mContext);
+            }
+        } else {
+            if (cd.isNetworkAvailable()) {
+                RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
+                MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("file", file.getName(), mFile);
+                RequestBody id = RequestBody.create(MediaType.parse("text/plain"), strUserId);
+                RetrofitService.profileimage(new Dialog(mContext), retrofitApiClient.profileimage(id, fileToUpload), new WebResponse() {
+                    @Override
+                    public void onResponseSuccess(Response<?> result) {
+                        TokenModel loginModal = (TokenModel) result.body();
+                        assert loginModal != null;
+                        // Alerts.show(mContext, loginModal.getMessage());
                     }
 
                     @Override
@@ -594,14 +623,11 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         userAddress = user_address.getText().toString();
         userDOB = select_birth.getText().toString();
 
-        if (!userEmail.matches(emailPattern))
-        {
+        if (!userEmail.matches(emailPattern)) {
             user_email.setError("Enter Email ID");
-        }
-        else {
-
+        } else {
             if (cd.isNetworkAvailable()) {
-                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(userName,userEmail,userGender,user_id,userDOB,userOrgnisation,userAddress,userCity,"mp","india"), new WebResponse() {
+                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(userName, userEmail, userGender, user_id, userDOB, userOrgnisation, userAddress, userCity, "mp", "india"), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
@@ -625,7 +651,5 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 cd.show(mContext);
             }
         }
-
     }
-
 }

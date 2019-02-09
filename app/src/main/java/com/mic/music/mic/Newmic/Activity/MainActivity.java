@@ -58,6 +58,7 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 import com.mic.music.mic.utils.LocationAddress;
+import com.mic.music.mic.utils.MyStringRandomGen;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailOtp1;
     Button submitbutton, emailVarificationBtn;
     CircleImageView profile;
-    EditText user_name, user_email, user_phone, user_address,et_home_ma,et_country_ma,et_state_ma;
+    EditText user_name, user_email, user_phone, user_address,et_city,et_country_ma,et_state_ma;
     RadioGroup rgGendar, rgOrganisation;
     ImageView show_calender;
     TextView select_birth;
@@ -115,11 +116,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView tvLocateMe;
     private String mobileNumber1;
-    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,userhomeadd,usercityadd,userstateadd;
+    private String userId, userName, userEmail, userPhone, userOrgnisation, userAddress, userGender, userDOB,usercity,usercountry,userstateadd;
 
     private CheckBox checkbox_termconditon;
     private boolean check = false;
    private String strchecked = "0";
+    MyStringRandomGen myStringRandomGen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,9 +140,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private void init() {
 
        // et_home_ma = findViewById(R.id.et_home_add);
+
+        myStringRandomGen = new MyStringRandomGen();
         checkbox_termconditon = findViewById(R.id.checkbox_condition);
         checkbox_termconditon.setOnClickListener(this);
 
+        et_city = findViewById(R.id.et_city_add);
         et_country_ma = findViewById(R.id.et_coutnry_add);
         et_state_ma = findViewById(R.id.et_state_add);
         tvLocateMe = findViewById(R.id.tvLocateMe);
@@ -164,9 +169,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
         setDateTimeField();
-        /*tvLocateMe.setOnClickListener(new View.OnClickListener() {
-
-        setDateTimeField();
 
         checkbox_termconditon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -186,10 +188,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     Toast.makeText(mContext,"Check please Terms and Condition" , Toast.LENGTH_SHORT).show();
                 }else{
                     api();
-                    getTextUpdate();
+                   // getTextUpdate();
                 }
             }
-        });*/
+        });
         tvLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -333,8 +335,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             }
 
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-
     }
 
     @Override
@@ -448,12 +448,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             wallpaperDirectory.mkdirs();
         }
         try {
-            file = new File(wallpaperDirectory, "MustEatProfile.jpg");
+            file = new File(wallpaperDirectory, myStringRandomGen.generateRandomString()+"_MIC_Profile.jpg");
             file.createNewFile();
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(mContext, new String[]{file.getPath()},
-                    new String[]{"image/*"}, null);
+            MediaScannerConnection.scanFile(mContext, new String[]{file.getPath()}, new String[]{"image/*"}, null);
             fo.close();
             Log.e("TAG", "File Saved::--->" + file.getAbsolutePath());
 
@@ -479,6 +478,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
                         Alerts.show(mContext, loginModal.getMessage());
+                        getTextUpdate();
                     }
 
                     @Override
@@ -497,7 +497,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         public void handleMessage(Message message) {
             String locationAddress;
             String city;
-            String contry;
+            String contry = "";
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
@@ -510,7 +510,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     city = null;
             }
             user_address.setText(locationAddress);
-           // spinner_city.setText(city);
+            et_city.setText(city);
+            et_country_ma.setText(contry);
         }
     }
 
@@ -565,11 +566,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();
         userPhone = user_phone.getText().toString();
-       userAddress = user_address.getText().toString();
+        userAddress = user_address.getText().toString();
         userDOB = select_birth.getText().toString();
         userAddress = user_address.getText().toString();
       //  userhomeadd  = et_home_ma.getText().toString();
-        usercityadd = et_country_ma.getText().toString();
+        usercity = et_city.getText().toString();
+        usercountry = et_country_ma.getText().toString();
         userstateadd = et_state_ma.getText().toString();
        // String strCityStateCountry = ((AutoCompleteTextView) findViewById(R.id.autoCompleteTextView)).getText().toString();
       //  String strSplit[] = strCityStateCountry.split(",");
@@ -583,8 +585,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             if (cd.isNetworkAvailable()) {
                 RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(
-                        userName, userEmail, userGender, userId, userDOB,userPhone, userOrgnisation, userhomeadd,
-                        usercityadd, userstateadd), new WebResponse() {
+                        userName,userEmail,userGender,userId,userDOB,userOrgnisation,userAddress,usercity,userstateadd,
+                        usercountry), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();

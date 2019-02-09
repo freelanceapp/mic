@@ -312,7 +312,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
             RequestBody level = RequestBody.create(MediaType.parse("text/plain"), strLevelId);
             RequestBody participet = RequestBody.create(MediaType.parse("text/plain"), strId);
             RequestBody type = RequestBody.create(MediaType.parse("text/plain"), "audio");
-            ProgressRequestBody fileBody = new ProgressRequestBody(file, "video/*", this);
+            ProgressRequestBody fileBody = new ProgressRequestBody(file, "*/*", this);
             MultipartBody.Part videoFileUpload = MultipartBody.Part.createFormData("file", file.getName(), fileBody);
 
             progressDialog.setMessage("Uploading...");

@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.User;
+import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -274,6 +275,12 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
         {
             case R.id.btnResend :
                 //Alerts.show(mContext,"Resend OTP");
+                if (myNumber.equals("121"))
+                {
+                    resendEmailOtp();
+                }else {
+                    resendMobileOtp();
+                }
                 resendEmailOtp();
 
                 resendLayout.setVisibility(View.GONE);
@@ -407,4 +414,31 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
             cd.show(mContext);
         }
     }
+
+
+    private void resendMobileOtp() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getResendMobile(new Dialog(mContext), retrofitApiClient.getResendMobile(myNumber), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    LoginModel1 loginModal = (LoginModel1) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        otptime();
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
 }

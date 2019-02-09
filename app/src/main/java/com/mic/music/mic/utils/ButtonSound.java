@@ -59,12 +59,7 @@ public class ButtonSound
             chSound = AppPreference.getBooleanPreference(context, Constant.APP_SOUND);
             soundPool.play(soundId, volume, volume, priority, no_loop, normal_playback_rate);
             if (chSound.equals(true) ) {
-                new Handler().postDelayed(new Runnable(){
-                    @Override
-                    public void run() {
-                        soundPool.stop(soundId);
-                    }
-                }, 300);
+                soundPool.stop(soundId);
             }else {
             }
         }

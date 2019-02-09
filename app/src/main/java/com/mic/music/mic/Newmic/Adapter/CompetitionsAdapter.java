@@ -155,7 +155,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 strPayment = singleSectionItems.get(pos).getCompetitionLevelPaymentType();
                 competitionId = competitionArrayList.get(position).getCompetitionId();
                 UserId = AppPreference.getStringPreference(context, Constant.User_Id);
-                Toast.makeText(view.getContext(), competitionId + "  " + competitionLevelId + " " + strPayment, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(view.getContext(), competitionId + "  " + competitionLevelId + " " + strPayment, Toast.LENGTH_SHORT).show();
                 AudioVedio audioVedio = new AudioVedio();
                 competitionApi();
             }

@@ -86,6 +86,10 @@ public interface RetrofitApiClient {
     @POST(Constant.RESEND_PASSWORD)
     Call<TokenModel> getResend(@Field("email") String email);
 
+    @FormUrlEncoded
+    @POST(Constant.RESEND_PASSWORD)
+    Call<LoginModel1> getResendMobile(@Field("mobile_number") String email);
+
 
     @FormUrlEncoded
     @POST(Constant.USER_LOGIN)

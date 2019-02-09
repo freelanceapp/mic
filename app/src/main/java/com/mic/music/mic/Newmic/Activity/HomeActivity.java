@@ -79,9 +79,10 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         OtpModel loginModal = gson.fromJson(data, OtpModel.class);
         User.setUser(loginModal);
 
+
         OtpModel completionModel = User.getUser();
         user_id = completionModel.getUser().getParticipantId();
-
+        AppPreference.setStringPreference(mContext, Constant.User_Id , completionModel.getUser().getParticipantId());
 
 //        Log.e("token", f_token);
  //       Log.e("Device", android_id);

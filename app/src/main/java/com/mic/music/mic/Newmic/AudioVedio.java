@@ -227,7 +227,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
 
                 if (radioVideoButton.getText().equals("Record Video")) {
-                    Intent intent = new Intent(mContext, RecordCompressActivity.class);
+                    Intent intent = new Intent(mContext, VideoRecordActivity.class);
                     mContext.startActivity(intent);
                 } else if (radioVideoButton.getText().equals("Upload Video")) {
                     Intent intent = new Intent(mContext, VideoFolder.class);

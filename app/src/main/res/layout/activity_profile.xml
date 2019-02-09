@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_below="@+id/singernamem"
                         android:id="@+id/llemail">
                         <TextView
@@ -97,9 +97,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:text="david@gmail.com"
+                            android:text="dfvnovnjencvoesnvdavid@gmail.comldihsob eorgijeoerigheroirgn"
                             android:textColor="@color/yellow"
-                            android:textSize="16dp" />
+                            android:textSize="16dp"
+                            android:lines="1"
+                            android:maxLines="1"
+                            />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -180,6 +183,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recylerviewvideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
