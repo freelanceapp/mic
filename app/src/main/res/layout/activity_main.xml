@@ -31,12 +31,12 @@
                     android:src="@drawable/mic_splash_new" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:padding="1dp"
                     android:id="@+id/user_profile"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:background="@drawable/imagebordercircle"
-                    android:padding="15dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/p1" />
 
@@ -369,6 +369,9 @@
                     android:background="@drawable/layout_back_a">
 
                     <EditText
+                        android:imeOptions="actionNext"
+                        android:paddingBottom="4dp"
+                        android:hint="Address"
                         android:id="@+id/user_loaction"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -376,7 +379,7 @@
                         android:inputType="text"
                         android:paddingLeft="8dp"
                         android:textColor="@color/yellow"
-                        android:textColorHint="@color/hint_color" />
+                        android:textColorHint="@color/colorGray" />
 
                     <RadioButton
                         android:id="@+id/radioLocation1"
@@ -426,7 +429,8 @@
                     android:textColor="@color/yellow"
                     android:textSize="16dp" />
                 <EditText
-                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:id="@+id/et_city_add"
                     android:layout_marginLeft="30dp"
                     android:textColorHint="@color/colorGray"
@@ -461,6 +465,8 @@
                     android:textColor="@color/yellow"
                     android:textSize="16dp" />
                 <EditText
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:id="@+id/et_state_add"
                     android:layout_marginLeft="30dp"
@@ -497,6 +503,8 @@
                     android:textColor="@color/yellow"
                     android:textSize="16dp" />
                 <EditText
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:id="@+id/et_coutnry_add"
                     android:layout_marginLeft="40dp"

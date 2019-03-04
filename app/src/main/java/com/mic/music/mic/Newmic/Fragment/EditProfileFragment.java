@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
@@ -18,7 +19,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,14 +38,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
-import com.mic.music.mic.Newmic.Activity.MainActivity;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
-import com.mic.music.mic.model.User;
 import com.mic.music.mic.model.login_responce.LoginModel;
-import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
@@ -92,7 +88,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     TextView tvLocateMe;
     AppLocationService appLocationService;
     private String mobileNumber1;
-    private String userName, userEmail, userPhone, userOrgnisation, userAddress, userCity, userGender, userDOB;
+    private String userName, userEmail, userPhone, userOrgnisation, userAddress, userCity,userState,userCountry, userGender, userDOB;
     String emailOtp1;
     private File file;
     private int GALLERY = 1, CAMERA = 2;
@@ -101,6 +97,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     RadioButton rd_school, rd_college, rd_work, rd_other, rd_male, rd_female, rd_other_gender;
     private String profileImage;
     MyStringRandomGen myStringRandomGen;
+
     public EditProfileFragment() {
         // Required empty public constructor
     }
@@ -135,7 +132,6 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         et_city_fr = view.findViewById(R.id.et_city_fr);
         et_country_fr = view.findViewById(R.id.et_country_fr);
         et_state_fr = view.findViewById(R.id.et_st_fr);
-        et_city_fr = view.findViewById(R.id.et_city_fr);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         user_name = view.findViewById(R.id.user_name1);
@@ -222,7 +218,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
                     userGender = rb.getText().toString();
                 }
 
@@ -235,7 +231,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton rb = (RadioButton) group.findViewById(checkedId);
                 if (null != rb && checkedId > -1) {
-                    Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
                     userOrgnisation = rb.getText().toString();
                 }
 
@@ -253,7 +249,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 getTextUpdate();
-                //api();
+                api();
             }
         });
 
@@ -424,10 +420,11 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     /*
      * Capture image
      * */
+    @SuppressLint("ResourceType")
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        final AlertDialog.Builder builder =  new AlertDialog.Builder(mContext);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -444,7 +441,9 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 }
             }
         });
-        builder.show();
+       AlertDialog dialog =  builder.create();
+       dialog.getWindow().setBackgroundDrawableResource(R.color.colorwhite1);
+        dialog.show();
     }
 
     private void galleryIntent() {
@@ -475,7 +474,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
-                    makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
+                    // makeText(mContext, "Image Saved!", LENGTH_SHORT).show();
                     profile.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
@@ -503,7 +502,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
             wallpaperDirectory.mkdirs();
         }
         try {
-            file = new File(wallpaperDirectory, myStringRandomGen.generateRandomString()+"_MICProfile.jpg");
+            file = new File(wallpaperDirectory, myStringRandomGen.generateRandomString() + "_MICProfile.jpg");
             file.createNewFile();
             FileOutputStream fo = new FileOutputStream(file);
             fo.write(bytes.toByteArray());
@@ -529,26 +528,53 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                     if (!loginModal.getError()) {
                         //  Alerts.show(mContext, loginModal.getMessage());
                         user_name.setText(loginModal.getUser().getParticipantName());
+
+                        if (loginModal.getUser().getParticipantEmailVerificationStatus() != null) {
+                            if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
+                                user_email.setText(loginModal.getUser().getParticipantEmail());
+                                ((ImageView)view.findViewById(R.id.img_verified)).setVisibility(View.VISIBLE);
+                            } else {
+                                ((ImageView)view.findViewById(R.id.img_verified)).setVisibility(View.GONE);
+                            }
+                        }
+
+
                         user_email.setText(loginModal.getUser().getParticipantEmail());
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);
+
+                        if (loginModal.getUser().getParticipantGendar().equalsIgnoreCase("male")) {
+                            setRadioFunction(R.id.rd_male, R.id.rd_female, R.id.rd_other_gender, R.id.rd_other_gender);
+                        } else if (loginModal.getUser().getParticipantGendar().equalsIgnoreCase("femal")) {
+                            setRadioFunction(R.id.rd_female, R.id.rd_male, R.id.rd_other_gender, R.id.rd_other_gender);
+                        } else if (loginModal.getUser().getParticipantGendar().equalsIgnoreCase("other")) {
+                            setRadioFunction(R.id.rd_other_gender, R.id.rd_female, R.id.rd_male, R.id.rd_male);
+                        } else {
+                            ((RadioButton) view.findViewById(R.id.rd_male)).setChecked(false);
+                            ((RadioButton) view.findViewById(R.id.rd_female)).setChecked(false);
+                            ((RadioButton) view.findViewById(R.id.rd_other_gender)).setChecked(false); }
+
+                        if (loginModal.getUser().getParticipantOrganization().equalsIgnoreCase("School")) {
+                            setRadioFunction(R.id.rd_school, R.id.rd_college, R.id.rd_work, R.id.rd_other);
+                        } else if (loginModal.getUser().getParticipantOrganization().equalsIgnoreCase("College")) {
+                            setRadioFunction(R.id.rd_college, R.id.rd_school, R.id.rd_work, R.id.rd_other);
+                        } else if (loginModal.getUser().getParticipantOrganization().equalsIgnoreCase("Work")) {
+                            setRadioFunction(R.id.rd_work, R.id.rd_college, R.id.rd_school, R.id.rd_other);
+                        } else if (loginModal.getUser().getParticipantOrganization().equalsIgnoreCase("Other")) {
+                            setRadioFunction(R.id.rd_other, R.id.rd_college, R.id.rd_work, R.id.rd_school);
+                        } else {
+                            ((RadioButton) view.findViewById(R.id.rd_school)).setChecked(false);
+                            ((RadioButton) view.findViewById(R.id.rd_college)).setChecked(false);
+                            ((RadioButton) view.findViewById(R.id.rd_work)).setChecked(false);
+                            ((RadioButton) view.findViewById(R.id.rd_other)).setChecked(false); }
+
+
                         user_address.setText(loginModal.getUser().getParticipantAddress());
                         // et_home_fr.setText(loginModal.getUser().getParticipantAddress());
                         et_city_fr.setText(loginModal.getUser().getParticipantCity());
                         et_state_fr.setText(loginModal.getUser().getParticipantState());
                         et_country_fr.setText(loginModal.getUser().getParticipantCountry());
                         profileImage = loginModal.getUser().getParticipantImage();
-                       /* if (loginModal.getUser().getParticipantEmailVerificationStatus().equals(null))
-                        {
-                            user_email.setError("Please varified Email Id");
-                            emailVarificationBtn.setVisibility(View.VISIBLE);
-                            user_email.setFocusable(false);
-
-                        }else {
-                            emailVarificationBtn.setText("varified");
-                            user_email.setFocusable(false);
-                            emailVarificationBtn.setClickable(false);
-                        }*/
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
@@ -564,12 +590,18 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+    private void setRadioFunction(int radioA, int radioB, int radioC, int radioD) {
+        ((RadioButton) view.findViewById(radioA)).setChecked(true);
+        ((RadioButton) view.findViewById(radioB)).setChecked(false);
+        ((RadioButton) view.findViewById(radioC)).setChecked(false);
+        ((RadioButton) view.findViewById(radioD)).setChecked(false);
+    }
 
     public void api() {
         String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
-        Log.e("strUserId", "..."+ strUserId);
+        Log.e("strUserId", "..." + strUserId);
         if (file == null) {
-           // Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
+            // Toast.makeText(mContext, "Please select Image", Toast.LENGTH_LONG).show();
             file = new File(profileImage);
             if (cd.isNetworkAvailable()) {
                 RequestBody mFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -619,15 +651,18 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
     private void getTextUpdate() {
         userName = user_name.getText().toString();
         userEmail = user_email.getText().toString();
-        userPhone = user_email.getText().toString();
         userAddress = user_address.getText().toString();
-        userDOB = select_birth.getText().toString();
+        userCity =  et_city_fr.getText().toString();
+        userState = et_state_fr.getText().toString();
+        userCountry = et_country_fr.getText().toString();
+    userDOB = select_birth.getText().toString();
 
         if (!userEmail.matches(emailPattern)) {
             user_email.setError("Enter Email ID");
         } else {
             if (cd.isNetworkAvailable()) {
-                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(userName, userEmail, userGender, user_id, userDOB, userOrgnisation, userAddress, userCity, "mp", "india"), new WebResponse() {
+                RetrofitService.updateProfile(new Dialog(mContext), retrofitApiClient.updateProfile1(userName, userEmail, userGender, user_id, userDOB,
+                        userOrgnisation, userAddress, userCity, userState, userCountry), new WebResponse() {
                     @Override
                     public void onResponseSuccess(Response<?> result) {
                         TokenModel loginModal = (TokenModel) result.body();
