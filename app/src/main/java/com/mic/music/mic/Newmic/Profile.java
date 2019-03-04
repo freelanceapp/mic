@@ -184,6 +184,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 btnVarify.setText("Verify");
                             }
                         }
+
                        // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());

@@ -29,25 +29,35 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".Newmic.Activity.CompationDetailActivity"
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".Newmic.Activity.CompationDetailActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.CompatitonLevelActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".VideoRecord.RecordCompressActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".VideoRecord.RecordCompressActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".VideoRecord.SelectPictureActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.NotificationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
@@ -72,29 +82,40 @@
         </provider>
         -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".OtpActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".RagistrationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".VideoUpload.VideoFolder"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".VideoUpload.Activity_galleryview"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".VideoRecord.VideoRecordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".VideoUpload.UploadVideoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".VideoRecord.VideoRecord" />
+
         <activity
+            android:screenOrientation="portrait"
+            android:name=".VideoRecord.VideoRecord" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -104,50 +125,62 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.ReachUs"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.About"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.VerificationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.SoundSetting"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Fragment.ParticipationDetailFragment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.OurTeam"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.Activity.Mobile_Ragistration"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.VideoDialogBox"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".Newmic.AutdioDialog"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".AudioUpload.AudioListActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".AudioUpload.AudioRecordActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
