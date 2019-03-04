@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     private TextView tvCompatitionDetail;
     private TextView tvCompatitionDuration;
     private TextView tvCompatitionRules;
+    private Button btnShowGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
         tvCompatitionDuration = (TextView)findViewById(R.id.tvCompatitionDuration);
         tvCompatitionRules = (TextView)findViewById(R.id.tvCompatitionRules);
         backCompationLevel = (ImageView)findViewById(R.id.backCompationLevel);
+        btnShowGraph = (Button) findViewById(R.id.btnShowGraph);
         backCompationLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +77,14 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
         });
         tokenApi();
 
+        btnShowGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompatitonLevelActivity.this , PerformanceActivity.class);
+                intent.putExtra("Compation_id",compationId);
+                startActivity(intent);
+            }
+        });
         sectionListDataAdapter = new SectionListDataAdapter(CompatitonLevelActivity.this,competitionLevelArrayList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(CompatitonLevelActivity.this);
         rvCompationLevel.setLayoutManager(mLayoutManager);

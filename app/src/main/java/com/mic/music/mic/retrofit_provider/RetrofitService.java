@@ -6,6 +6,8 @@ import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
+import com.mic.music.mic.model.compatition_graph_responce.CompatitionGraphModel;
+import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelRankModel;
 import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
@@ -502,6 +504,50 @@ public class RetrofitService {
 
             @Override
             public void onFailure(Call<GraphMainModal> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+    public static void getCompatitionLevelData(final Dialog dialog, final Call<CompatitionLevelRankModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<CompatitionLevelRankModel>() {
+            @Override
+            public void onResponse(Call<CompatitionLevelRankModel> call, Response<CompatitionLevelRankModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<CompatitionLevelRankModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+
+    public static void getCompatitionGraphData(final Dialog dialog, final Call<CompatitionGraphModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<CompatitionGraphModel>() {
+            @Override
+            public void onResponse(Call<CompatitionGraphModel> call, Response<CompatitionGraphModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<CompatitionGraphModel> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());

@@ -33,7 +33,10 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.ButtonSound;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Response;
 
@@ -72,6 +75,8 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             tvCompetitionDetail = (TextView) v.findViewById(R.id.tvCompetitionDetail);
             tvExpDate = (TextView) v.findViewById(R.id.tvExpDate);
             tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
+
+
             imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
             ll_rclv_competitions.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,6 +107,11 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         } else {
             Vholder.tvCompetitionDetail.setText(Html.fromHtml(competitionArrayList.get(position).getCompetitionDescription()));
         }
+
+
+
+
+
         //Vholder.tvCompetitionDetail.setText(competitionArrayList.get(position).getCompetitionDescription());
         Vholder.tvExpDate.setText(competitionArrayList.get(position).getCompetitionDuration());
       /*  ArrayList<Date> listStrings = new ArrayList<>();

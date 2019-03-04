@@ -24,6 +24,10 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import retrofit2.Response;
 
 public class CompationDetailActivity extends BaseActivity {
@@ -39,7 +43,7 @@ public class CompationDetailActivity extends BaseActivity {
     private TextView tvCompatitionLevelPaymentType;
     private TextView tvCompatitionLevelPaymentAmount;
     private TextView tvCompatitionLevelContantType;
-    private Button btnApply;
+    private Button btnApply,btnRank;
     private ImageView backCompationDetail;
 
     @Override
@@ -71,6 +75,9 @@ public class CompationDetailActivity extends BaseActivity {
         tvCompatitionLevelRules = (TextView)findViewById(R.id.tvCompetitionRules);
         tvCompatitionLevelContantType = (TextView)findViewById(R.id.tvCompetitionType);
         tvCompatitionLevelResult = (TextView)findViewById(R.id.tvCompetitionResult);
+        btnApply = (Button)findViewById(R.id.btnApply);
+        btnRank = (Button)findViewById(R.id.btnRank);
+
         backCompationDetail = (ImageView)findViewById(R.id.backCompationDetail);
         backCompationDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +86,33 @@ public class CompationDetailActivity extends BaseActivity {
             }
         });
 
+        String s = compatitionLevelDuration;
+        String[] data1 = s.split("-", 2);
+        String fDate = data1[0];
+        String lDate = data1[1];
+        Log.e("fDate", fDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aa");
+        Date strDate = null, strEndDate = null;
+        try {
+            strDate = sdf.parse(fDate);
+            strEndDate = sdf.parse(lDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() > strEndDate.getTime()) {
+            Log.e("close", "close ");
+            btnApply.setVisibility(View.GONE);
+        }else if (System.currentTimeMillis() < strDate.getTime()) {
+            btnApply.setVisibility(View.GONE);
+        }else if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() < strEndDate.getTime()) {
+            btnApply.setVisibility(View.VISIBLE);
+        }
 
         tvCompatitionLevelName.setText(compatitionLevelName);
         tvCompatitionLevelDuretion.setText("Duration "+compatitionLevelDuration);
         tvCompatitionLevelPaymentType.setText("Payment Type "+compatitonLevelPaymentType);
         tvCompatitionLevelPaymentAmount.setText("Price "+compatitonLevelPaymentAmount);
-        tvCompatitionLevelContantType.setText("Content Type"+compatitonLevelContentType);
+        tvCompatitionLevelContantType.setText("Content Type "+compatitonLevelContentType);
         tvCompatitionLevelResult.setText("Result "+compatitionLevelResult);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -99,12 +127,18 @@ public class CompationDetailActivity extends BaseActivity {
             tvCompatitionLevelRules.setText(Html.fromHtml("Rules \n"+compatitonLevelRules));
         }
 
-        btnApply = (Button)findViewById(R.id.btnApply);
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CompationDetailActivity.this, "Apply Button " + CompationId, Toast.LENGTH_SHORT).show();
                 competitionApi();
+            }
+        });
+        btnRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, RankLevelActivity.class);
+                intent.putExtra("CompatitonLevelId", compatitionLevelId);
+                startActivity(intent);
             }
         });
     }
@@ -123,14 +157,21 @@ public class CompationDetailActivity extends BaseActivity {
                     if (!loginModal.getError()) {
                         //   Alerts.show(context, loginModal.getMessage());
                         Log.e("message ", "..." + loginModal.getMessage());
+                        if (loginModal.getMessage().equals("Participation Succesfully"))
+                        {
+                            Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
+                            intent.putExtra("companyId", CompationId);
+                            mContext.startActivity(intent);
+                        }else {
+                             Alerts.show(mContext, loginModal.getMessage());
+                             btnApply.setVisibility(View.GONE);
+                             btnRank.setVisibility(View.VISIBLE);
+
+                        }
                     } else {
                         //  Alerts.show(context, loginModal.getMessage());
                     }
-                    Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
-                    intent.putExtra("companyId", CompationId);
-                    mContext.startActivity(intent);
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);

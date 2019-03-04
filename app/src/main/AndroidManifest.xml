@@ -29,8 +29,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".Newmic.Activity.CompationDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".Newmic.Activity.RankLevelActivity"></activity>
+        <activity
+            android:name=".Newmic.Activity.CompationDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Newmic.Activity.PerformanceActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Newmic.Activity.CompatitonLevelActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

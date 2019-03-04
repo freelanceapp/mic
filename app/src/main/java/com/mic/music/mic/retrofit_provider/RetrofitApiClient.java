@@ -4,6 +4,8 @@ import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
+import com.mic.music.mic.model.compatition_graph_responce.CompatitionGraphModel;
+import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelRankModel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
@@ -138,6 +140,19 @@ public interface RetrofitApiClient {
                                     @Field("participant_city") String participant_city,
                                     @Field("participant_state") String participant_state,
                                     @Field("participant_country") String participant_country);
+
+
+    @FormUrlEncoded
+    @POST(Constant.COMPATITION_GRAPH)
+    Call<CompatitionGraphModel> getCompatitionGraph(@Field("competition") String competition,
+                                                    @Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST(Constant.COMPATITION_LEVEL_RANK)
+    Call<CompatitionLevelRankModel> getCompatitionRank(@Field("competition_level") String competition_level,
+                                                       @Field("user_id") String user_id);
+
 
     /*
      * Download image

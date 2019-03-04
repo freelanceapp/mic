@@ -24,10 +24,11 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:id="@+id/rgCompatition">
 
         <RadioButton
-            android:id="@+id/rd_school"
+            android:id="@+id/rd_ongoing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -43,10 +44,11 @@
             android:layout_marginRight="15dp"
             android:buttonTint="@color/yellow"
             android:text="Up Coming"
-            android:textColor="@color/yellow" />
+            android:textColor="@color/yellow"
+            android:id="@+id/rd_upcoming"/>
 
         <RadioButton
-            android:id="@+id/rd_work"
+            android:id="@+id/rd_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

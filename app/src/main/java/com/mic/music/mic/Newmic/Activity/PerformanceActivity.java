@@ -1,4 +1,4 @@
-package com.mic.music.mic.Newmic;
+package com.mic.music.mic.Newmic.Activity;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -23,12 +23,15 @@ import com.mic.music.mic.graph_classes.data.LineDataSet;
 import com.mic.music.mic.graph_classes.highlight.Highlight;
 import com.mic.music.mic.graph_classes.listener.OnChartValueSelectedListener;
 import com.mic.music.mic.graph_classes.utils.ColorTemplate;
+import com.mic.music.mic.model.compatition_graph_responce.CompatitionGraphModel;
+import com.mic.music.mic.model.compatition_graph_responce.CompetitionLevel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.graph_modal.PerformanceGraph;
 import com.mic.music.mic.model.graph_modal.PerformanceList;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.BaseFragment;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -37,44 +40,28 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class Performance extends BaseFragment implements OnChartValueSelectedListener {
+import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
+
+public class PerformanceActivity extends BaseActivity implements OnChartValueSelectedListener {
 
     private LineChart chart;
-    private View view;
-    private RecyclerView recyclerViewPerformanceList;
-    private PerformanceListAdapter performanceListAdapter;
-    private List<PerformanceList> performanceLists = new ArrayList<>();
+    private String compationId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_performance, container, false);
-        mContext = getActivity();
-        activity = getActivity();
-        cd = new ConnectionDetector(mContext);
-        retrofitApiClient = RetrofitService.getRetrofit();
-
+        setContentView(R.layout.activity_perfomance1);
         init();
-        return view;
     }
 
     private void init() {
-        recyclerViewPerformanceList = view.findViewById(R.id.recyclerViewPerformanceList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recyclerViewPerformanceList.setLayoutManager(mLayoutManager);
-        recyclerViewPerformanceList.setItemAnimator(new DefaultItemAnimator());
-        performanceListAdapter = new PerformanceListAdapter(mContext, performanceLists);
-        recyclerViewPerformanceList.setAdapter(performanceListAdapter);
+        compationId = getIntent().getStringExtra("Compation_id");
+
         graphChartInit();
     }
 
     private void graphChartInit() {
-        chart = view.findViewById(R.id.chart1);
+        chart = findViewById(R.id.chart1);
         chart.setOnChartValueSelectedListener(this);
         // no description text
         chart.getDescription().setEnabled(false);
@@ -103,7 +90,7 @@ public class Performance extends BaseFragment implements OnChartValueSelectedLis
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
-//        l.setYOffset(11f);
+//      l.setYOffset(11f);
         XAxis xAxis = chart.getXAxis();
         //xAxis.setTypeface(tfLight);
         xAxis.setTextSize(11f);
@@ -130,15 +117,14 @@ public class Performance extends BaseFragment implements OnChartValueSelectedLis
 
     private void graphDataApi() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getGraphData(new Dialog(mContext), retrofitApiClient.getGraphData(), new WebResponse() {
+            RetrofitService.getCompatitionGraphData(new Dialog(mContext), retrofitApiClient.getCompatitionGraph(compationId,user_id), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
-                    GraphMainModal graphMainModal = (GraphMainModal) result.body();
-                    performanceLists.clear();
+                    CompatitionGraphModel graphMainModal = (CompatitionGraphModel) result.body();
                     if (graphMainModal != null) {
-                        if (graphMainModal.getGraph().size() > 0) {
-                            performanceLists.addAll(graphMainModal.getList());
-                            setData(graphMainModal.getGraph().size(), graphMainModal.getGraph());
+                        if (graphMainModal.getCompetitionLevel().size() > 0) {
+                           // performanceLists.addAll(graphMainModal.getList());
+                            setData(graphMainModal.getCompetitionLevel().size(), graphMainModal.getCompetitionLevel());
                             chart.invalidate();
                         } else {
                             Alerts.show(mContext, "No graph data!!!");
@@ -146,7 +132,6 @@ public class Performance extends BaseFragment implements OnChartValueSelectedLis
                     } else {
                         Alerts.show(mContext, "No data!!!");
                     }
-                    performanceListAdapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onResponseFailed(String error) {
@@ -158,11 +143,11 @@ public class Performance extends BaseFragment implements OnChartValueSelectedLis
         }
     }
 
-    private void setData(int count, java.util.List<PerformanceGraph> graphDataList) {
+    private void setData(int count, List<CompetitionLevel> graphDataList) {
 
         ArrayList<Entry> values1 = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            float val = graphDataList.get(i).getPoint();
+            float val = Float.parseFloat(graphDataList.get(i).getScore());
             values1.add(new Entry(i, val));
         }
         //LineDataSet set1, set2, set3;

@@ -8,8 +8,9 @@
     tools:context=".Newmic.Activity.CompationDetailActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@id/ll">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
@@ -110,14 +111,31 @@
     </LinearLayout>
     </ScrollView>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll">
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="@color/yellow"
         android:text="Apply"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:id="@+id/btnApply"/>
+        android:id="@+id/btnApply"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:text="Show Rank"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:id="@+id/btnRank"
+        android:visibility="gone"/>
+    </LinearLayout>
 </RelativeLayout>

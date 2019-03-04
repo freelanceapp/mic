@@ -38,7 +38,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="match_parent">
 
                 <com.mic.music.mic.graph_classes.charts.LineChart
                     android:id="@+id/chart1"
@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
@@ -117,24 +118,7 @@
                 android:layout_height="2dp"
                 android:background="@color/yellow" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/layout_back_d"
-                android:fillViewport="true">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerViewPerformanceList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-            </ScrollView>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
