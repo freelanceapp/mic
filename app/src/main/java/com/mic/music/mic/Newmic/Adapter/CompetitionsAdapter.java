@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mic.music.mic.Newmic.Activity.CompatitonLevelActivity;
 import com.mic.music.mic.Newmic.AudioVedio;
 import com.mic.music.mic.Newmic.Fragment.ParticipationDetailFragment;
 import com.mic.music.mic.R;
@@ -66,26 +67,19 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         public ViewHolder(View v) {
             super(v);
             this.recycler_view_list = (RecyclerView) v.findViewById(R.id.recycler_view_list);
-
             ll_rclv_competitions = (LinearLayout) v.findViewById(R.id.ll_rclv_competition);
             tvCompetitionName = (TextView) v.findViewById(R.id.tvCompetitionName);
             tvCompetitionDetail = (TextView) v.findViewById(R.id.tvCompetitionDetail);
             tvExpDate = (TextView) v.findViewById(R.id.tvExpDate);
             tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
             imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
-            competitionll = (LinearLayout) v.findViewById(R.id.competitionll);
             ll_rclv_competitions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (num1 == 0) {
-                        competitionll.setVisibility(View.GONE);
-                        num1 = 1;
-                        imgArrowA.setImageResource(R.drawable.ic_close);
-                    } else {
-                        competitionll.setVisibility(View.VISIBLE);
-                        num1 = 0;
-                        imgArrowA.setImageResource(R.drawable.ic_open);
-                    }
+                        Toast.makeText(context, "Next Level", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, CompatitonLevelActivity.class);
+                        intent.putExtra("Compation_id", competitionArrayList.get(getAdapterPosition()).getCompetitionId());
+                        context.startActivity(intent);
                 }
             });
         }
@@ -118,15 +112,12 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
             try {
                 listStrings.add(dateFormatter.parse(sdate));
-
             } catch (ParseException ex) {
                 System.err.print(ex);
             }
-
             Log.e("Before sorting: ", "..." + listStrings);
             Collections.sort(listStrings);
             Log.e("After sorting: ", "..." + listStrings);
-
             for (int j = 0; j < listStrings.size(); j++) {
                 Vholder.tvCompetitionLevelDetail.setText(
                         "Lavel Name " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelName() + "\n" +
@@ -139,9 +130,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             }
         }*/
 
-
-        final ArrayList<CompetitionLevel> singleSectionItems = new ArrayList<>();
-
+       /* final ArrayList<CompetitionLevel> singleSectionItems = new ArrayList<>();
         singleSectionItems.addAll(competitionArrayList.get(position).getCompetitionLevel());
         SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(context, singleSectionItems, new View.OnClickListener() {
             @Override
@@ -155,7 +144,6 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 strPayment = singleSectionItems.get(pos).getCompetitionLevelPaymentType();
                 competitionId = competitionArrayList.get(position).getCompetitionId();
                 UserId = AppPreference.getStringPreference(context, Constant.User_Id);
-               // Toast.makeText(view.getContext(), competitionId + "  " + competitionLevelId + " " + strPayment, Toast.LENGTH_SHORT).show();
                 AudioVedio audioVedio = new AudioVedio();
                 competitionApi();
             }
@@ -164,7 +152,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         Vholder.recycler_view_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         Vholder.recycler_view_list.setAdapter(itemListDataAdapter);
         Vholder.tvCompetitionName.setTag(position);
-        Vholder.tvCompetitionName.setOnClickListener(onClickListener);
+        Vholder.tvCompetitionName.setOnClickListener(onClickListener);*/
     }
 
     @Override
@@ -172,39 +160,6 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         return competitionArrayList.size();
     }
 
-    private void competitionApi() {
-        //String strUserId =
-        cd = new ConnectionDetector(context);
-        retrofitRxClient = RetrofitService.getRxClient();
-        retrofitApiClient = RetrofitService.getRetrofit();
-        String strId = AppPreference.getStringPreference(context, Constant.User_Id);
 
-        if (cd.isNetworkAvailable()) {
-            RetrofitService.getParticipation(new Dialog(context), retrofitApiClient.getParticipation(competitionLevelId, competitionId, strId, strPayment), new WebResponse() {
-                @Override
-                public void onResponseSuccess(Response<?> result) {
-                    TokenModel loginModal = (TokenModel) result.body();
-                    assert loginModal != null;
-                    if (!loginModal.getError()) {
-                     //   Alerts.show(context, loginModal.getMessage());
-                        Log.e("message ", "..." + loginModal.getMessage());
-
-                    } else {
-                      //  Alerts.show(context, loginModal.getMessage());
-                    }
-                    Intent intent = new Intent(context, ParticipationDetailFragment.class);
-                    intent.putExtra("companyId", competitionId);
-                    context.startActivity(intent);
-                }
-
-                @Override
-                public void onResponseFailed(String error) {
-                    Alerts.show(context, error);
-                }
-            });
-        } else {
-            cd.show(context);
-        }
-    }
 
 }

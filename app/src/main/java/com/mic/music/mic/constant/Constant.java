@@ -31,6 +31,7 @@ public class Constant {
     public static final String GRAPH_URL = "api/graph.php";
     public static final String WINNER_API = "api/winner.php";
     public static final String PAGE_CONTENT = "api/page_content.php";
+    public static final String COMPATITION_LEVEL = "api/select-competition-level.php";
 
     // Fragment constant
     public static final String Login_Fragment = "Login_Fragment";

@@ -86,7 +86,6 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                     assert loginModal != null;
                     arrayList.clear();
                     if (!loginModal.getError()) {
-
                         Gson gson = new GsonBuilder().setLenient().create();
                         String data = gson.toJson(loginModal);
                         Log.e("Login", ".."+data);
@@ -94,7 +93,6 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                         Compatition1.setCompletionModel(loginModal);
                       //  Alerts.show(mContext, loginModal.getMessage());
                         arrayList.addAll(loginModal.getCompetition());
-
 
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());

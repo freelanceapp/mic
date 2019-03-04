@@ -3,6 +3,7 @@ package com.mic.music.mic.retrofit_provider;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
+import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
@@ -76,6 +77,10 @@ public interface RetrofitApiClient {
     @FormUrlEncoded
     @POST(Constant.FOROGOT_PASSWORD)
     Call<ResponseBody> getAllLikes(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST(Constant.COMPATITION_LEVEL)
+    Call<CompatitionLevelModel> getCompationLevel(@Field("competition") String competition);
 
     @FormUrlEncoded
     @POST(Constant.USER_LOGIN)

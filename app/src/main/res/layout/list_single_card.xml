@@ -8,6 +8,9 @@
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,12 +43,14 @@
             android:padding="2dp"
             android:text="Competition Name"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +78,8 @@
             android:padding="2dp"
             android:text="Competition Name"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/tvLevelResult"
             android:layout_width="match_parent"
@@ -81,20 +87,25 @@
             android:padding="2dp"
             android:text="Competition Name"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/yellow"
-            android:text="   Apply   "
+            android:text="Show Detail"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="12sp"
             android:padding="6sp"
-            android:layout_margin="4sp"
+            android:textStyle="bold"
+            android:layout_marginTop="2sp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:id="@+id/tvApply"
             android:textColor="@color/white"/>
     </LinearLayout>
-
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

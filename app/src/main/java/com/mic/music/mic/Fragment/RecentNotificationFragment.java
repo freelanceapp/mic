@@ -41,10 +41,8 @@ public class RecentNotificationFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recent_notification, container, false);
         recent_list = (RecyclerView)view.findViewById(R.id.recent_list);
@@ -77,25 +75,21 @@ public class RecentNotificationFragment extends Fragment {
             super.onPostExecute(s);
             //hiding the progressbar after completion
             notification_progress.setVisibility(View.GONE);
-
             try {
                 //converting response to json object
                 JSONObject obj = new JSONObject(s);
                 //if no error in response
                 if (!obj.getBoolean("error")) {
-
                 //    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     JSONArray jsonArray = obj.getJSONArray("notification");
-                    for (int i = 0 ; i<jsonArray.length() ; i++)
+                    for (int i = 0 ; i<10 ; i++)
                     {
                         JSONObject object = jsonArray.getJSONObject(i);
-
                         Notification n = new Notification();
                         n.setNotificationTitle(object.getString("notification_title"));
                         n.setNotificationMessage(object.getString("notification_message"));
                         notifications.add(n);
                     }
-
                     adapter = new NotificationAdapter(getActivity(),notifications);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                     recent_list.setLayoutManager(mLayoutManager);

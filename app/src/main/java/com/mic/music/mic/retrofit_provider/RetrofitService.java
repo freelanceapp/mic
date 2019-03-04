@@ -5,6 +5,8 @@ import android.app.Dialog;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.appversion_responce.AppVersion;
+import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
+import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
@@ -120,6 +122,29 @@ public class RetrofitService {
 
             @Override
             public void onFailure(Call<CompletionModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
+    //compation level
+    //Competition level
+    public static void getCompetitionLevel(final Dialog dialog, final Call<CompatitionLevelModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<CompatitionLevelModel>() {
+            @Override
+            public void onResponse(Call<CompatitionLevelModel> call, Response<CompatitionLevelModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<CompatitionLevelModel> call, Throwable throwable) {
                 if (dialog != null)
                     AppProgressDialog.hide(dialog);
                 webResponse.onResponseFailed(throwable.getMessage());

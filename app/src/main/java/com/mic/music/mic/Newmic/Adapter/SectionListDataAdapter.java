@@ -1,6 +1,7 @@
 package com.mic.music.mic.Newmic.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mic.music.mic.Newmic.Activity.CompationDetailActivity;
 import com.mic.music.mic.Newmic.AudioVedio;
 import com.mic.music.mic.R;
-import com.mic.music.mic.model.competition_responce.CompetitionLevel;
-
+import com.mic.music.mic.model.compation_level_responce.CompetitionLevel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,7 +78,7 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         return (null != itemsList ? itemsList.size() : 0);
     }
 
-    public class SingleItemRowHolder extends RecyclerView.ViewHolder {
+    public class SingleItemRowHolder extends RecyclerView.ViewHolder  {
         protected TextView tvLevelName, tvLevelDetail, tvLevelDuretion, tvLevelAmount, tvLevelAmountType, tvLevelRules, tvLevelResult, tvApply;
         protected LinearLayout levelBtn;
 
@@ -93,6 +94,24 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.tvLevelResult = (TextView) view.findViewById(R.id.tvLevelResult);
             this.tvApply = (TextView) view.findViewById(R.id.tvApply);
 
+          /*  tvApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, CompationDetailActivity.class);
+                    intent.putExtra("CompatitonLevelId", itemsList.get(getAdapterPosition()).getCompetitionLevelId());
+                    intent.putExtra("CompatitonLevelName", itemsList.get(getAdapterPosition()).getCompetitionLevelName());
+                    intent.putExtra("CompatitonLevelDetail", itemsList.get(getAdapterPosition()).getCompetitionLevelDescription());
+                    intent.putExtra("CompatitonLevelDuretion", itemsList.get(getAdapterPosition()).getCompetitionLevelDuration());
+                    intent.putExtra("CompatitonLevelResult", itemsList.get(getAdapterPosition()).getCompetitionLevelResult());
+                    intent.putExtra("CompatitonLevelPaymentType", itemsList.get(getAdapterPosition()).getCompetitionLevelPaymentType());
+                    intent.putExtra("CompatitonLevelPaymentAmount", itemsList.get(getAdapterPosition()).getCompetitionLevelAmount());
+                    intent.putExtra("CompatitonLevelPaymentContentType", itemsList.get(getAdapterPosition()).getCompetitionLevelContentType());
+                    intent.putExtra("CompatitonLevelPaymentContentRules", itemsList.get(getAdapterPosition()).getCompetitionLevelRules());
+
+                    mContext.startActivity(intent);
+                }
+            });*/
         }
+
     }
 }
