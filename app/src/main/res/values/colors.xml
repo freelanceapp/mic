@@ -13,6 +13,16 @@
     <color name="black">#000000</color>
     <color name="red">#E70101</color>
 
+    <color name="gray_a">#585757</color>
+    <color name="gray_b">#696868</color>
+    <color name="gray_c">#7b7a7a</color>
+    <color name="gray_d">#919090</color>
+    <color name="gray_e">#aeadad</color>
+    <color name="gray_f">#cacaca</color>
+    <color name="gray_g">#dadada</color>
+    <color name="gray_h">#e6e5e5</color>
+    <color name="gray_i">#f2f0f0</color>
+
     <color name="transparent">#00000000</color>
 
     <color name="transparent_a">#5c000000</color>

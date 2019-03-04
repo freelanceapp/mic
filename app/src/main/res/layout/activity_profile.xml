@@ -151,7 +151,6 @@
                 android:weightSum="2">
 
                 <ImageView
-                    android:tint="@color/white"
                     android:id="@+id/btnAudio"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -162,6 +161,7 @@
                     />
 
                 <ImageView
+                    android:tint="@color/gray_b"
                     android:id="@+id/btnVideo"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
