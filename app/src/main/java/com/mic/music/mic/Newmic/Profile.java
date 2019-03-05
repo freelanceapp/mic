@@ -198,8 +198,10 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         if (allAudioVideoList.size() > 0) {
                             for (int i = 0; i < allAudioVideoList.size(); i++) {
                                 if (allAudioVideoList.get(i).getCompetitionContentType().equals("audio")) {
+                                    audioList.clear();
                                    audioList.add(allAudioVideoList.get(i));
                                 } else {
+                                    videoList.clear();
                                     videoList.add(allAudioVideoList.get(i));
                                 }
                             }

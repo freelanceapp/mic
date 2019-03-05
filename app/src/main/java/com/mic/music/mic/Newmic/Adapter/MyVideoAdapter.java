@@ -20,6 +20,8 @@ import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.participation_responce.Participation;
 import com.mic.music.mic.model.user_responce.CompetitionContent;
 import com.mic.music.mic.utils.AppPreference;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -52,7 +54,9 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.SingleIt
         CompetitionContent singleItem = itemsList.get(i);
         if (singleItem.getCompetitionContentType().equals("video"))
         {
-            holder.ivVideo.setImageResource(R.drawable.mreecrd);
+            //holder.ivVideo.setImageResource(R.drawable.mreecrd);
+            Picasso.get().load(Constant.VIDEO_URL+itemsList.get(i).getCompetitionContentUrl()).networkPolicy(NetworkPolicy.NO_CACHE).into(holder.ivVideo);
+
         }else {
             holder.ivVideo.setImageResource(R.drawable.hmike);
         }

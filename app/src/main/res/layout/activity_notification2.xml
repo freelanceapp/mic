@@ -55,7 +55,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:checked="false"
-            android:theme="@style/SCBSwitch" />
+            android:theme="@style/SCBSwitch"
+            android:id="@+id/notification_sound_btn"/>
 
     </RelativeLayout>
 
@@ -79,7 +80,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:checked="false"
-            android:theme="@style/SCBSwitch" />
+            android:theme="@style/SCBSwitch"
+            android:id="@+id/notification_vibtation_btn"/>
 
     </RelativeLayout>
 
@@ -103,7 +105,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:checked="false"
-            android:theme="@style/SCBSwitch" />
+            android:theme="@style/SCBSwitch"
+            android:id="@+id/notification_popup_btn"/>
 
     </RelativeLayout>
 
