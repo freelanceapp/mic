@@ -76,7 +76,7 @@ public class RankLevelActivity extends BaseActivity {
                 }
                 @Override
                 public void onResponseFailed(String error) {
-                    Alerts.show(mContext, error);
+                    //Alerts.show(mContext, error);
                 }
             });
         } else {

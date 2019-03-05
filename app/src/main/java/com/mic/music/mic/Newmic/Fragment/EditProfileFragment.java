@@ -538,7 +538,6 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                             }
                         }
 
-
                         user_email.setText(loginModal.getUser().getParticipantEmail());
                         select_birth.setText(loginModal.getUser().getParticipantDob());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(profile);

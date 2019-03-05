@@ -22,15 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="2dp"
+            android:padding="4dp"
             android:text="Competition Name"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@color/yellow"/>
         <TextView
             android:id="@+id/tvLevelDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:padding="2dp"
             android:text="Competition Name"
             android:textColor="@color/white"
@@ -93,7 +94,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/yellow"
+            android:background="@drawable/btn_color2"
             android:text="Show Detail"
             android:layout_gravity="center"
             android:gravity="center"

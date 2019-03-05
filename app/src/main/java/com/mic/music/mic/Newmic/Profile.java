@@ -177,7 +177,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
                         Glide.with(mContext).load(loginModal.getUser().getParticipantImage()).into(circleImg);
-                        Log.e("Url ", ".."+loginModal.getUser().getParticipantImage());
+                        //Log.e("Url ", ".."+loginModal.getUser().getParticipantImage());
                         if (loginModal.getUser().getParticipantEmailVerificationStatus() != null) {
                             if (loginModal.getUser().getParticipantEmailVerificationStatus().equals("Verified")) {
                                 btnVarify.setText("Verified");
@@ -236,7 +236,9 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 }else {
                     String url = Constant.VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
                     Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
-                    getSongUrl(url);
+                    //getSongUrl(url);
+                    showDialog(url);
+
                 }
 
                 break;

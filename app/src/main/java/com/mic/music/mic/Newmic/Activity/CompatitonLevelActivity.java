@@ -33,7 +33,10 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Response;
 
@@ -49,6 +52,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     private TextView tvCompatitionDuration;
     private TextView tvCompatitionRules;
     private Button btnShowGraph;
+    private String sDate,eDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +124,31 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
                         } else {
                             tvCompatitionRules.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionRules()));
                         }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvCompatitionDuration.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionDuration(), Html.FROM_HTML_MODE_COMPACT));
-                        } else {
-                            tvCompatitionDuration.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionDuration()));
+
+                        String s = loginModal.getCompetition().get(0).getCompetitionDuration();
+                        String[] data1 = s.split("-", 2);
+                        String fDate = data1[0];
+                        String lDate = data1[1];
+
+                        String inputPattern = "MM/dd/yyyy HH:mm aa";
+                        String outputPattern = "dd-MMM-yyyy h:mm a";
+                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+                        Date date = null;
+                        Date date1 = null;
+                        sDate = null;
+                        eDate = null;
+                        try {
+                            date = inputFormat.parse(fDate);
+                            sDate = outputFormat.format(date);
+                            date1 = inputFormat.parse(lDate);
+                            eDate = outputFormat.format(date1);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
+
+                        tvCompatitionDuration.setText("Start Date "+ sDate +" \n\nEnd Date "+ eDate);
+
                         competitionLevelArrayList.addAll(loginModal.getCompetition().get(0).getCompetitionLevel());
 
                     } else {
@@ -141,6 +165,8 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
             cd.show(mContext);
         }
     }
+
+
 
     @Override
     public void onClick(View view) {
