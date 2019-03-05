@@ -1,5 +1,6 @@
 package com.mic.music.mic.Newmic;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.Notification;
@@ -23,6 +24,7 @@ import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -165,9 +167,10 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     UserProfileModel loginModal = (UserProfileModel) result.body();
-                    assert loginModal != null;
-                    allAudioVideoList.clear();
+                  //  allAudioVideoList.clear();
                     competitionContentArrayList.clear();
+                    assert loginModal != null;
+
                     if (!loginModal.getError()) {
                        // Alerts.show(mContext, loginModal.getMessage());
                         singernamem.setText(loginModal.getUser().getParticipantName());
@@ -187,6 +190,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
                        // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
+                        allAudioVideoList.clear();
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
 
@@ -194,7 +198,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         if (allAudioVideoList.size() > 0) {
                             for (int i = 0; i < allAudioVideoList.size(); i++) {
                                 if (allAudioVideoList.get(i).getCompetitionContentType().equals("audio")) {
-                                    audioList.add(allAudioVideoList.get(i));
+                                   audioList.add(allAudioVideoList.get(i));
                                 } else {
                                     videoList.add(allAudioVideoList.get(i));
                                 }
@@ -217,6 +221,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @SuppressLint({"ResourceAsColor", "ResourceType"})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -238,11 +243,15 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.btnAudio:
+                btnAudio.setColorFilter(ContextCompat.getColor(mContext, (R.color.colorYellow)));
+                btnVideo.setColorFilter(ContextCompat.getColor(mContext, (R.color.gray_b)));
                 competitionContentArrayList.clear();
                 competitionContentArrayList.addAll(audioList);
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.btnVideo:
+                btnAudio.setColorFilter(ContextCompat.getColor(mContext,(R.color.gray_b)));
+                btnVideo.setColorFilter(ContextCompat.getColor(mContext, (R.color.colorYellow)));
                 competitionContentArrayList.clear();
                 competitionContentArrayList.addAll(videoList);
                 adapter.notifyDataSetChanged();

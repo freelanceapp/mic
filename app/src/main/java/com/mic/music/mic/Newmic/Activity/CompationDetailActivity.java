@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class CompationDetailActivity extends BaseActivity {
     private TextView tvCompatitionLevelContantType;
     private Button btnApply, btnRank;
     private ImageView backCompationDetail;
+    private String sDate,eDate,rDate;
+    LinearLayout llAmount;
+    private ImageView content_Video,content_Audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,9 @@ public class CompationDetailActivity extends BaseActivity {
         tvCompatitionLevelResult = (TextView) findViewById(R.id.tvCompetitionResult);
         btnApply = (Button) findViewById(R.id.btnApply);
         btnRank = (Button) findViewById(R.id.btnRank);
+        llAmount = (LinearLayout) findViewById(R.id.llAmount);
+        content_Video = (ImageView) findViewById(R.id.content_Video);
+        content_Audio = (ImageView) findViewById(R.id.content_Audio);
 
         backCompationDetail = (ImageView) findViewById(R.id.backCompationDetail);
         backCompationDetail.setOnClickListener(new View.OnClickListener() {
@@ -109,22 +116,72 @@ public class CompationDetailActivity extends BaseActivity {
         }
 
         tvCompatitionLevelName.setText(compatitionLevelName);
-        tvCompatitionLevelDuretion.setText("Duration " + compatitionLevelDuration);
+
+        String s1 = compatitionLevelDuration;
+        String[] data11 = s1.split("-", 2);
+        String fDate1 = data11[0];
+        String lDate1 = data11[1];
+
+        String inputPattern = "MM/dd/yyyy HH:mm aa";
+        String outputPattern = "dd-MMM-yyyy h:mm a";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+        Date date = null , strResultDate = null;
+        Date date1 = null;
+        sDate = null;
+        eDate = null;
+        rDate = null;
+        try {
+            date = inputFormat.parse(fDate1);
+            sDate = outputFormat.format(date);
+            date1 = inputFormat.parse(lDate1);
+            eDate = outputFormat.format(date1);
+            strResultDate = inputFormat.parse(compatitionLevelResult);
+            rDate = outputFormat.format(strResultDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        tvCompatitionLevelDuretion.setText("Start Date "+ sDate +" \n\nEnd Date "+ eDate);
+
         tvCompatitionLevelPaymentType.setText("Payment Type " + compatitonLevelPaymentType);
-        tvCompatitionLevelPaymentAmount.setText("Price " + compatitonLevelPaymentAmount);
-        tvCompatitionLevelContantType.setText("Content Type " + compatitonLevelContentType);
-        tvCompatitionLevelResult.setText("Result " + compatitionLevelResult);
+        if (compatitonLevelPaymentAmount.equals("0"))
+        {
+            llAmount.setVisibility(View.GONE);
+        }else {
+            tvCompatitionLevelPaymentAmount.setText(" " + compatitonLevelPaymentAmount);
+        }
+        //tvCompatitionLevelContantType.setText("Content Type " + compatitonLevelContentType);
+
+        if (compatitonLevelContentType.equals("Video"))
+        {
+            content_Audio.setVisibility(View.GONE);
+            content_Video.setVisibility(View.VISIBLE);
+        }else if (compatitonLevelContentType.equals("Audio"))
+        {
+            content_Audio.setVisibility(View.VISIBLE);
+            content_Video.setVisibility(View.GONE);
+        }else if (compatitonLevelContentType.equals("Both")){
+            content_Audio.setVisibility(View.VISIBLE);
+            content_Video.setVisibility(View.VISIBLE);
+        }else {
+            content_Audio.setVisibility(View.GONE);
+            content_Video.setVisibility(View.GONE);
+        }
+
+        tvCompatitionLevelResult.setText(" " + compatitionLevelResult);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            tvCompatitionLevelDetail.setText(Html.fromHtml("Compation Detail \n" + compatitionLevelDetail, Html.FROM_HTML_MODE_COMPACT));
+            tvCompatitionLevelDetail.setText(Html.fromHtml("\n" + compatitionLevelDetail, Html.FROM_HTML_MODE_COMPACT));
         } else {
-            tvCompatitionLevelDetail.setText(Html.fromHtml("Compation Detail \n" + compatitionLevelDetail));
+            tvCompatitionLevelDetail.setText(Html.fromHtml("\n" + compatitionLevelDetail));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            tvCompatitionLevelRules.setText(Html.fromHtml("Rules \n" + compatitonLevelRules, Html.FROM_HTML_MODE_COMPACT));
+            tvCompatitionLevelRules.setText(Html.fromHtml("\n" + compatitonLevelRules, Html.FROM_HTML_MODE_COMPACT));
         } else {
-            tvCompatitionLevelRules.setText(Html.fromHtml("Rules \n" + compatitonLevelRules));
+            tvCompatitionLevelRules.setText(Html.fromHtml("\n" + compatitonLevelRules));
         }
 
         btnApply.setOnClickListener(new View.OnClickListener() {
