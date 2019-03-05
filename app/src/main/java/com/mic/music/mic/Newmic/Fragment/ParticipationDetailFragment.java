@@ -62,8 +62,9 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
     private RecyclerView rvParticipationList;
     private ParticipationListAdapter adapter;
     ArrayList<Participation> participationArrayList = new ArrayList<>();
-    private String companyId;
+    private String companyId, compatitonLevelContentType;
     private ImageView ivBackBtn;
+
     public ParticipationDetailFragment() {
         // Required empty public constructor
     }
@@ -76,19 +77,16 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
 
     }
 
-    private void init(){
-
+    private void init() {
         companyId = getIntent().getStringExtra("companyId");
-        rvParticipationList = (RecyclerView)findViewById(R.id.rvParticipationList);
-
+        compatitonLevelContentType = getIntent().getStringExtra("CompatitonLevelContentType");
+        rvParticipationList = (RecyclerView) findViewById(R.id.rvParticipationList);
         mContext = this;
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
-
         selectParticipationApi();
-
-        ivBackBtn = (ImageView)findViewById(R.id.ivBackBtn);
+        ivBackBtn = (ImageView) findViewById(R.id.ivBackBtn);
         ivBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +102,6 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
 
     private void selectParticipationApi() {
         String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
-
         if (cd.isNetworkAvailable()) {
             RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation(companyId, user_id), new WebResponse() {
                 @Override
@@ -112,9 +109,8 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                     ParticipationModel loginModal = (ParticipationModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                       // Alerts.show(mContext, loginModal.getMessage());
+                        // Alerts.show(mContext, loginModal.getMessage());
                         participationArrayList.addAll(loginModal.getParticipation());
-
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
@@ -133,24 +129,25 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.tvAdminStatus :
+        switch (view.getId()) {
+            case R.id.tvAdminStatus:
                 int pos = Integer.parseInt(view.getTag().toString());
                 AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
-                AppPreference.setStringPreference(mContext,Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
-
+                AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
                 if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
                     AudioVedio audioVedio = new AudioVedio();
-                    if (formant1 == 1 )
-                    {
+                    if (formant1 == 1) {
                         showAudioDialog();
-                    }else if (formant1 == 2){
+                    } else if (formant1 == 2) {
                         showVideoDialog();
-                    }else {
-                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();                    }
-                }else {
-                    Alerts.show(mContext,"Yor are not selected");
+                    } else {
+                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Alerts.show(mContext, "Yor are not selected");
                     finish();
                 }
                 break;
@@ -170,32 +167,22 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
             }
         });
         final RadioGroup rgAudio = (RadioGroup) dialog.findViewById(R.id.rgAudio);
-
         Button btnSelectAudio = (Button) dialog.findViewById(R.id.btnSelectAudio);
-        btnSelectAudio.setOnClickListener(new View.OnClickListener()
-        {
+        btnSelectAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int selectedId = rgAudio.getCheckedRadioButtonId();
-
                 // find the radiobutton by returned id
                 radioAudioButton = (RadioButton) dialog.findViewById(selectedId);
-                if (radioAudioButton.getText().equals("Record Audio"))
-                {
-                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                if (radioAudioButton.getText().equals("Record Audio")) {
                     Intent intent = new Intent(mContext, AudioRecordActivity.class);
                     mContext.startActivity(intent);
-                }else  if (radioAudioButton.getText().equals("Upload Audio"))
-                {
-                    // Toast.makeText(context, "Select Option 1 "+radioAudioButton.getText(), Toast.LENGTH_SHORT).show();
+                } else if (radioAudioButton.getText().equals("Upload Audio")) {
                     Intent intent = new Intent(mContext, AudioListActivity.class);
                     mContext.startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
                 }
-
-
                 dialog.dismiss();
             }
         });
@@ -216,26 +203,21 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
             }
         });
         Button btnSelectVideo = (Button) dialog.findViewById(R.id.btnSelectVideo);
-        btnSelectVideo.setOnClickListener(new View.OnClickListener()
-        {
+        btnSelectVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get selected radio button from radioGroup
                 int selectedId = rgVideo.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 radioVideoButton = (RadioButton) dialog.findViewById(selectedId);
-                if (radioVideoButton.getText().equals("Record Video"))
-                {
+                if (radioVideoButton.getText().equals("Record Video")) {
                     Intent intent = new Intent(mContext, VideoRecordActivity.class);
                     mContext.startActivity(intent);
-                }else  if (radioVideoButton.getText().equals("Upload Video"))
-                {
+                } else if (radioVideoButton.getText().equals("Upload Video")) {
                     Intent intent = new Intent(mContext, VideoFolder.class);
                     mContext.startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(mContext, "Select Option any one option", Toast.LENGTH_SHORT).show();
-
                 }
                 dialog.dismiss();
             }

@@ -35,7 +35,9 @@
             android:padding="2dp"
             android:text="Competition Name"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"/>
         <TextView
             android:id="@+id/tvLevelDuretion"
             android:layout_width="match_parent"

@@ -216,6 +216,7 @@ public class CompationDetailActivity extends BaseActivity {
                         Log.e("message ", "..." + loginModal.getMessage());
                         Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
                         intent.putExtra("companyId", CompationId);
+                        intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
                         mContext.startActivity(intent);
 
                     } else {
