@@ -60,13 +60,11 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         this.onClickListener = onClickListener;
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvCompetitionName, tvCompetitionDetail, tvExpDate, tvCompetitionLevelDetail;
         public ImageView imgArrowA;
         public LinearLayout competitionll,ll_rclv_competitions;
         protected RecyclerView recycler_view_list;
-
         public ViewHolder(View v) {
             super(v);
             this.recycler_view_list = (RecyclerView) v.findViewById(R.id.recycler_view_list);
@@ -75,13 +73,10 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             tvCompetitionDetail = (TextView) v.findViewById(R.id.tvCompetitionDetail);
             tvExpDate = (TextView) v.findViewById(R.id.tvExpDate);
             tvCompetitionLevelDetail = (TextView) v.findViewById(R.id.tvCompetitionLevelDetail);
-
-
             imgArrowA = (ImageView) v.findViewById(R.id.imgArrowA);
             ll_rclv_competitions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        Toast.makeText(context, "Next Level", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, CompatitonLevelActivity.class);
                         intent.putExtra("Compation_id", competitionArrayList.get(getAdapterPosition()).getCompetitionId());
                         context.startActivity(intent);
@@ -108,61 +103,9 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             Vholder.tvCompetitionDetail.setText(Html.fromHtml(competitionArrayList.get(position).getCompetitionDescription()));
         }
 
-
-
-
-
         //Vholder.tvCompetitionDetail.setText(competitionArrayList.get(position).getCompetitionDescription());
         Vholder.tvExpDate.setText(competitionArrayList.get(position).getCompetitionDuration());
-      /*  ArrayList<Date> listStrings = new ArrayList<>();
-        for (int i= 0 ; i <competitionArrayList.get(position).getCompetitionLevel().size(); i++) {
-            String date = competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDuration();
-            String date1[] = date.split("-");
-            String sdate = date1[0];
-            DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
-            try {
-                listStrings.add(dateFormatter.parse(sdate));
-            } catch (ParseException ex) {
-                System.err.print(ex);
-            }
-            Log.e("Before sorting: ", "..." + listStrings);
-            Collections.sort(listStrings);
-            Log.e("After sorting: ", "..." + listStrings);
-            for (int j = 0; j < listStrings.size(); j++) {
-                Vholder.tvCompetitionLevelDetail.setText(
-                        "Lavel Name " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelName() + "\n" +
-                        "Lavel Detail " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDescription() + "\n" +
-                        "Lavel Start Date " + listStrings.get(j).toString() + "\n" +
-                        "Lavel Duration " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelDuration() + "\n" +
-                        "Lavel Result " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelResult() + "\n" +
-                        "Amount " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelAmount() + "\n" +
-                        "Lavel Rules " + competitionArrayList.get(position).getCompetitionLevel().get(i).getCompetitionLevelRules() + "\n\n");
-            }
-        }*/
 
-       /* final ArrayList<CompetitionLevel> singleSectionItems = new ArrayList<>();
-        singleSectionItems.addAll(competitionArrayList.get(position).getCompetitionLevel());
-        SectionListDataAdapter itemListDataAdapter = new SectionListDataAdapter(context, singleSectionItems, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
-                ButtonSound.getInstance().vibration(context);
-                int pos = Integer.parseInt(view.getTag().toString());
-                CompetitionLevel category = singleSectionItems.get(pos);
-                competitionLevelId = category.getCompetitionLevelId();
-                paymentType = category.getCompetitionLevelPaymentType();
-                strPayment = singleSectionItems.get(pos).getCompetitionLevelPaymentType();
-                competitionId = competitionArrayList.get(position).getCompetitionId();
-                UserId = AppPreference.getStringPreference(context, Constant.User_Id);
-                AudioVedio audioVedio = new AudioVedio();
-                competitionApi();
-            }
-        });
-        Vholder.recycler_view_list.setHasFixedSize(true);
-        Vholder.recycler_view_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        Vholder.recycler_view_list.setAdapter(itemListDataAdapter);
-        Vholder.tvCompetitionName.setTag(position);
-        Vholder.tvCompetitionName.setOnClickListener(onClickListener);*/
     }
 
     @Override

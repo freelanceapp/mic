@@ -39,7 +39,6 @@ public class Mobile_Ragistration extends BaseActivity {
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         init();
-
     }
 
     private void init(){
@@ -48,7 +47,6 @@ public class Mobile_Ragistration extends BaseActivity {
         loginEmail = (TextView) findViewById(R.id.loginEmail);
         change_emage_text = findViewById(R.id.change_text_email);
         countrycode = findViewById(R.id.tv_country_code);
-
         Button getOtp = findViewById(R.id.getopt);
         getOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +59,6 @@ public class Mobile_Ragistration extends BaseActivity {
                     } else {
                         getEmail();
                     }
-
                 }else {
                     phoneNumber = etNumber.getText().toString();
                     if (phoneNumber.length() == 10) {
@@ -72,7 +69,6 @@ public class Mobile_Ragistration extends BaseActivity {
                 }
             }
         });
-
         loginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,18 +104,15 @@ public class Mobile_Ragistration extends BaseActivity {
                         Alerts.show(mContext, loginModal.getMessage());
                         AppPreference.setStringPreference(mContext, Constant.User_Check , loginModal.getUserEmail());
                         AppPreference.setStringPreference(mContext, Constant.User_Mobile , phoneNumber);
-
                         Intent intent = new Intent(Mobile_Ragistration.this, VerificationActivity.class);
                         intent.putExtra("MobileNumber", phoneNumber);
                         intent.putExtra("EmailID", emailAddress);
                         startActivity(intent);
                         finish();
-
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -129,7 +122,6 @@ public class Mobile_Ragistration extends BaseActivity {
             cd.show(mContext);
         }
     }
-
 
     private void getEmail() {
         if (cd.isNetworkAvailable()) {
@@ -146,7 +138,6 @@ public class Mobile_Ragistration extends BaseActivity {
                         intent.putExtra("EmailID", emailAddress);
                         startActivity(intent);
                         finish();
-
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
@@ -160,7 +151,5 @@ public class Mobile_Ragistration extends BaseActivity {
         } else {
             cd.show(mContext);
         }
-
     }
-
 }

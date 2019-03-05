@@ -29,7 +29,7 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class RankLevelActivity extends BaseActivity {
 
-    String compatitionLevelId;
+    String compatitionLevelId, compatitonLevelContentType;
     RecyclerView recyclerViewPerformanceList;
     CompatitionLevelPerformanceAdapter adapter;
     private List<Participant> performanceLists = new ArrayList<>();

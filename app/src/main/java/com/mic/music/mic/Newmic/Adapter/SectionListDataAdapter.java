@@ -51,7 +51,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
 
         CompetitionLevel singleItem = itemsList.get(i);
         holder.tvLevelName.setText(singleItem.getCompetitionLevelName());
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             holder.tvLevelDetail.setText(Html.fromHtml(singleItem.getCompetitionLevelDescription(), Html.FROM_HTML_MODE_COMPACT));
         } else {
@@ -61,7 +60,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
         holder.tvLevelDuretion.setText(singleItem.getCompetitionLevelDuration());
         holder.tvLevelAmount.setText(singleItem.getCompetitionLevelAmount());
         holder.tvLevelAmountType.setText(singleItem.getCompetitionLevelPaymentType());
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             holder.tvLevelRules.setText(Html.fromHtml(singleItem.getCompetitionLevelRules(), Html.FROM_HTML_MODE_COMPACT));
         } else {
@@ -93,24 +91,6 @@ public class SectionListDataAdapter extends RecyclerView.Adapter<SectionListData
             this.tvLevelRules = (TextView) view.findViewById(R.id.tvLevelRules);
             this.tvLevelResult = (TextView) view.findViewById(R.id.tvLevelResult);
             this.tvApply = (TextView) view.findViewById(R.id.tvApply);
-
-          /*  tvApply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, CompationDetailActivity.class);
-                    intent.putExtra("CompatitonLevelId", itemsList.get(getAdapterPosition()).getCompetitionLevelId());
-                    intent.putExtra("CompatitonLevelName", itemsList.get(getAdapterPosition()).getCompetitionLevelName());
-                    intent.putExtra("CompatitonLevelDetail", itemsList.get(getAdapterPosition()).getCompetitionLevelDescription());
-                    intent.putExtra("CompatitonLevelDuretion", itemsList.get(getAdapterPosition()).getCompetitionLevelDuration());
-                    intent.putExtra("CompatitonLevelResult", itemsList.get(getAdapterPosition()).getCompetitionLevelResult());
-                    intent.putExtra("CompatitonLevelPaymentType", itemsList.get(getAdapterPosition()).getCompetitionLevelPaymentType());
-                    intent.putExtra("CompatitonLevelPaymentAmount", itemsList.get(getAdapterPosition()).getCompetitionLevelAmount());
-                    intent.putExtra("CompatitonLevelPaymentContentType", itemsList.get(getAdapterPosition()).getCompetitionLevelContentType());
-                    intent.putExtra("CompatitonLevelPaymentContentRules", itemsList.get(getAdapterPosition()).getCompetitionLevelRules());
-
-                    mContext.startActivity(intent);
-                }
-            });*/
         }
 
     }

@@ -77,7 +77,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     private long refid;
     Fragment fragment;
     private View rootView;
-    private ImageView editBtn , btnAudio, btnVideo , logoutBtn;
+    private ImageView editBtn, btnAudio, btnVideo, logoutBtn;
     TextView singernamem, email, contact;
     CircleImageView circleImg;
     MyVideoAdapter adapter;
@@ -90,6 +90,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
     String emailOtp1;
     MediaPlayer mPlayer;
     MyStringRandomGen myStringRandomGen;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,10 +134,8 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
         rootView.findViewById(R.id.btnAudio).setOnClickListener(this);
         rootView.findViewById(R.id.btnVideo).setOnClickListener(this);
-
         btnVarify.setOnClickListener(this);
         profileApi();
-
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,8 +143,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 loadFragment(fragment);
             }
         });
-
-
         adapter = new MyVideoAdapter(mContext, competitionContentArrayList, this);
         RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(mContext, 2);
         recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
@@ -167,12 +164,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     UserProfileModel loginModal = (UserProfileModel) result.body();
-                  //  allAudioVideoList.clear();
+                    //  allAudioVideoList.clear();
                     competitionContentArrayList.clear();
                     assert loginModal != null;
-
                     if (!loginModal.getError()) {
-                       // Alerts.show(mContext, loginModal.getMessage());
+                        // Alerts.show(mContext, loginModal.getMessage());
                         singernamem.setText(loginModal.getUser().getParticipantName());
                         email.setText(loginModal.getUser().getParticipantEmail());
                         contact.setText(loginModal.getUser().getParticipantMobileNumber());
@@ -187,26 +183,23 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                                 btnVarify.setText("Verify");
                             }
                         }
-
-                       // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
+                        // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.clear();
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
-
                         /* Separate audio and video */
                         if (allAudioVideoList.size() > 0) {
                             for (int i = 0; i < allAudioVideoList.size(); i++) {
                                 if (allAudioVideoList.get(i).getCompetitionContentType().equals("audio")) {
                                     audioList.clear();
-                                   audioList.add(allAudioVideoList.get(i));
+                                    audioList.add(allAudioVideoList.get(i));
                                 } else {
                                     videoList.clear();
                                     videoList.add(allAudioVideoList.get(i));
                                 }
                             }
                             competitionContentArrayList.addAll(audioList);
-                           // ((TextView) rootView.findViewById(R.id.tvCount)).setText("Total" + " " + videoList.size() + " " + "videos");
                         }
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -230,19 +223,17 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             case R.id.videoBtn:
                 int pos = Integer.parseInt(view.getTag().toString());
                 String forment1 = competitionContentArrayList.get(pos).getCompetitionContentType();
-                Log.e("format", "..."+forment1);
+                Log.e("format", "..." + forment1);
                 if (forment1.equals("audio")) {
                     String url = Constant.AUDIO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
                     Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                     getSongUrl(url);
-                }else {
+                } else {
                     String url = Constant.VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
                     Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                     //getSongUrl(url);
                     showDialog(url);
-
                 }
-
                 break;
             case R.id.btnAudio:
                 btnAudio.setColorFilter(ContextCompat.getColor(mContext, (R.color.colorYellow)));
@@ -252,19 +243,18 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.btnVideo:
-                btnAudio.setColorFilter(ContextCompat.getColor(mContext,(R.color.gray_b)));
+                btnAudio.setColorFilter(ContextCompat.getColor(mContext, (R.color.gray_b)));
                 btnVideo.setColorFilter(ContextCompat.getColor(mContext, (R.color.colorYellow)));
                 competitionContentArrayList.clear();
                 competitionContentArrayList.addAll(videoList);
                 adapter.notifyDataSetChanged();
-
                 break;
-            case R.id.btnVarify :
+            case R.id.btnVarify:
                 getEmail();
                 break;
-            case R.id.logoutBtn :
+            case R.id.logoutBtn:
                 AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
-                Intent intent = new Intent(getActivity() , Mobile_Ragistration.class);
+                Intent intent = new Intent(getActivity(), Mobile_Ragistration.class);
                 startActivity(intent);
                 getActivity().finish();
                 break;
@@ -285,6 +275,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -295,7 +286,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    public void showDialog(){
+    public void showDialog() {
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -324,19 +315,20 @@ public class Profile extends BaseFragment implements View.OnClickListener {
 
     private void otpVarification1() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(email.getText().toString(),emailOtp1), new WebResponse() {
+            RetrofitService.getOtp(new Dialog(mContext), retrofitApiClient.getOtp1(email.getText().toString(), emailOtp1), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     OtpModel loginModal = (OtpModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                         btnVarify.setText("Verified");
+                        btnVarify.setText("Verified");
                         email.setFocusable(false);
                         btnVarify.setClickable(false);
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -353,9 +345,9 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setContentView(R.layout.custom_video_upload);
         dialog.setCancelable(false);
 
-        MediaController mediaController= new MediaController(mContext);
-        VideoView video1 = (VideoView)dialog.findViewById(R.id.video);
-        final ProgressDialog  pd = new ProgressDialog(mContext);
+        MediaController mediaController = new MediaController(mContext);
+        VideoView video1 = (VideoView) dialog.findViewById(R.id.video);
+        final ProgressDialog pd = new ProgressDialog(mContext);
 
         pd.setMessage("Buffering video please wait...");
         pd.show();
@@ -391,7 +383,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // player.stop();
+                // player.stop();
                 dialog.dismiss();
             }
         });
@@ -401,12 +393,12 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.show();
     }
 
-    private void initializePlayer(){
+    private void initializePlayer() {
     }
 
     private void getSongUrl(String videourl) {
         Download_Uri = Uri.parse(videourl);
-            downLoadManagerSong(videourl);
+        downLoadManagerSong(videourl);
     }
 
     private void downLoadManagerSong(String video) {
@@ -414,7 +406,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
         request.setAllowedOverRoaming(false);
         request.setTitle("Mic");
-        request.setDescription("Downloading " );
+        request.setDescription("Downloading ");
         request.setVisibleInDownloadsUi(true);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/mic/" + video);
         refid = downloadManager.enqueue(request);
