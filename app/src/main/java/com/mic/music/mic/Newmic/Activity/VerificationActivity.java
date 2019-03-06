@@ -424,7 +424,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     LoginModel1 loginModal = (LoginModel1) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                        Alerts.show(mContext, gloginModal.getMessage());
                         otptime();
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());

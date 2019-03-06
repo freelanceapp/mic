@@ -544,7 +544,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     LoginModel loginModal = (LoginModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, loginModal.getMessage());
+                       // Alerts.show(mContext, loginModal.getMessage());
                         showDialog();
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
