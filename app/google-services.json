@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "205331945709-2tmk4ip4cf348ia8qstkdfhed901j175.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mic.music.mic",
+            "certificate_hash": "af6e7a438225bb46c5ab7585a31fb59ee4c135dd"
+          }
+        },
+        {
           "client_id": "205331945709-9kaffve42o6f3g84pghpa0ceit0bqe5c.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205331945709-9kaffve42o6f3g84pghpa0ceit0bqe5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
