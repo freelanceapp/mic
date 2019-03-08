@@ -117,26 +117,18 @@ public class CompationDetailActivity extends BaseActivity {
 
         tvCompatitionLevelName.setText(compatitionLevelName);
 
-        String s1 = compatitionLevelDuration;
-        String[] data11 = s1.split("-", 2);
-        String fDate1 = data11[0];
-        String lDate1 = data11[1];
-
         String inputPattern = "MM/dd/yyyy HH:mm aa";
         String outputPattern = "dd-MMM-yyyy h:mm a";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-        Date date = null, strResultDate = null;
-        Date date1 = null;
-        sDate = null;
-        eDate = null;
-        rDate = null;
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.ENGLISH);
+
         try {
-            date = inputFormat.parse(fDate1);
+            Date date = inputFormat.parse(fDate);
+            Date date1 = inputFormat.parse(lDate);
+
             sDate = outputFormat.format(date);
-            date1 = inputFormat.parse(lDate1);
             eDate = outputFormat.format(date1);
-            strResultDate = inputFormat.parse(compatitionLevelResult);
+            Date strResultDate = inputFormat.parse(compatitionLevelResult);
             rDate = outputFormat.format(strResultDate);
 
         } catch (ParseException e) {

@@ -70,4 +70,6 @@ public class Constant {
     public static final String LEVEL_ID = "levelId";
     public static final String FILE_TYPE = "fileType";
 
+    public static final String TOKEN = "TOKEN";
+
 }

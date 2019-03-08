@@ -28,10 +28,6 @@ import com.mic.music.mic.utils.ConnectionDetector;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -120,6 +116,11 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                         //  Alerts.show(mContext, loginModal.getMessage());
                         arrayList.addAll(loginModal.getCompetition());
 
+                        closeList.clear();
+                        upComingList.clear();
+                        onGoingList.clear();
+                        getdataList.clear();
+
                         for (int i = 0; i < arrayList.size(); i++) {
                             String s = arrayList.get(i).getCompetitionDuration();
                             String[] data1 = s.split("-", 2);
@@ -151,10 +152,6 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                             }
 
                         }
-
-                        int closeSize = closeList.size();
-                        int upcoming = upComingList.size();
-                        int ongoing = onGoingList.size();
 
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
