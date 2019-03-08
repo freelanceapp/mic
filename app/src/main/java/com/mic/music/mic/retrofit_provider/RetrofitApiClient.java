@@ -86,7 +86,7 @@ public interface RetrofitApiClient {
 
     @FormUrlEncoded
     @POST(Constant.USER_LOGIN)
-    Call<LoginModel1> getLogin(@Field("mobile_number") String mobile_number ,
+    Call<LoginModel1> getLogin(@Field("mobile_number") String mobile_number,
                                @Field("participant_country_code") String participant_country_code);
 
     @FormUrlEncoded
@@ -121,6 +121,7 @@ public interface RetrofitApiClient {
     //Ragister API
     @Multipart
     @POST(Constant.FILE_UPLOAD)
+    //@POST("post_feed.php")
     Call<VideoResponce> getNewPostData(@Part("competition") RequestBody competition,
                                        @Part("competition_level") RequestBody competition_level,
                                        @Part("participant") RequestBody participant,

@@ -44,6 +44,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,6 +54,7 @@ import java.util.Locale;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
@@ -75,6 +78,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
         setContentView(R.layout.activity_upload_video);
         mContext = this;
         cd = new ConnectionDetector(mContext);
+        Constant.BASE_URL = "http://codeencrypt.in/sport/admin/api/";
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         txtPercentage = (TextView) findViewById(R.id.txtPercentage);
@@ -173,11 +177,6 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                         finish();
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
-                        //finish();
-                        //AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-                       /* Intent intent = new Intent(UploadVideoActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();*/
                     }
                 }
 

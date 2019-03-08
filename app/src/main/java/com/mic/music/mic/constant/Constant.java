@@ -5,7 +5,7 @@ package com.mic.music.mic.constant;
  */
 
 public class Constant {
-    public static final String BASE_URL = "http://onlinemic.in/admin/";
+    public static String BASE_URL = "http://onlinemic.in/admin/";
     public static final String USER_REGISTRATION = "api/user-signup.php";
     public static final String FIREBSE_TOKEN = "api/app_token.php";
     public static final String USER_LOGIN = "api/user-login.php";
