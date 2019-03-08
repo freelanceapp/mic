@@ -56,14 +56,14 @@ public class SplashScreen extends BaseActivity {
 
     protected void checkPermission() {
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
-                + ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS)
+                + ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_SMS)
                 + ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 + ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             // Do something, when permissions not granted
             if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.CAMERA) ||
-                    ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_CONTACTS)
+                    ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.READ_SMS)
                     || ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     || ActivityCompat.shouldShowRequestPermissionRationale((Activity) mContext, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 // If we should give explanation of requested permissions
@@ -77,7 +77,7 @@ public class SplashScreen extends BaseActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ActivityCompat.requestPermissions(
                                 (Activity) mContext,
-                                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS,
+                                new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_SMS,
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION
                                 },
                                 MY_PERMISSIONS_REQUEST_CODE
@@ -97,7 +97,7 @@ public class SplashScreen extends BaseActivity {
                 ActivityCompat.requestPermissions(
                         (Activity) mContext,
                         new String[]{
-                                Manifest.permission.CAMERA, Manifest.permission.READ_CONTACTS,
+                                Manifest.permission.CAMERA, Manifest.permission.READ_SMS,
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION
                         },
                         MY_PERMISSIONS_REQUEST_CODE
