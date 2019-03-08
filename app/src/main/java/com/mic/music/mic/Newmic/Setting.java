@@ -66,7 +66,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         soundsetting = view.findViewById(R.id.soundsetting);
         notificationsetting = view.findViewById(R.id.notification);
 
-        performance.setOnClickListener(this);
+       // performance.setOnClickListener(this);
         ourteam.setOnClickListener(this);
         about.setOnClickListener(this);
         reachus.setOnClickListener(this);
@@ -172,7 +172,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 if (cd.isNetworkAvailable()) {
                     String strPrivacyPolicyData = appContentMainModal.getPageContent().get(0).getPageContent();
                     Intent intent5 = new Intent(getActivity(), About.class);
-                    intent5.putExtra("pagetitile", "Privecy Policy");
+                    intent5.putExtra("pagetitile", "Privacy Policy");
                     intent5.putExtra("pagecontent", strPrivacyPolicyData);
                     startActivity(intent5);
                 } else {

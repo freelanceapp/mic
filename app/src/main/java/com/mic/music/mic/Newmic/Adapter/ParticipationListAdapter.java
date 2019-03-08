@@ -70,7 +70,13 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
 
         }
 
+        if (singleItem.getType().equals("Free"))
+        {
+            holder.tvPaymentStatus.setVisibility(View.GONE);
+        }
+
         holder.tvPaymentStatus.setText("Payment Status "+singleItem.getPaymentStatus());
+        holder.tvPaymentType.setText("Payment Type "+singleItem.getType());
         holder.tvAdminStatus.setText(singleItem.getAdminStatus());
         holder.tvAdminStatus.setTag(i);
         holder.tvAdminStatus.setOnClickListener(onClickListener);
@@ -82,7 +88,7 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
-        protected TextView tvLevelName, tvPaymentStatus,  tvAdminStatus;
+        protected TextView tvLevelName, tvPaymentStatus,  tvAdminStatus , tvPaymentType;
         protected LinearLayout levelBtn;
 
         public SingleItemRowHolder(View view) {
@@ -90,6 +96,7 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
             this.tvLevelName = (TextView) view.findViewById(R.id.tvLevelName);
             this.tvPaymentStatus = (TextView) view.findViewById(R.id.tvPaymentStatus);
             this.tvAdminStatus = (TextView) view.findViewById(R.id.tvAdminStatus);
+            this.tvPaymentType = (TextView) view.findViewById(R.id.tvPaymentType);
 
         }
     }

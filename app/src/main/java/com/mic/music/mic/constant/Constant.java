@@ -68,5 +68,6 @@ public class Constant {
     public static final String APP_VIBRATION = "vibration";
     public static final String COMPANY_ID = "companyId";
     public static final String LEVEL_ID = "levelId";
+    public static final String FILE_TYPE = "fileType";
 
 }

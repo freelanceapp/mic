@@ -44,10 +44,12 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
+import com.mic.music.mic.Newmic.About;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.User;
 import com.mic.music.mic.model.login_responce.LoginModel;
+import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final String TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
-    private TextView mNameView;
+    private TextView mNameView, btnRead;
 
     private static final String LOG_TAG = "Google Places Autocomplete";
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
@@ -123,6 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
    private String strchecked = "0";
     MyStringRandomGen myStringRandomGen;
 
+    String strPrivacyPolicyData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +147,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         myStringRandomGen = new MyStringRandomGen();
         checkbox_termconditon = findViewById(R.id.checkbox_condition);
         checkbox_termconditon.setOnClickListener(this);
-
+        getPageContent();
         et_city = findViewById(R.id.et_city_add);
         et_country_ma = findViewById(R.id.et_coutnry_add);
         et_state_ma = findViewById(R.id.et_state_add);
@@ -165,7 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         rgOrganisation = findViewById(R.id.rgOrganisation);
         show_calender = findViewById(R.id.show_calender);
         select_birth = findViewById(R.id.select_birth);
-      //  tvLocateMe = findViewById(R.id.tvLocateMe);
+        btnRead = findViewById(R.id.btnRead);
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
         setDateTimeField();
@@ -292,6 +295,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         autoCompView.setOnItemClickListener(this);
         setDateTimeField();*/
+
+        btnRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent5 = new Intent(MainActivity.this, About.class);
+                intent5.putExtra("pagetitile", "Privacy Policy");
+                intent5.putExtra("pagecontent", strPrivacyPolicyData);
+                startActivity(intent5);
+            }
+        });
     }
 
     public void onItemClick(AdapterView adapterView, View view, int position, long id) {
@@ -326,7 +339,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        fromDatePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -756,6 +769,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
             };
             return filter;
+        }
+    }
+
+
+    private void getPageContent() {
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.appContentPage(new Dialog(mContext), retrofitApiClient.getPageContent(), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    AppContentMainModal appContentMainModal = (AppContentMainModal) result.body();
+                    if (!appContentMainModal.getError()) {
+                        //   Alerts.show(mContext, appContentMainModal.getMessage());
+
+                        strPrivacyPolicyData = appContentMainModal.getPageContent().get(0).getPageContent();
+                    } else {
+                        Alerts.show(mContext, appContentMainModal.getMessage());
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+
+                }
+            });
+        } else {
+            cd.show(mContext);
         }
     }
 }
