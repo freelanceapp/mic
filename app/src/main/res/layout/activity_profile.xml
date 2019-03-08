@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,47 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:text="Profile"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:orientation="horizontal">
+                android:layout_margin="16dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImg"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/circle" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toRightOf="@+id/circleImg">
 
                     <LinearLayout
-                        android:gravity="right"
+                        android:id="@+id/ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:orientation="horizontal"
-                        android:id="@+id/ll">
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/editBtn"
                             android:layout_width="30dp"
@@ -60,89 +59,89 @@
                             android:layout_alignParentRight="true"
                             android:layout_gravity="right"
                             android:src="@drawable/ic_edit" />
+
                         <ImageView
                             android:id="@+id/logoutBtn"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginLeft="4sp"
                             android:layout_alignParentRight="true"
                             android:layout_gravity="right"
+                            android:layout_marginLeft="4sp"
                             android:src="@drawable/ic_logout"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                     </LinearLayout>
 
-
                     <TextView
-                        android:textAlignment="viewEnd"
                         android:id="@+id/singernamem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ll"
                         android:layout_alignParentRight="true"
-                        android:text="David Bekham"
+                        android:textAlignment="viewEnd"
                         android:textColor="@color/yellow"
                         android:textSize="16dp" />
 
                     <LinearLayout
-                        android:gravity="right"
+                        android:id="@+id/llemail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="vertical"
                         android:layout_below="@+id/singernamem"
-                        android:id="@+id/llemail">
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:text="dfvnovnjencvoesnvdavid@gmail.comldihsob eorgijeoerigheroirgn"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
                             android:textColor="@color/yellow"
-                            android:textSize="16dp"
-                            android:lines="1"
-                            android:maxLines="1"
-                            />
+                            android:textSize="16dp" />
+
                         <TextView
+                            android:id="@+id/btnVarify"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_color1"
-                            android:textColor="@color/yellow"
-                            android:text="Verify"
-                            android:paddingLeft="6dp"
-                            android:textSize="12sp"
-                            android:paddingTop="2dp"
-                            android:paddingBottom="2dp"
-                            android:paddingRight="6sp"
                             android:layout_margin="2dp"
-                            android:id="@+id/btnVarify"/>
+                            android:background="@drawable/btn_color1"
+                            android:paddingLeft="6dp"
+                            android:paddingTop="2dp"
+                            android:paddingRight="6sp"
+                            android:paddingBottom="2dp"
+                            android:text="Verify"
+                            android:textColor="@color/yellow"
+                            android:textSize="12sp" />
                     </LinearLayout>
+
                     <TextView
-                        android:textAlignment="viewEnd"
                         android:id="@+id/contact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/llemail"
                         android:layout_alignParentRight="true"
                         android:inputType="number"
-                        android:text="+91 9987598875"
+                        android:textAlignment="viewEnd"
                         android:textColor="@color/yellow"
                         android:textSize="16dp" />
-
                 </RelativeLayout>
+            </RelativeLayout>
 
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:padding="2dp"
+                android:textColor="@color/yellow"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:gravity="left"
-                    android:textColor="@color/yellow"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:id="@+id/tvCount"
-                    android:padding="2dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,18 +156,17 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/hmike"
-                    />
+                    android:src="@drawable/hmike" />
 
                 <ImageView
-                    android:tint="@color/gray_b"
                     android:id="@+id/btnVideo"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="1"
-                    android:src="@drawable/mreecrd" />
+                    android:src="@drawable/mreecrd"
+                    android:tint="@color/gray_b" />
 
             </LinearLayout>
 
@@ -182,10 +180,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recylerviewvideo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recylerviewvideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -1,8 +1,6 @@
 package com.mic.music.mic.Newmic;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
 import com.mic.music.mic.Newmic.Activity.NotificationActivity;
 import com.mic.music.mic.R;
-import com.mic.music.mic.VideoRecord.VideoRecordActivity;
-import com.mic.music.mic.VideoUpload.VideoFolder;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
@@ -34,9 +26,8 @@ import retrofit2.Response;
 
 public class Setting extends BaseFragment implements View.OnClickListener {
 
-    LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting,
+    private LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting,
             notificationsetting, ourteam, performance, logoutBtn;
-
     private String pageTitle, pageContent;
     private View view;
     private AppContentMainModal appContentMainModal;
@@ -87,7 +78,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 public void onResponseSuccess(Response<?> result) {
                     appContentMainModal = (AppContentMainModal) result.body();
                     if (!appContentMainModal.getError()) {
-                     //   Alerts.show(mContext, appContentMainModal.getMessage());
+                        //   Alerts.show(mContext, appContentMainModal.getMessage());
                     } else {
                         Alerts.show(mContext, appContentMainModal.getMessage());
                     }
@@ -104,14 +95,14 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         }
     }
 
-   public void showVideoDialog() {
+    public void showVideoDialog() {
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.layout_logout_box);
         final Button btnyes = (Button) dialog.findViewById(R.id.btn_yes);
-       Button btncencel = (Button) dialog.findViewById(R.id.btn_no);
-       btncencel.setOnClickListener(new View.OnClickListener() {
+        Button btncencel = (Button) dialog.findViewById(R.id.btn_no);
+        btncencel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -120,8 +111,8 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         btnyes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
-                Intent intent = new Intent(mContext,Mobile_Ragistration.class);
+                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+                Intent intent = new Intent(mContext, Mobile_Ragistration.class);
                 startActivity(intent);
                 getActivity().finish();
                 dialog.dismiss();
@@ -161,7 +152,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 if (cd.isNetworkAvailable()) {
                     String strTermsConditionData = appContentMainModal.getPageContent().get(1).getPageContent();
                     Intent intent4 = new Intent(getActivity(), About.class);
-                    intent4.putExtra("pagetitile", "Term");
+                    intent4.putExtra("pagetitile", "Terms of use");
                     intent4.putExtra("pagecontent", strTermsConditionData);
                     startActivity(intent4);
                 } else {
@@ -184,7 +175,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 if (cd.isNetworkAvailable()) {
                     String strReturnPolicyData = appContentMainModal.getPageContent().get(3).getPageContent();
                     Intent intent6 = new Intent(getActivity(), About.class);
-                    intent6.putExtra("pagetitile", "Return Policy");
+                    intent6.putExtra("pagetitile", "Refund Policy");
                     intent6.putExtra("pagecontent", strReturnPolicyData);
                     startActivity(intent6);
                 } else {
@@ -201,25 +192,6 @@ public class Setting extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.logoutBtn:
                 showVideoDialog();
-               /* AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("Are you sure you want to logout?");
-                builder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
-                                Intent i = new Intent(mContext, Mobile_Ragistration.class);
-                                startActivity(i);
-                                getActivity().finish();
-                            }
-                        });
-                builder.setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert11 = builder.create();
-                alert11.show();*/
                 break;
         }
     }

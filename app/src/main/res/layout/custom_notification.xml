@@ -2,31 +2,32 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background_color">
+    android:layout_height="80dp"
+    android:background="@drawable/mic_background">
     <LinearLayout
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingTop="10dp"
         android:orientation="horizontal"
         android:paddingBottom="10dp">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="45sp"
-            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:tint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
             android:layout_gravity="center"
-            android:src="@drawable/notification1"/>
+            android:src="@drawable/ic_all_notification"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notification"
-                android:textColor="@color/colorYellow"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:padding="5sp"
                 android:id="@+id/title_tv"/>
@@ -34,16 +35,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notification The show all message ivje oevi oie "
-                android:textColor="@color/colorYellow"
+                android:textColor="@color/white"
                 android:textSize="10sp"
                 android:padding="3sp"
                 android:lines="1"
                 android:id="@+id/title_description"/>
         </LinearLayout>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"/>
     </LinearLayout>
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_a"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"/>
 </RelativeLayout>

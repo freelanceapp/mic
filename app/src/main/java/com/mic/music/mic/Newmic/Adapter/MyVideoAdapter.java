@@ -2,24 +2,15 @@ package com.mic.music.mic.Newmic.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
-import com.mic.music.mic.model.Compatition1;
-import com.mic.music.mic.model.competition_responce.CompletionModel;
-import com.mic.music.mic.model.participation_responce.Participation;
 import com.mic.music.mic.model.user_responce.CompetitionContent;
-import com.mic.music.mic.utils.AppPreference;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -52,12 +43,11 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.SingleIt
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
         CompetitionContent singleItem = itemsList.get(i);
-        if (singleItem.getCompetitionContentType().equals("video"))
-        {
-            //holder.ivVideo.setImageResource(R.drawable.mreecrd);
-            Picasso.get().load(Constant.VIDEO_URL+itemsList.get(i).getCompetitionContentUrl()).networkPolicy(NetworkPolicy.NO_CACHE).into(holder.ivVideo);
-
-        }else {
+        if (singleItem.getCompetitionContentType().equals("video")) {
+            Picasso.get()
+                    .load(Constant.VIDEO_URL + itemsList.get(i).getCompetitionContentUrl())
+                    .networkPolicy(NetworkPolicy.NO_CACHE).into(holder.ivVideo);
+        } else {
             holder.ivVideo.setImageResource(R.drawable.hmike);
         }
         holder.videoBtn.setTag(i);
@@ -72,6 +62,7 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.SingleIt
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
         protected ImageView ivVideo;
         RelativeLayout videoBtn;
+
         public SingleItemRowHolder(View view) {
             super(view);
             this.ivVideo = (ImageView) view.findViewById(R.id.ivVideo);
