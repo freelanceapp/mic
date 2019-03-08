@@ -404,7 +404,6 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
-
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -424,7 +423,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
                     LoginModel1 loginModal = (LoginModel1) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        Alerts.show(mContext, gloginModal.getMessage());
+                        Alerts.show(mContext, loginModal.getMessage());
                         otptime();
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
