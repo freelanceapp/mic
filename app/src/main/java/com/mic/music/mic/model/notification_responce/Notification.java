@@ -21,7 +21,10 @@ public class Notification implements Parcelable
     private String notificationMessage;
     @SerializedName("notification_image")
     @Expose
-    private Object notificationImage;
+    private String notificationImage;
+    @SerializedName("notification_image_status")
+    @Expose
+    private String notification_image_status;
     public final static Creator<Notification> CREATOR = new Creator<Notification>() {
 
 
@@ -43,7 +46,8 @@ public class Notification implements Parcelable
         this.notificationId = ((String) in.readValue((String.class.getClassLoader())));
         this.notificationTitle = ((String) in.readValue((String.class.getClassLoader())));
         this.notificationMessage = ((String) in.readValue((String.class.getClassLoader())));
-        this.notificationImage = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.notificationImage = ((String) in.readValue((Object.class.getClassLoader())));
+        this.notification_image_status = ((String) in.readValue((Object.class.getClassLoader())));
     }
 
     public Notification() {
@@ -88,16 +92,29 @@ public class Notification implements Parcelable
         return this;
     }
 
-    public Object getNotificationImage() {
+    public String getNotificationImage() {
         return notificationImage;
     }
 
-    public void setNotificationImage(Object notificationImage) {
+    public void setNotificationImage(String notificationImage) {
         this.notificationImage = notificationImage;
     }
 
-    public Notification withNotificationImage(Object notificationImage) {
+    public String getNotification_image_status() {
+        return notification_image_status;
+    }
+
+    public void setNotification_image_status(String notification_image_status) {
+        this.notification_image_status = notification_image_status;
+    }
+
+    public Notification withNotificationImage(String notificationImage) {
         this.notificationImage = notificationImage;
+        return this;
+    }
+
+    public Notification withNotification_image_status(String notification_image_status) {
+        this.notification_image_status = notification_image_status;
         return this;
     }
 
@@ -106,6 +123,7 @@ public class Notification implements Parcelable
         dest.writeValue(notificationTitle);
         dest.writeValue(notificationMessage);
         dest.writeValue(notificationImage);
+        dest.writeValue(notification_image_status);
     }
 
     public int describeContents() {
