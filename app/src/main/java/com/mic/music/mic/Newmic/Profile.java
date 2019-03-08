@@ -1,6 +1,5 @@
 package com.mic.music.mic.Newmic;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.Notification;
