@@ -12,8 +12,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -47,9 +45,7 @@ import com.mic.music.mic.Newmic.Adapter.MyVideoAdapter;
 import com.mic.music.mic.Newmic.Fragment.EditProfileFragment;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
-import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.login_responce.LoginModel;
-import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.user_responce.CompetitionContent;
 import com.mic.music.mic.model.user_responce.UserProfileModel;
@@ -68,28 +64,27 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Response;
 
 import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
-import static com.mic.music.mic.constant.Constant.AUDIO_URL;
-import static com.mic.music.mic.constant.Constant.VIDEO_URL;
 
 public class Profile extends BaseFragment implements View.OnClickListener {
+
     private Uri Download_Uri;
     private DownloadManager downloadManager;
     private long refid;
-    Fragment fragment;
+    private Fragment fragment;
     private View rootView;
     private ImageView editBtn, btnAudio, btnVideo, logoutBtn;
-    TextView singernamem, email, contact;
-    CircleImageView circleImg;
-    MyVideoAdapter adapter;
-    ArrayList<CompetitionContent> competitionContentArrayList = new ArrayList<>();
-    ArrayList<CompetitionContent> allAudioVideoList = new ArrayList<>();
-    ArrayList<CompetitionContent> videoList = new ArrayList<>();
-    ArrayList<CompetitionContent> audioList = new ArrayList<>();
-    RecyclerView recylerviewgrid, recylerviewvideo;
-    TextView btnVarify;
-    String emailOtp1;
-    MediaPlayer mPlayer;
-    MyStringRandomGen myStringRandomGen;
+    private TextView singernamem, email, contact;
+    private CircleImageView circleImg;
+    private MyVideoAdapter adapter;
+    private ArrayList<CompetitionContent> competitionContentArrayList = new ArrayList<>();
+    private ArrayList<CompetitionContent> allAudioVideoList = new ArrayList<>();
+    private ArrayList<CompetitionContent> videoList = new ArrayList<>();
+    private ArrayList<CompetitionContent> audioList = new ArrayList<>();
+    private RecyclerView recylerviewgrid, recylerviewvideo;
+    private TextView btnVarify;
+    private String emailOtp1;
+    private MediaPlayer mPlayer;
+    private MyStringRandomGen myStringRandomGen;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,7 +102,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         init();
-
         return rootView;
     }
 
@@ -115,23 +109,23 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         myStringRandomGen = new MyStringRandomGen();
         downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         mContext.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
-        singernamem = (TextView) rootView.findViewById(R.id.singernamem);
-        email = (TextView) rootView.findViewById(R.id.email);
-        contact = (TextView) rootView.findViewById(R.id.contact);
-        circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
-        recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
-        recylerviewvideo = (RecyclerView) rootView.findViewById(R.id.recylerviewvideo);
-        btnAudio = (ImageView) rootView.findViewById(R.id.btnAudio);
-        btnVideo = (ImageView) rootView.findViewById(R.id.btnVideo);
-        logoutBtn = (ImageView) rootView.findViewById(R.id.logoutBtn);
-        btnVarify = (TextView) rootView.findViewById(R.id.btnVarify);
-        editBtn = (ImageView) rootView.findViewById(R.id.editBtn);
-        singernamem = (TextView) rootView.findViewById(R.id.singernamem);
-        email = (TextView) rootView.findViewById(R.id.email);
-        contact = (TextView) rootView.findViewById(R.id.contact);
-        circleImg = (CircleImageView) rootView.findViewById(R.id.circleImg);
-        recylerviewgrid = (RecyclerView) rootView.findViewById(R.id.recylerviewgrid);
+        editBtn = rootView.findViewById(R.id.editBtn);
+        singernamem = rootView.findViewById(R.id.singernamem);
+        email = rootView.findViewById(R.id.email);
+        contact = rootView.findViewById(R.id.contact);
+        circleImg = rootView.findViewById(R.id.circleImg);
+        recylerviewgrid = rootView.findViewById(R.id.recylerviewgrid);
+        recylerviewvideo = rootView.findViewById(R.id.recylerviewvideo);
+        btnAudio = rootView.findViewById(R.id.btnAudio);
+        btnVideo = rootView.findViewById(R.id.btnVideo);
+        logoutBtn = rootView.findViewById(R.id.logoutBtn);
+        btnVarify = rootView.findViewById(R.id.btnVarify);
+        editBtn = rootView.findViewById(R.id.editBtn);
+        singernamem = rootView.findViewById(R.id.singernamem);
+        email = rootView.findViewById(R.id.email);
+        contact = rootView.findViewById(R.id.contact);
+        circleImg = rootView.findViewById(R.id.circleImg);
+        recylerviewgrid = rootView.findViewById(R.id.recylerviewgrid);
         rootView.findViewById(R.id.btnAudio).setOnClickListener(this);
         rootView.findViewById(R.id.btnVideo).setOnClickListener(this);
         btnVarify.setOnClickListener(this);
@@ -148,6 +142,11 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         recylerviewgrid.setLayoutManager(recyclerViewLayoutManager);
         recylerviewgrid.setItemAnimator(new DefaultItemAnimator());
         recylerviewgrid.setAdapter(adapter);
+
+        email.setHorizontallyScrolling(true);
+        email.setFocusable(true);
+        email.setMarqueeRepeatLimit(-1);
+        email.setSelected(true);
     }
 
     private void loadFragment(Fragment fragment) {
@@ -206,6 +205,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                     }
                     adapter.notifyDataSetChanged();
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -216,22 +216,17 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    @SuppressLint({"ResourceAsColor", "ResourceType"})
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.videoBtn:
                 int pos = Integer.parseInt(view.getTag().toString());
                 String forment1 = competitionContentArrayList.get(pos).getCompetitionContentType();
-                Log.e("format", "..." + forment1);
                 if (forment1.equals("audio")) {
                     String url = Constant.AUDIO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
-                    Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
                     getSongUrl(url);
                 } else {
                     String url = Constant.VIDEO_URL + competitionContentArrayList.get(pos).getCompetitionContentUrl();
-                    Toast.makeText(mContext, url, Toast.LENGTH_SHORT).show();
-                    //getSongUrl(url);
                     showDialog(url);
                 }
                 break;
@@ -292,12 +287,12 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_email_otp);
 
-        TextView text = (TextView) dialog.findViewById(R.id.emailTv);
+        TextView text = dialog.findViewById(R.id.emailTv);
         text.setText(email.getText().toString());
 
-        final EditText emailOtp = (EditText) dialog.findViewById(R.id.emailOtpET);
+        final EditText emailOtp = dialog.findViewById(R.id.emailOtpET);
 
-        Button dialogButton = (Button) dialog.findViewById(R.id.emailOTPVarificationBtn);
+        Button dialogButton = dialog.findViewById(R.id.emailOTPVarificationBtn);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -346,7 +341,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setCancelable(false);
 
         MediaController mediaController = new MediaController(mContext);
-        VideoView video1 = (VideoView) dialog.findViewById(R.id.video);
+        VideoView video1 = dialog.findViewById(R.id.video);
         final ProgressDialog pd = new ProgressDialog(mContext);
 
         pd.setMessage("Buffering video please wait...");
@@ -380,7 +375,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             }
         });
 
-        ((ImageView) dialog.findViewById(R.id.imgDismis)).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.imgDismis).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // player.stop();

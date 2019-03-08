@@ -1,36 +1,47 @@
 package com.mic.music.mic.Newmic;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.mic.music.mic.R;
 
-public class About extends AppCompatActivity {
-
-    private TextView tvaboutTitle, tvaboutContent;
+public class About extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        tvaboutTitle = findViewById(R.id.tv_about_title);
-        tvaboutContent = findViewById(R.id.tv_about_content);
+        init();
+    }
 
+    @SuppressLint("SetJavaScriptEnabled")
+    private void init() {
+        findViewById(R.id.imgBack).setOnClickListener(this);
+        WebView webView = findViewById(R.id.webView);
+        TextView tvaboutTitle = findViewById(R.id.tv_about_title);
         Intent intent = getIntent();
         String strtitle = intent.getStringExtra("pagetitile");
         String strContent = intent.getStringExtra("pagecontent");
         tvaboutTitle.setText(strtitle);
-        tvaboutContent.setText(strContent);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            tvaboutContent.setText(Html.fromHtml(strContent, Html.FROM_HTML_MODE_COMPACT));
-        } else {
-            tvaboutContent.setText(Html.fromHtml(strContent));
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webView.loadData(strContent, "text/html; charset=utf-8", "UTF-8");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgBack:
+                finish();
+                break;
         }
     }
 }

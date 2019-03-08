@@ -11,32 +11,29 @@ import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.utils.AppPreference;
 
 public class SoundSetting extends AppCompatActivity implements
-        CompoundButton.OnCheckedChangeListener{
+        CompoundButton.OnCheckedChangeListener {
 
     SwitchCompat scSound, scVibrition;
     Boolean chSound, chVibration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sound_setting);
 
-        scSound = (SwitchCompat) findViewById(R.id.scSound1);
-        scVibrition = (SwitchCompat) findViewById(R.id.scVibrition);
+        scSound = findViewById(R.id.scSound1);
+        scVibrition = findViewById(R.id.scVibrition);
 
         chSound = AppPreference.getBooleanPreference(SoundSetting.this, Constant.APP_SOUND);
 
         if (chSound.equals(true)) {
             scSound.setChecked(true);
-        }else {
-
         }
 
         chVibration = AppPreference.getBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION);
 
         if (chVibration.equals(true)) {
             scVibrition.setChecked(true);
-        }else {
-
         }
 
         scSound.setOnCheckedChangeListener(this);
@@ -48,21 +45,19 @@ public class SoundSetting extends AppCompatActivity implements
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         switch (compoundButton.getId()) {
             case R.id.scSound1:
-                if (b == true)
-                {
-                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_SOUND , true);
-                }else {
-                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_SOUND , false);
+                if (b == true) {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_SOUND, true);
+                } else {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_SOUND, false);
                 }
 
                 Log.e("switch_compat sound", b + "");
                 break;
             case R.id.scVibrition:
-                if (b == true)
-                {
-                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION , true);
-                }else {
-                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION , false);
+                if (b == true) {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION, true);
+                } else {
+                    AppPreference.setBooleanPreference(SoundSetting.this, Constant.APP_VIBRATION, false);
                 }
 
                 Log.e("switch_compat vibrit", b + "");

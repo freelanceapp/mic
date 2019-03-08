@@ -3,7 +3,6 @@ package com.mic.music.mic.Newmic.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
-import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
@@ -24,12 +22,13 @@ import com.mic.music.mic.utils.ConnectionDetector;
 import retrofit2.Response;
 
 public class Mobile_Ragistration extends BaseActivity {
-    private TextView loginEmail,change_emage_text,countrycode;
+    private TextView loginEmail, change_emage_text, countrycode;
     private EditText etNumber, etEmail;
     private String phoneNumber = "121";
     private String emailAddress = "abc@abc.com";
     private String email1 = "0";
     private String checkLogin = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +40,9 @@ public class Mobile_Ragistration extends BaseActivity {
         init();
     }
 
-    private void init(){
-        etNumber = (EditText)findViewById(R.id.etNumber);
-        etEmail = (EditText)findViewById(R.id.etEmail);
+    private void init() {
+        etNumber = (EditText) findViewById(R.id.etNumber);
+        etEmail = (EditText) findViewById(R.id.etEmail);
         loginEmail = (TextView) findViewById(R.id.loginEmail);
         change_emage_text = findViewById(R.id.change_text_email);
         countrycode = findViewById(R.id.tv_country_code);
@@ -51,20 +50,19 @@ public class Mobile_Ragistration extends BaseActivity {
         getOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email1.equals("1"))
-                {
+                if (email1.equals("1")) {
                     emailAddress = etEmail.getText().toString();
                     if (emailAddress.length() == 0) {
                         etEmail.setError("Please Enter Email Address");
                     } else {
                         getEmail();
                     }
-                }else {
+                } else {
                     phoneNumber = etNumber.getText().toString();
                     if (phoneNumber.length() == 10) {
                         getMobile();
                     } else {
-                        etNumber.setError("Please Enter Mobile Numeber");
+                        etNumber.setError("Please Enter Valid Mobile Number");
                     }
                 }
             }
@@ -80,7 +78,7 @@ public class Mobile_Ragistration extends BaseActivity {
                     etEmail.setVisibility(View.VISIBLE);
                     etNumber.setVisibility(View.GONE);
                     email1 = "1";
-                }else {
+                } else {
                     change_emage_text.setText("Enter Mobile Number");
                     countrycode.setVisibility(View.VISIBLE);
                     loginEmail.setText("Login with Email");
@@ -102,8 +100,8 @@ public class Mobile_Ragistration extends BaseActivity {
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
-                        AppPreference.setStringPreference(mContext, Constant.User_Check , loginModal.getUserEmail());
-                        AppPreference.setStringPreference(mContext, Constant.User_Mobile , phoneNumber);
+                        AppPreference.setStringPreference(mContext, Constant.User_Check, loginModal.getUserEmail());
+                        AppPreference.setStringPreference(mContext, Constant.User_Mobile, phoneNumber);
                         Intent intent = new Intent(Mobile_Ragistration.this, VerificationActivity.class);
                         intent.putExtra("MobileNumber", phoneNumber);
                         intent.putExtra("EmailID", emailAddress);
@@ -113,6 +111,7 @@ public class Mobile_Ragistration extends BaseActivity {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -132,7 +131,7 @@ public class Mobile_Ragistration extends BaseActivity {
                     assert loginModal != null;
                     if (!loginModal.getError()) {
                         Alerts.show(mContext, loginModal.getMessage());
-                        AppPreference.setStringPreference(mContext, Constant.User_Check , loginModal.getUserEmail());
+                        AppPreference.setStringPreference(mContext, Constant.User_Check, loginModal.getUserEmail());
                         Intent intent = new Intent(Mobile_Ragistration.this, VerificationActivity.class);
                         intent.putExtra("MobileNumber", phoneNumber);
                         intent.putExtra("EmailID", emailAddress);
