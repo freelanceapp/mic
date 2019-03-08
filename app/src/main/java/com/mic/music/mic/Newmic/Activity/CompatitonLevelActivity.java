@@ -1,12 +1,10 @@
 package com.mic.music.mic.Newmic.Activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,15 +19,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mic.music.mic.Newmic.Adapter.SectionListDataAdapter;
 import com.mic.music.mic.R;
-import com.mic.music.mic.constant.Constant;
-import com.mic.music.mic.model.Compatition1;
 import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
 import com.mic.music.mic.model.compation_level_responce.CompetitionLevel;
-import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
-import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -37,10 +31,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Response;
 
-public class CompatitonLevelActivity extends BaseActivity implements View.OnClickListener{
+public class CompatitonLevelActivity extends BaseActivity implements View.OnClickListener {
 
     private SectionListDataAdapter sectionListDataAdapter;
     private ArrayList<CompetitionLevel> competitionLevelArrayList = new ArrayList<>();
@@ -52,7 +47,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     private TextView tvCompatitionDuration;
     private TextView tvCompatitionRules;
     private Button btnShowGraph;
-    private String sDate,eDate;
+    private String sDate, eDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +61,12 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
 
-        rvCompationLevel = (RecyclerView)findViewById(R.id.rvCompationLevel);
-        tvCompatitionName = (TextView)findViewById(R.id.tvCompatitionName);
-        tvCompatitionDetail = (TextView)findViewById(R.id.tvCompatitionDetail);
-        tvCompatitionDuration = (TextView)findViewById(R.id.tvCompatitionDuration);
-        tvCompatitionRules = (TextView)findViewById(R.id.tvCompatitionRules);
-        backCompationLevel = (ImageView)findViewById(R.id.backCompationLevel);
+        rvCompationLevel = (RecyclerView) findViewById(R.id.rvCompationLevel);
+        tvCompatitionName = (TextView) findViewById(R.id.tvCompatitionName);
+        tvCompatitionDetail = (TextView) findViewById(R.id.tvCompatitionDetail);
+        tvCompatitionDuration = (TextView) findViewById(R.id.tvCompatitionDuration);
+        tvCompatitionRules = (TextView) findViewById(R.id.tvCompatitionRules);
+        backCompationLevel = (ImageView) findViewById(R.id.backCompationLevel);
         btnShowGraph = (Button) findViewById(R.id.btnShowGraph);
         backCompationLevel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +79,12 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
         btnShowGraph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CompatitonLevelActivity.this , PerformanceActivity.class);
-                intent.putExtra("Compation_id",compationId);
+                Intent intent = new Intent(CompatitonLevelActivity.this, PerformanceActivity.class);
+                intent.putExtra("Compation_id", compationId);
                 startActivity(intent);
             }
         });
-        sectionListDataAdapter = new SectionListDataAdapter(CompatitonLevelActivity.this,competitionLevelArrayList, this);
+        sectionListDataAdapter = new SectionListDataAdapter(CompatitonLevelActivity.this, competitionLevelArrayList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(CompatitonLevelActivity.this);
         rvCompationLevel.setLayoutManager(mLayoutManager);
         rvCompationLevel.setItemAnimator(new DefaultItemAnimator());
@@ -107,7 +102,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
                     if (!loginModal.getError()) {
                         Gson gson = new GsonBuilder().setLenient().create();
                         String data = gson.toJson(loginModal);
-                        Log.e("Login", ".."+data);
+                        Log.e("Login", ".." + data);
                         //  Alerts.show(mContext, loginModal.getMessage());
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             tvCompatitionName.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionName(), Html.FROM_HTML_MODE_COMPACT));
@@ -132,22 +127,20 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
 
                         String inputPattern = "MM/dd/yyyy HH:mm aa";
                         String outputPattern = "dd-MMM-yyyy h:mm a";
-                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-                        Date date = null;
-                        Date date1 = null;
-                        sDate = null;
-                        eDate = null;
+                        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
+                        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.ENGLISH);
+
                         try {
-                            date = inputFormat.parse(fDate);
+                            Date date = inputFormat.parse(fDate);
+                            Date date1 = inputFormat.parse(lDate);
+
                             sDate = outputFormat.format(date);
-                            date1 = inputFormat.parse(lDate);
                             eDate = outputFormat.format(date1);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
 
-                        tvCompatitionDuration.setText("Start Date "+ sDate +" \n\nEnd Date "+ eDate);
+                        tvCompatitionDuration.setText("Start Date " + sDate + " \n\nEnd Date " + eDate);
 
                         competitionLevelArrayList.addAll(loginModal.getCompetition().get(0).getCompetitionLevel());
 
@@ -156,6 +149,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
                     }
                     sectionListDataAdapter.notifyDataSetChanged();
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     Alerts.show(mContext, error);
@@ -167,12 +161,10 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     }
 
 
-
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
-            case R.id.tvApply :
+        switch (view.getId()) {
+            case R.id.tvApply:
                 int pos = Integer.parseInt(view.getTag().toString());
                 CompetitionLevel competitionLevel = competitionLevelArrayList.get(pos);
                 Intent intent = new Intent(CompatitonLevelActivity.this, CompationDetailActivity.class);

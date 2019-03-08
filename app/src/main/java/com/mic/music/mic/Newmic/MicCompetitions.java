@@ -1,6 +1,5 @@
 package com.mic.music.mic.Newmic;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Response;
 
@@ -73,13 +73,10 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
         rvCompetitionList.setAdapter(adapter);
 
         RadioGroup rg = (RadioGroup) view.findViewById(R.id.rgCompatition);
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                switch(checkedId)
-                {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
                     case R.id.rd_ongoing:
                         getdataList.clear();
                         getdataList.addAll(onGoingList);
@@ -119,34 +116,43 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                         //  Alerts.show(mContext, loginModal.getMessage());
                         arrayList.addAll(loginModal.getCompetition());
 
+                        closeList.clear();
+                        upComingList.clear();
+                        onGoingList.clear();
+                        getdataList.clear();
+
                         for (int i = 0; i < arrayList.size(); i++) {
                             String s = arrayList.get(i).getCompetitionDuration();
                             String[] data1 = s.split("-", 2);
-                            String fDate = data1[0];
-                            String lDate = data1[1];
+                            String fDate = " " + data1[0];
+                            String lDate = data1[1] + " ";
                             Log.e("fDate", fDate);
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aa");
-                            Date strDate = new Date(), strEndDate = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat(" MM/dd/yyyy HH:mm aa ", Locale.US);
+
                             try {
-                                strDate = sdf.parse(fDate);
-                                strEndDate = sdf.parse(lDate);
+                                Date strDate = sdf.parse(fDate);
+                                Date strEndDate = sdf.parse(lDate);
+                                if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() > strEndDate.getTime()) {
+                                    Log.e("System", String.valueOf(System.currentTimeMillis()));
+                                    Log.e("strDate.getTime()", String.valueOf(strDate.getTime()));
+                                    Log.e("strEndDate.getTime()", String.valueOf(strEndDate.getTime()));
+                                    closeList.add(arrayList.get(i));
+                                } else if (System.currentTimeMillis() < strDate.getTime()) {
+                                    Log.e("strDate.getTime()", String.valueOf(strDate.getTime()));
+                                    upComingList.add(arrayList.get(i));
+                                } else if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() < strEndDate.getTime()) {
+                                    Log.e("strDate.getTime()", String.valueOf(strDate.getTime()));
+                                    Log.e("strEndDate.getTime()", String.valueOf(strEndDate.getTime()));
+                                    onGoingList.add(arrayList.get(i));
+                                    getdataList.add(arrayList.get(i));
+                                }
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() > strEndDate.getTime()) {
-                                Log.e("close", "close ");
-                                closeList.add(arrayList.get(i));
-                            } else if (System.currentTimeMillis() < strDate.getTime()) {
-                                upComingList.add(arrayList.get(i));
-                            } else if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() < strEndDate.getTime()) {
-                                onGoingList.add(arrayList.get(i));
-                                getdataList.add(arrayList.get(i));
-                            }
+
                         }
-                        int closeSize = closeList.size();
-                        int upcoming = upComingList.size();
-                        int ongoing = onGoingList.size();
+
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }

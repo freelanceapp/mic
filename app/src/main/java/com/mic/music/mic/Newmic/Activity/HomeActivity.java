@@ -84,8 +84,8 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         user_id = completionModel.getUser().getParticipantId();
         AppPreference.setStringPreference(mContext, Constant.User_Id , completionModel.getUser().getParticipantId());
 
-//        Log.e("token", f_token);
- //       Log.e("Device", android_id);
+       /* Log.e("token", f_token);
+        Log.e("Device", android_id);*/
 
         tokenApi();
         fragment = new AudioVedio();

@@ -100,6 +100,8 @@ public class AllNotificationFragment extends BaseFragment {
 
                         n.setNotificationTitle(object.getString("notification_title"));
                         n.setNotificationMessage(object.getString("notification_message"));
+                        n.setNotificationImage(object.getString("notification_image"));
+                        n.setNotification_image_status(object.getString("notification_image_status"));
                         notifications.add(n);
                     }
 

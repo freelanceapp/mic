@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frame_container"
-        android:background="@drawable/mic_background"></FrameLayout>
+        android:background="@drawable/mic_background"/>
 
     <com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget
         android:id="@+id/itemCycleMenuWidget"
@@ -27,7 +27,6 @@
         app:cm_item_background_tint="@color/yellow"
         app:cm_radius_scale_type="auto"
         app:cm_ripple_color="@color/transparent_b"
-        app:cm_scroll_type="basic"
-        />
+        app:cm_scroll_type="basic" />
 
 </RelativeLayout>

@@ -1,234 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mic_background"
     tools:context=".Newmic.Activity.CompationDetailActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@id/ll">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/yellow">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:id="@+id/backCompationDetail"/>
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_above="@id/ll"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Competion Name"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:padding="4sp"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:id="@+id/tvCompetitionName"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Competion Level"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:padding="4sp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:id="@+id/tvCompetitionLevelName"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:text="Detail"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:text="dkfjbhierbv oifhbe ifhbv"
-            android:id="@+id/tvCompetitionLevelDetail1"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".8sp"
-            android:layout_margin="4sp"
-            android:background="@color/yellow"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:text="12/12/2019"
-            android:id="@+id/tvCompetitionDuretion"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".8sp"
-            android:layout_margin="4sp"
-            android:background="@color/yellow"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/llAmount"
-            android:layout_margin="4sp">
+            android:layout_height="?actionBarSize"
+            android:background="@color/yellow">
 
             <ImageView
-                android:layout_width="18sp"
-                android:layout_height="18sp"
-                android:src="@drawable/rupees" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="1000"
-                android:textColor="@color/white"
-                android:padding="2dp"
-                android:id="@+id/tvCompetitionPrice"/>
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:id="@+id/tvCompetitionPaymentType"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".8sp"
-            android:layout_margin="4sp"
-            android:background="@color/yellow"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
+                android:id="@+id/backCompationDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:padding="2dp"
-                android:layout_margin="4sp"
-                android:id="@+id/tvCompetitionType"
-                android:text="Content Type"
-                android:textStyle="bold"/>
-
-            <ImageView
-                android:layout_width="24sp"
-                android:layout_height="24sp"
                 android:layout_gravity="center"
-                android:src="@drawable/mreecrd"
-                android:layout_margin="2dp"
-                android:id="@+id/content_Video"/>
-
-            <ImageView
-                android:layout_width="20sp"
-                android:layout_height="20sp"
-                android:src="@drawable/hmike"
-                android:layout_margin="2dp"
-                android:id="@+id/content_Audio"/>
+                android:layout_margin="4dp"
+                android:src="@drawable/ic_back" />
         </LinearLayout>
 
-        <View
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height=".8sp"
-            android:layout_margin="4sp"
-            android:background="@color/yellow"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:text="Result "
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:id="@+id/tvCompetitionResult"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".8sp"
-            android:layout_margin="4sp"
-            android:background="@color/yellow"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:text="Rules"
-            android:textStyle="bold"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:padding="2dp"
-            android:layout_margin="4sp"
-            android:id="@+id/tvCompetitionRules"/>
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCompetitionName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="4sp"
+                    android:text="Competion Name"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvCompetitionLevelName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="4sp"
+                    android:text="Competion Level"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:text="Detail"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCompetitionLevelDetail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:text="dkfjbhierbv oifhbe ifhbv"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".8sp"
+                    android:layout_margin="4sp"
+                    android:background="@color/yellow" />
+
+                <TextView
+                    android:id="@+id/tvCompetitionDuretion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:text="12/12/2019"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".8sp"
+                    android:layout_margin="4sp"
+                    android:background="@color/yellow" />
+
+                <LinearLayout
+                    android:id="@+id/llAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
+                        android:src="@drawable/rupees" />
+
+                    <TextView
+                        android:id="@+id/tvCompetitionPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="1000"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvCompetitionPaymentType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".8sp"
+                    android:layout_margin="4sp"
+                    android:background="@color/yellow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvCompetitionType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4sp"
+                        android:padding="2dp"
+                        android:text="Content Type"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/content_Video"
+                        android:layout_width="24sp"
+                        android:layout_height="24sp"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/mreecrd" />
+
+                    <ImageView
+                        android:id="@+id/content_Audio"
+                        android:layout_width="20sp"
+                        android:layout_height="20sp"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/hmike" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".8sp"
+                    android:layout_margin="4sp"
+                    android:background="@color/yellow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:text="Result "
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCompetitionResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".8sp"
+                    android:layout_margin="4sp"
+                    android:background="@color/yellow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:text="Rules"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCompetitionRules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-    </ScrollView>
-    </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:id="@+id/ll">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/yellow"
-        android:text="Apply"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:id="@+id/btnApply"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/yellow"
-        android:text="Show Rank"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:id="@+id/btnRank"
-        android:visibility="gone"/>
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:text="Apply"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnRank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:text="Show Rank"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>

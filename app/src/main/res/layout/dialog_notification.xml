@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/mic_background">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/layout_back_b"
+        android:layout_height="wrap_content"
         android:layout_margin="4sp"
+        android:background="@drawable/layout_back_b"
+        android:orientation="vertical"
         android:padding="4sp">
 
 
         <ImageView
+            android:id="@+id/btnNotificationCancle"
             android:layout_width="25sp"
             android:layout_height="25sp"
-            android:src="@drawable/ic_cancel"
             android:layout_gravity="end"
             android:layout_margin="6sp"
-            android:id="@+id/btnNotificationCancle"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notification"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="4sp"
-            android:layout_margin="4sp"
-            android:id="@+id/tvNotificationName"/>
+            android:src="@drawable/ic_cancel" />
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notification"
-            android:textSize="12sp"
-            android:textColor="@color/white"
-            android:textStyle="normal"
-            android:padding="4sp"
-            android:layout_margin="4sp"
-            android:id="@+id/tvNotificatioDatail"/>
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNotificationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:gravity="center"
+                    android:padding="4sp"
+                    android:text="Notification"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="250sp"
+                    android:layout_gravity="center"
+                    android:layout_margin="4sp" />
+
+                <TextView
+                    android:id="@+id/tvNotificatioDatail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4sp"
+                    android:padding="4sp"
+                    android:text="Notification"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>

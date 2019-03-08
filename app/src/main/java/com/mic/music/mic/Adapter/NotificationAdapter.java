@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mic.music.mic.Newmic.Activity.MainActivity;
 import com.mic.music.mic.R;
 import com.mic.music.mic.VideoUpload.Activity_galleryview;
@@ -25,6 +26,7 @@ import com.mic.music.mic.VideoUpload.Adapter_VideoFolder;
 import com.mic.music.mic.VideoUpload.Model_Video;
 import com.mic.music.mic.model.notification;
 import com.mic.music.mic.model.notification_responce.Notification;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,7 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
 
     public  String strName;
     public  String strDetail;
+    public  String strImage;
 
     public NotificationAdapter() {
     }
@@ -62,6 +65,7 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
         public void onClick(View view) {
             strName = notificationArrayList.get(getAdapterPosition()).getNotificationTitle();
             strDetail = notificationArrayList.get(getAdapterPosition()).getNotificationMessage();
+            strImage = notificationArrayList.get(getAdapterPosition()).getNotificationImage();
             showDialog();
         }
     }
@@ -99,9 +103,16 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
         TextView tvNotificationName = (TextView)dialog.findViewById(R.id.tvNotificationName);
         TextView tvNotificatioDatail = (TextView)dialog.findViewById(R.id.tvNotificatioDatail);
         ImageView btnNotificationCancle = (ImageView)dialog.findViewById(R.id.btnNotificationCancle);
+        ImageView ivNotification = (ImageView)dialog.findViewById(R.id.ivNotification);
 
         tvNotificationName.setText(strName);
         tvNotificatioDatail.setText(strDetail);
+        Picasso.get().load(strImage).placeholder(R.drawable.notification1).error(R.drawable.notification1).into(ivNotification);
+
+        Glide.with(context).load(strImage)
+                .thumbnail(0.5f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivNotification);
 
         btnNotificationCancle.setOnClickListener(new View.OnClickListener() {
             @Override

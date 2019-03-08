@@ -3,7 +3,6 @@ package com.mic.music.mic.Newmic.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mic.music.mic.Newmic.Fragment.ParticipationDetailFragment;
 import com.mic.music.mic.R;
@@ -28,6 +26,7 @@ import com.mic.music.mic.utils.ConnectionDetector;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Response;
 
@@ -46,9 +45,9 @@ public class CompationDetailActivity extends BaseActivity {
     private TextView tvCompatitionLevelContantType;
     private Button btnApply, btnRank;
     private ImageView backCompationDetail;
-    private String sDate,eDate,rDate;
+    private String sDate, eDate, rDate;
     LinearLayout llAmount;
-    private ImageView content_Video,content_Audio;
+    private ImageView content_Video, content_Audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,77 +94,67 @@ public class CompationDetailActivity extends BaseActivity {
 
         String s = compatitionLevelDuration;
         String[] data1 = s.split("-", 2);
-        String fDate = data1[0];
-        String lDate = data1[1];
+        String fDate = " " + data1[0];
+        String lDate = data1[1] + " ";
         Log.e("fDate", fDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aa");
-        Date strDate = null, strEndDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aa", Locale.ENGLISH);
+
         try {
-            strDate = sdf.parse(fDate);
-            strEndDate = sdf.parse(lDate);
+            Date strDate = sdf.parse(fDate);
+            Date strEndDate = sdf.parse(lDate);
+
+            if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() > strEndDate.getTime()) {
+                Log.e("close", "close ");
+                btnApply.setVisibility(View.GONE);
+            } else if (System.currentTimeMillis() < strDate.getTime()) {
+                btnApply.setVisibility(View.GONE);
+            } else if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() < strEndDate.getTime()) {
+                btnApply.setVisibility(View.VISIBLE);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
-        }
-        if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() > strEndDate.getTime()) {
-            Log.e("close", "close ");
-            btnApply.setVisibility(View.GONE);
-        } else if (System.currentTimeMillis() < strDate.getTime()) {
-            btnApply.setVisibility(View.GONE);
-        } else if (System.currentTimeMillis() > strDate.getTime() && System.currentTimeMillis() < strEndDate.getTime()) {
-            btnApply.setVisibility(View.VISIBLE);
         }
 
         tvCompatitionLevelName.setText(compatitionLevelName);
 
-        String s1 = compatitionLevelDuration;
-        String[] data11 = s1.split("-", 2);
-        String fDate1 = data11[0];
-        String lDate1 = data11[1];
-
         String inputPattern = "MM/dd/yyyy HH:mm aa";
         String outputPattern = "dd-MMM-yyyy h:mm a";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-        Date date = null , strResultDate = null;
-        Date date1 = null;
-        sDate = null;
-        eDate = null;
-        rDate = null;
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern, Locale.ENGLISH);
+
         try {
-            date = inputFormat.parse(fDate1);
+            Date date = inputFormat.parse(fDate);
+            Date date1 = inputFormat.parse(lDate);
+
             sDate = outputFormat.format(date);
-            date1 = inputFormat.parse(lDate1);
             eDate = outputFormat.format(date1);
-            strResultDate = inputFormat.parse(compatitionLevelResult);
+            Date strResultDate = inputFormat.parse(compatitionLevelResult);
             rDate = outputFormat.format(strResultDate);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        tvCompatitionLevelDuretion.setText("Start Date "+ sDate +" \n\nEnd Date "+ eDate);
+        tvCompatitionLevelDuretion.setText("Start Date " + sDate + " \n\nEnd Date " + eDate);
 
         tvCompatitionLevelPaymentType.setText("Payment Type " + compatitonLevelPaymentType);
-        if (compatitonLevelPaymentAmount.equals("0"))
-        {
+        if (compatitonLevelPaymentAmount.equals("0")) {
             llAmount.setVisibility(View.GONE);
-        }else {
+        } else {
             tvCompatitionLevelPaymentAmount.setText(" " + compatitonLevelPaymentAmount);
         }
         //tvCompatitionLevelContantType.setText("Content Type " + compatitonLevelContentType);
 
-        if (compatitonLevelContentType.equals("Video"))
-        {
+        if (compatitonLevelContentType.equals("Video")) {
             content_Audio.setVisibility(View.GONE);
             content_Video.setVisibility(View.VISIBLE);
-        }else if (compatitonLevelContentType.equals("Audio"))
-        {
+        } else if (compatitonLevelContentType.equals("Audio")) {
             content_Audio.setVisibility(View.VISIBLE);
             content_Video.setVisibility(View.GONE);
-        }else if (compatitonLevelContentType.equals("Both")){
+        } else if (compatitonLevelContentType.equals("Both")) {
             content_Audio.setVisibility(View.VISIBLE);
             content_Video.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             content_Audio.setVisibility(View.GONE);
             content_Video.setVisibility(View.GONE);
         }
@@ -212,7 +201,7 @@ public class CompationDetailActivity extends BaseActivity {
                     TokenModel loginModal = (TokenModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                       // Alerts.show(mContext, loginModal.getMessage());
+                        // Alerts.show(mContext, loginModal.getMessage());
                         Log.e("message ", "..." + loginModal.getMessage());
                         Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
                         intent.putExtra("companyId", CompationId);

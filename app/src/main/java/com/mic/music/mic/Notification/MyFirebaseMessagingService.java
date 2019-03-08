@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -133,6 +134,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void tokenApi(String strToken) {
+        Looper.prepare();
         String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         String strId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         if (cd.isNetworkAvailable()) {

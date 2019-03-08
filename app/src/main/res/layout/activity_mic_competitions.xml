@@ -19,13 +19,13 @@
         android:textStyle="bold" />
 
     <RadioGroup
+        android:id="@+id/rgCompatition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="15dp"
-        android:id="@+id/rgCompatition">
+        android:padding="15dp">
 
         <RadioButton
             android:id="@+id/rd_ongoing"
@@ -39,13 +39,13 @@
             android:textColor="@color/yellow" />
 
         <RadioButton
+            android:id="@+id/rd_upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:buttonTint="@color/yellow"
             android:text="Up Coming"
-            android:textColor="@color/yellow"
-            android:id="@+id/rd_upcoming"/>
+            android:textColor="@color/yellow" />
 
         <RadioButton
             android:id="@+id/rd_close"
@@ -63,9 +63,8 @@
         android:layout_height="0.5dp"
         android:background="@color/yellow" />
 
-
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCompetitionList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rvCompetitionList" />
+        android:layout_height="match_parent" />
 </LinearLayout>
