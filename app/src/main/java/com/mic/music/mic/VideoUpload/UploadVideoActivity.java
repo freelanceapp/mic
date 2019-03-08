@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,17 +17,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.mic.music.mic.Api.AndroidMultiPartEntity;
-import com.mic.music.mic.AudioUpload.AudioRecordActivity;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
-import com.mic.music.mic.Notification.Config;
 import com.mic.music.mic.R;
 import com.mic.music.mic.Responce.VideoResponce;
 import com.mic.music.mic.constant.Constant;
@@ -41,7 +35,6 @@ import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
-import org.apache.http.HttpConnection;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -54,9 +47,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import okhttp3.MediaType;
@@ -106,7 +96,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                     //compressVideo(video1);
                     // ApiCallkyc();
                     newPostFeedApi(video1);
-                   // new UploadFileToServer().execute();
+                    // new UploadFileToServer().execute();
                 } else {
                     Toast.makeText(UploadVideoActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
@@ -114,46 +104,46 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
         });
     }
 
-   /* private void compressVideo(String strOriginalVIdeo) {
-        destPath = outputDir + File.separator + "VID_" +
-                new SimpleDateFormat("yyyyMMdd_HHmmss", getLocale()).format(new Date()) + ".mp4";
-        VideoCompress.compressVideoMedium(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
-            @Override
-            public void onStart() {
-                dialogCompressProgress = new Dialog(mContext);
-                dialogCompressProgress.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialogCompressProgress.setContentView(R.layout.dialog_compress_progress);
+    /* private void compressVideo(String strOriginalVIdeo) {
+         destPath = outputDir + File.separator + "VID_" +
+                 new SimpleDateFormat("yyyyMMdd_HHmmss", getLocale()).format(new Date()) + ".mp4";
+         VideoCompress.compressVideoMedium(strOriginalVIdeo, destPath, new VideoCompress.CompressListener() {
+             @Override
+             public void onStart() {
+                 dialogCompressProgress = new Dialog(mContext);
+                 dialogCompressProgress.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                 dialogCompressProgress.setContentView(R.layout.dialog_compress_progress);
 
-                dialogCompressProgress.setCanceledOnTouchOutside(true);
-                dialogCompressProgress.setCancelable(true);
-                if (dialogCompressProgress.getWindow() != null)
-                    dialogCompressProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                Window window = dialogCompressProgress.getWindow();
-                window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                dialogCompressProgress.show();
-            }
+                 dialogCompressProgress.setCanceledOnTouchOutside(true);
+                 dialogCompressProgress.setCancelable(true);
+                 if (dialogCompressProgress.getWindow() != null)
+                     dialogCompressProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                 Window window = dialogCompressProgress.getWindow();
+                 window.setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                 dialogCompressProgress.show();
+             }
 
-            @Override
-            public void onSuccess() {
-                dialogCompressProgress.dismiss();
+             @Override
+             public void onSuccess() {
+                 dialogCompressProgress.dismiss();
 
-            }
+             }
 
-            @Override
-            public void onFail() {
-                Toast.makeText(mContext, "Compress fail", Toast.LENGTH_SHORT).show();
-            }
+             @Override
+             public void onFail() {
+                 Toast.makeText(mContext, "Compress fail", Toast.LENGTH_SHORT).show();
+             }
 
-            @Override
-            public void onProgress(float percent) {
-                if (dialogCompressProgress != null) {
-                    ((TextView) dialogCompressProgress.findViewById(R.id.tvProgress))
-                            .setText("Progress " + String.valueOf(percent) + " %");
-                }
-            }
-        });
-    }
-*/
+             @Override
+             public void onProgress(float percent) {
+                 if (dialogCompressProgress != null) {
+                     ((TextView) dialogCompressProgress.findViewById(R.id.tvProgress))
+                             .setText("Progress " + String.valueOf(percent) + " %");
+                 }
+             }
+         });
+     }
+ */
     private void newPostFeedApi(String strFilePath) {
         File file = new File(strFilePath);
         String strId = user_id;
@@ -178,16 +168,16 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                         Log.e("url", ".. " + responseBody.getMessage());
                         Log.e("url", ".. " + responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-                        Intent intent = new Intent(UploadVideoActivity.this , HomeActivity.class);
+                        Intent intent = new Intent(UploadVideoActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         //finish();
-                        AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-                        Intent intent = new Intent(UploadVideoActivity.this , HomeActivity.class);
+                        //AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                       /* Intent intent = new Intent(UploadVideoActivity.this, HomeActivity.class);
                         startActivity(intent);
-                        finish();
+                        finish();*/
                     }
                 }
 
@@ -248,15 +238,14 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
     }
 
 
-
-
     /**
      * Uploading the file to server
-     * */
+     */
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
         String strId = user_id;
         String strCompanyId = AppPreference.getStringPreference(getApplicationContext(), Constant.COMPANY_ID);
         String strLevelId = AppPreference.getStringPreference(getApplicationContext(), Constant.LEVEL_ID);
+
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
@@ -293,8 +282,8 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                     @Override
                     public void transferred(long num) {
                         publishProgress((int) ((num / (float) totalSize) * 100));
-                            }
-                        });
+                    }
+                });
 
                 File sourceFile = new File(video1);
                 // Adding file data to http body
@@ -312,7 +301,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
                 HttpEntity r_entity = response.getEntity();
 
                 int statusCode = response.getStatusLine().getStatusCode();
-                Log.e("Responce", "..."+response.toString());
+                Log.e("Responce", "..." + response.toString());
                 if (statusCode == 200) {
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
@@ -342,7 +331,7 @@ public class UploadVideoActivity extends BaseActivity implements ProgressRequest
 
     /**
      * Method to show alert dialog
-     * */
+     */
     private void showAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setTitle("Response from Servers")
