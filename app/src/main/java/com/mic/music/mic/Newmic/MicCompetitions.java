@@ -144,11 +144,9 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                                 getdataList.add(arrayList.get(i));
                             }
                         }
-
                         int closeSize = closeList.size();
                         int upcoming = upComingList.size();
                         int ongoing = onGoingList.size();
-
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                     }
