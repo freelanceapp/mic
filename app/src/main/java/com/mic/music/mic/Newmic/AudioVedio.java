@@ -63,7 +63,7 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
     public static int formant1 = 0;
     public static Dialog CompetitionDialog;
     private RecyclerView recylerview;
-
+    private String compatitionFileType = "";
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -123,13 +123,18 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 ButtonSound.getInstance().vibration(mContext);
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
-
+                compatitionFileType = AppPreference.getStringPreference(mContext , Constant.FILE_TYPE);
                 Log.e("Company ", ".." + strCompany);
                 if (strCompany.equals("")) {
                     fragment = new MicCompetitions();
                     loadFragment(fragment);
                 } else {
-                    showAudioDialog();
+                    if (compatitionFileType.equals("Video"))
+                    {
+                        Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                    }else {
+                        showAudioDialog();
+                    }
                 }
 
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
@@ -142,12 +147,18 @@ public class AudioVedio extends BaseFragment implements View.OnClickListener {
                 ButtonSound.getInstance().vibration(mContext);
                 formant1 = 2;
                 String strCompany = AppPreference.getStringPreference(mContext, Constant.COMPANY_ID);
+                compatitionFileType = AppPreference.getStringPreference(mContext , Constant.FILE_TYPE);
                 Log.e("Company ", ".." + strCompany);
                 if (strCompany.equals("")) {
                     fragment = new MicCompetitions();
                     loadFragment(fragment);
                 } else {
-                    showVideoDialog();
+                    if (compatitionFileType.equals("Audio"))
+                    {
+                        Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                    }else {
+                        showVideoDialog();
+                    }
                 }
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
             }

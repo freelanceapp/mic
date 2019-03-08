@@ -57,7 +57,7 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         soundsetting = view.findViewById(R.id.soundsetting);
         notificationsetting = view.findViewById(R.id.notification);
 
-        performance.setOnClickListener(this);
+       // performance.setOnClickListener(this);
         ourteam.setOnClickListener(this);
         about.setOnClickListener(this);
         reachus.setOnClickListener(this);
@@ -112,6 +112,9 @@ public class Setting extends BaseFragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 AppPreference.setBooleanPreference(mContext, Constant.Is_Login, false);
+                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
+                AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, "");
                 Intent intent = new Intent(mContext, Mobile_Ragistration.class);
                 startActivity(intent);
                 getActivity().finish();

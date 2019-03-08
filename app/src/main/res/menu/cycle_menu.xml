@@ -17,10 +17,7 @@
         android:id="@+id/competition"
         android:icon="@drawable/ic_competition_black"
         android:title="Competition" />
-    <item
-        android:id="@+id/analytics"
-        android:icon="@drawable/ic_analytic_black"
-        android:title="Analytics" />
+
 
     <item
         android:id="@+id/setting"

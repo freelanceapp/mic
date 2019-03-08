@@ -30,6 +30,15 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tvPaymentType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="Level"
+                android:textColor="@color/yellow"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/tvPaymentStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

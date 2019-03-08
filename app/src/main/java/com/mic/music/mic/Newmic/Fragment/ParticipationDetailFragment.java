@@ -132,6 +132,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         switch (view.getId()) {
             case R.id.tvAdminStatus:
                 int pos = Integer.parseInt(view.getTag().toString());
+                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE , compatitonLevelContentType);
                 AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
                 AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
                 if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
@@ -139,14 +140,14 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                     if (formant1 == 1) {
                         if (compatitonLevelContentType.equals("Video"))
                         {
-                            Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
                         }else {
                             showAudioDialog();
                         }
                     } else if (formant1 == 2) {
                         if (compatitonLevelContentType.equals("Audio"))
                         {
-                            Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
                         }else {
                             showVideoDialog();
                         }

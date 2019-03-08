@@ -278,9 +278,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         } else {
             cd.show(mContext);
         }
-
     }
-
 
     public void showDialog() {
         final Dialog dialog = new Dialog(mContext);
@@ -376,7 +374,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        fromDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+        fromDatePickerDialog = new DatePickerDialog(mContext,R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -654,7 +652,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
         userCity =  et_city_fr.getText().toString();
         userState = et_state_fr.getText().toString();
         userCountry = et_country_fr.getText().toString();
-    userDOB = select_birth.getText().toString();
+        userDOB = select_birth.getText().toString();
 
         if (!userEmail.matches(emailPattern)) {
             user_email.setError("Enter Email ID");
@@ -667,7 +665,7 @@ public class EditProfileFragment extends BaseFragment implements View.OnClickLis
                         TokenModel loginModal = (TokenModel) result.body();
                         assert loginModal != null;
                         if (!loginModal.getError()) {
-                            Alerts.show(mContext, loginModal.getMessage());
+                          //  Alerts.show(mContext, loginModal.getMessage());
                             Intent intent = new Intent(mContext, HomeActivity.class);
                             mContext.startActivity(intent);
                             getActivity().finish();

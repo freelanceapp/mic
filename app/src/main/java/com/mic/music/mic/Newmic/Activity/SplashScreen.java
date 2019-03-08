@@ -42,16 +42,19 @@ public class SplashScreen extends BaseActivity {
         setContentView(R.layout.activity_splash_screen);
         f_token = FirebaseInstanceId.getInstance().getToken();
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
         mContext = this;
         cd = new ConnectionDetector(mContext);
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
+
         tokenApi();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission();
         }else {
             testHandler();
         }
+
     }
 
     protected void checkPermission() {
