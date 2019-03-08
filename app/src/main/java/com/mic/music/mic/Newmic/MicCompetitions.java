@@ -1,5 +1,6 @@
 package com.mic.music.mic.Newmic;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -126,7 +127,7 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                             Log.e("fDate", fDate);
 
                             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aa");
-                            Date strDate = null, strEndDate = null;
+                            Date strDate = new Date(), strEndDate = new Date();
                             try {
                                 strDate = sdf.parse(fDate);
                                 strEndDate = sdf.parse(lDate);
