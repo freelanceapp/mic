@@ -64,7 +64,7 @@ public class VerificationActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void otptime() {
-        new CountDownTimer(12000, 1000) {
+        new CountDownTimer(120000, 1000) {
             public void onTick(long millisUntilFinished) {
                 otpTime.setVisibility(View.VISIBLE);
                 otpTime.setText("seconds remaining: " + millisUntilFinished / 1000);

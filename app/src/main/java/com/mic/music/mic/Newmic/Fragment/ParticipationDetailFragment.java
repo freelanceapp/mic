@@ -132,34 +132,65 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         switch (view.getId()) {
             case R.id.tvAdminStatus:
                 int pos = Integer.parseInt(view.getTag().toString());
-                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE , compatitonLevelContentType);
+                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, compatitonLevelContentType);
                 AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
                 AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
-                if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
-                    AudioVedio audioVedio = new AudioVedio();
-                    if (formant1 == 1) {
-                        if (compatitonLevelContentType.equals("Video"))
-                        {
-                            Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
-                        }else {
-                            showAudioDialog();
-                        }
-                    } else if (formant1 == 2) {
-                        if (compatitonLevelContentType.equals("Audio"))
-                        {
-                            Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
-                        }else {
-                            showVideoDialog();
+
+                Log.e("content_status", participationArrayList.get(pos).getContent_status());
+                Log.e("PaymentStatus", participationArrayList.get(pos).getPaymentStatus());
+
+                if (participationArrayList.get(pos).getType().equals("Free")) {
+                    if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
+                        if (formant1 == 1) {
+                            if (compatitonLevelContentType.equals("Video")) {
+                                Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                            } else {
+                                showAudioDialog();
+                            }
+                        } else if (formant1 == 2) {
+                            if (compatitonLevelContentType.equals("Audio")) {
+                                Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                            } else {
+                                showVideoDialog();
+                            }
+                        } else {
+                            Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     } else {
-                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
-                        startActivity(intent);
+                        Alerts.show(mContext, "Yor can not Active admin side");
                         finish();
                     }
                 } else {
-                    Alerts.show(mContext, "Yor are not selected");
-                    finish();
+                    if (participationArrayList.get(pos).getPaymentStatus().equals("Pending")) {
+                        Alerts.show(mContext, "Your Payment is Pending");
+                    } else {
+                        if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
+                            if (formant1 == 1) {
+                                if (compatitonLevelContentType.equals("Video")) {
+                                    Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    showAudioDialog();
+                                }
+                            } else if (formant1 == 2) {
+                                if (compatitonLevelContentType.equals("Audio")) {
+                                    Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    showVideoDialog();
+                                }
+                            } else {
+                                Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            Alerts.show(mContext, "Yor can not Active admin side");
+                            finish();
+                        }
+                    }
                 }
                 break;
         }

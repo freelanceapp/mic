@@ -459,8 +459,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri).setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(mChannel);

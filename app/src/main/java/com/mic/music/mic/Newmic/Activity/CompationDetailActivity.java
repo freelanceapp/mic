@@ -92,6 +92,8 @@ public class CompationDetailActivity extends BaseActivity {
             }
         });
 
+        competitionApi();
+
         String s = compatitionLevelDuration;
         String[] data1 = s.split("-", 2);
         String fDate = " " + data1[0];
@@ -125,11 +127,11 @@ public class CompationDetailActivity extends BaseActivity {
         try {
             Date date = inputFormat.parse(fDate);
             Date date1 = inputFormat.parse(lDate);
+            //Date date2 = inputFormat.parse(compatitionLevelResult);
 
             sDate = outputFormat.format(date);
             eDate = outputFormat.format(date1);
-            Date strResultDate = inputFormat.parse(compatitionLevelResult);
-            rDate = outputFormat.format(strResultDate);
+            //rDate = outputFormat.format(date2);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -176,7 +178,10 @@ public class CompationDetailActivity extends BaseActivity {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                competitionApi();
+                Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
+                intent.putExtra("companyId", CompationId);
+                intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
+                mContext.startActivity(intent);
             }
         });
         btnRank.setOnClickListener(new View.OnClickListener() {
@@ -201,15 +206,9 @@ public class CompationDetailActivity extends BaseActivity {
                     TokenModel loginModal = (TokenModel) result.body();
                     assert loginModal != null;
                     if (!loginModal.getError()) {
-                        // Alerts.show(mContext, loginModal.getMessage());
-                        Log.e("message ", "..." + loginModal.getMessage());
-                        Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
-                        intent.putExtra("companyId", CompationId);
-                        intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
-                        mContext.startActivity(intent);
-
+                        btnApply.setVisibility(View.VISIBLE);
+                        btnRank.setVisibility(View.GONE);
                     } else {
-                        Alerts.show(mContext, loginModal.getMessage());
                         Alerts.show(mContext, loginModal.getMessage());
                         btnApply.setVisibility(View.GONE);
                         btnRank.setVisibility(View.VISIBLE);

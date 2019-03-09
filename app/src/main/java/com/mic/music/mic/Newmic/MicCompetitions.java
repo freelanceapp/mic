@@ -115,21 +115,17 @@ public class MicCompetitions extends BaseFragment implements View.OnClickListene
                         Compatition1.setCompletionModel(loginModal);
                         //  Alerts.show(mContext, loginModal.getMessage());
                         arrayList.addAll(loginModal.getCompetition());
-
                         closeList.clear();
                         upComingList.clear();
                         onGoingList.clear();
                         getdataList.clear();
-
                         for (int i = 0; i < arrayList.size(); i++) {
                             String s = arrayList.get(i).getCompetitionDuration();
                             String[] data1 = s.split("-", 2);
                             String fDate = " " + data1[0];
                             String lDate = data1[1] + " ";
                             Log.e("fDate", fDate);
-
                             SimpleDateFormat sdf = new SimpleDateFormat(" MM/dd/yyyy HH:mm aa ", Locale.US);
-
                             try {
                                 Date strDate = sdf.parse(fDate);
                                 Date strEndDate = sdf.parse(lDate);

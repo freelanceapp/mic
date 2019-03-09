@@ -28,6 +28,9 @@ public class Participation implements Parcelable
     @SerializedName("competition_level")
     @Expose
     private String competitionLevel;
+    @SerializedName("content_status")
+    @Expose
+    private String content_status;
     public final static Creator<Participation> CREATOR = new Creator<Participation>() {
 
 
@@ -52,6 +55,7 @@ public class Participation implements Parcelable
         this.paymentStatus = ((String) in.readValue((String.class.getClassLoader())));
         this.resultStatus = ((String) in.readValue((String.class.getClassLoader())));
         this.competitionLevel = ((String) in.readValue((String.class.getClassLoader())));
+        this.content_status = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     public Participation() {
@@ -130,8 +134,21 @@ public class Participation implements Parcelable
         this.competitionLevel = competitionLevel;
     }
 
+    public String getContent_status() {
+        return content_status;
+    }
+
+    public void setContent_status(String content_status) {
+        this.content_status = content_status;
+    }
+
     public Participation withCompetitionLevel(String competitionLevel) {
         this.competitionLevel = competitionLevel;
+        return this;
+    }
+
+    public Participation withContent_status(String content_status) {
+        this.content_status = content_status;
         return this;
     }
 
@@ -142,6 +159,7 @@ public class Participation implements Parcelable
         dest.writeValue(paymentStatus);
         dest.writeValue(resultStatus);
         dest.writeValue(competitionLevel);
+        dest.writeValue(content_status);
     }
 
     public int describeContents() {

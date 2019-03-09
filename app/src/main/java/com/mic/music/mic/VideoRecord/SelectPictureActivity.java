@@ -305,7 +305,6 @@ public class SelectPictureActivity extends BaseActivity implements ProgressReque
             compressUri = Uri.fromFile(imageFile);
             //FileProvider.getUriForFile(mContext, mContext.getApplicationContext().getPackageName()+ FILE_PROVIDER_EXTENTION, imageFile);
 
-
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), compressUri);
                 imageView.setImageBitmap(bitmap);
@@ -320,10 +319,8 @@ public class SelectPictureActivity extends BaseActivity implements ProgressReque
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
-
 
     class VideoCompressAsyncTask extends AsyncTask<String, String, String> {
 
@@ -345,16 +342,12 @@ public class SelectPictureActivity extends BaseActivity implements ProgressReque
         protected String doInBackground(String... paths) {
             String filePath = null;
             try {
-
                 filePath = SiliCompressor.with(mContext).compressVideo(paths[0], paths[1]);
-
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
             return filePath;
-
         }
-
 
         @Override
         protected void onPostExecute(String compressedFilePath) {
@@ -382,11 +375,6 @@ public class SelectPictureActivity extends BaseActivity implements ProgressReque
             VideoView.start();
 
             newPostFeedApi(compressedFilePath);
-
-           /* Intent intent_gallery = new Intent(SelectPictureActivity.this, Activity_galleryview.class);
-            intent_gallery.putExtra("video",compressedFilePath);
-            startActivity(intent_gallery);
-            finish();*/
 
         }
     }
@@ -416,11 +404,11 @@ public class SelectPictureActivity extends BaseActivity implements ProgressReque
                         Log.e("url", ".. " + responseBody.getMessage());
                         Log.e("url", ".. " + responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
-                        //finish();
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
 
                     }
                 }

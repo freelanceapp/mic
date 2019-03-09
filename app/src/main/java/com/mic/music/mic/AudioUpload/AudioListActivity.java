@@ -266,6 +266,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
                         Log.e("url", ".. "+ responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
                         Intent intent = new Intent(AudioListActivity.this , HomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -273,6 +274,7 @@ public class AudioListActivity extends BaseActivity implements View.OnClickListe
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
                         Log.e("true message ", ".. "+ responseBody.getMessage());
 
                         //finish();

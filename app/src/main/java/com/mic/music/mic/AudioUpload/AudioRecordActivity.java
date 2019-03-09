@@ -329,6 +329,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                         Log.e("url", ".. "+ responseBody.getMessage());
                         Log.e("url", ".. "+ responseBody.getUrl());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
                         Intent intent = new Intent(AudioRecordActivity.this , HomeActivity.class);
                         startActivity(intent);
                         finish();
@@ -336,8 +337,7 @@ public class AudioRecordActivity extends BaseActivity implements ProgressRequest
                     } else {
                         Alerts.show(mContext, responseBody.getMessage());
                         AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, "");
-
-                        //finish();
+                        AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, "");
                     }
                     progressDialog.dismiss();
                 }
