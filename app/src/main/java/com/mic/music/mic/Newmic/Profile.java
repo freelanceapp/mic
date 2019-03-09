@@ -184,16 +184,18 @@ public class Profile extends BaseFragment implements View.OnClickListener {
                         // competitionContentArrayList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         allAudioVideoList.clear();
+                        audioList.clear();
+                        videoList.clear();
                         allAudioVideoList.addAll(loginModal.getCompetitionContent());
                         Log.e("Email Varification", ".." + loginModal.getUser().getParticipantEmailVerificationStatus());
                         /* Separate audio and video */
                         if (allAudioVideoList.size() > 0) {
                             for (int i = 0; i < allAudioVideoList.size(); i++) {
                                 if (allAudioVideoList.get(i).getCompetitionContentType().equals("audio")) {
-                                    audioList.clear();
+
                                     audioList.add(allAudioVideoList.get(i));
                                 } else {
-                                    videoList.clear();
+
                                     videoList.add(allAudioVideoList.get(i));
                                 }
                             }
@@ -340,7 +342,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         dialog.setCancelable(false);
 
         MediaController mediaController = new MediaController(mContext);
-        VideoView video1 = dialog.findViewById(R.id.video);
+        final VideoView video1 = dialog.findViewById(R.id.video);
         final ProgressDialog pd = new ProgressDialog(mContext);
 
         pd.setMessage("Buffering video please wait...");
@@ -355,7 +357,7 @@ public class Profile extends BaseFragment implements View.OnClickListener {
         video1.start();
 
         Uri myUri = Uri.parse(video); // initialize Uri here
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        final MediaPlayer mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mediaPlayer.setDataSource(mContext, myUri);
@@ -370,6 +372,8 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 //close the progress dialog when buffering is done
+                video1.stopPlayback();
+                video1.pause();
                 pd.dismiss();
             }
         });
@@ -378,6 +382,9 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 // player.stop();
+                video1.stopPlayback();
+                video1.pause();
+                mediaPlayer.stop();
                 dialog.dismiss();
             }
         });

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mic.music.mic.R;
 import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.user_responce.CompetitionContent;
@@ -44,9 +46,12 @@ public class MyVideoAdapter extends RecyclerView.Adapter<MyVideoAdapter.SingleIt
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
         CompetitionContent singleItem = itemsList.get(i);
         if (singleItem.getCompetitionContentType().equals("video")) {
-            Picasso.get()
-                    .load(Constant.VIDEO_URL + itemsList.get(i).getCompetitionContentUrl())
-                    .networkPolicy(NetworkPolicy.NO_CACHE).into(holder.ivVideo);
+
+            Glide.with(mContext).load(Constant.VIDEO_URL + itemsList.get(i).getCompetitionContentUrl())
+                    .thumbnail(0.5f)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.ivVideo);
+
         } else {
             holder.ivVideo.setImageResource(R.drawable.hmike);
         }
