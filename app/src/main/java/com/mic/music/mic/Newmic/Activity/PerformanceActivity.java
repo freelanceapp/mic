@@ -147,8 +147,10 @@ public class PerformanceActivity extends BaseActivity implements OnChartValueSel
 
         ArrayList<Entry> values1 = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            float val = Float.parseFloat(graphDataList.get(i).getScore());
-            values1.add(new Entry(i, val));
+            if (graphDataList.get(i).getScore() != null) {
+                float val = Float.parseFloat(graphDataList.get(i).getScore());
+                values1.add(new Entry(i, val));
+            }
         }
         //LineDataSet set1, set2, set3;
         LineDataSet set1;

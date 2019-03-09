@@ -92,7 +92,7 @@ public class CompationDetailActivity extends BaseActivity {
             }
         });
 
-        competitionApi();
+        // competitionApi();
 
         String s = compatitionLevelDuration;
         String[] data1 = s.split("-", 2);

@@ -18,12 +18,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mic.music.mic.AudioUpload.AudioListActivity;
 import com.mic.music.mic.AudioUpload.AudioRecordActivity;
 import com.mic.music.mic.Newmic.Activity.HomeActivity;
+import com.mic.music.mic.Newmic.Activity.RankLevelActivity;
 import com.mic.music.mic.Newmic.Adapter.CompetitionsAdapter;
 import com.mic.music.mic.Newmic.Adapter.ParticipationListAdapter;
 import com.mic.music.mic.Newmic.AudioVedio;
@@ -39,6 +41,7 @@ import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.otp_responce.OtpModel;
 import com.mic.music.mic.model.participation_responce.Participation;
 import com.mic.music.mic.model.participation_responce.ParticipationModel;
+import com.mic.music.mic.model.token_responce.TokenModel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
@@ -62,8 +65,9 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
     private RecyclerView rvParticipationList;
     private ParticipationListAdapter adapter;
     ArrayList<Participation> participationArrayList = new ArrayList<>();
-    private String companyId, compatitonLevelContentType;
+    private String companyId, compatitonLevelContentType, compatitonLevelId, compatitonLevelPaymentType, compatitonLevelAdminStatus, compatitonLevelFile;
     private ImageView ivBackBtn;
+    TextView tvAdminStatus1 , tvShowRank1;
 
     public ParticipationDetailFragment() {
         // Required empty public constructor
@@ -102,6 +106,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
 
     private void selectParticipationApi() {
         String strId = AppPreference.getStringPreference(getApplicationContext(), Constant.User_Id);
+        participationArrayList.clear();
         if (cd.isNetworkAvailable()) {
             RetrofitService.getSelectParticipation(new Dialog(mContext), retrofitApiClient.getSelectParticipation(companyId, user_id), new WebResponse() {
                 @Override
@@ -132,14 +137,23 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         switch (view.getId()) {
             case R.id.tvAdminStatus:
                 int pos = Integer.parseInt(view.getTag().toString());
-                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, compatitonLevelContentType);
-                AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
-                AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
 
-                Log.e("content_status", participationArrayList.get(pos).getContent_status());
-                Log.e("PaymentStatus", participationArrayList.get(pos).getPaymentStatus());
+                View view1 = rvParticipationList.getChildAt(pos);
+                tvAdminStatus1 = (TextView) view1.findViewById(R.id.tvAdminStatus);
+                tvShowRank1 = (TextView) view1.findViewById(R.id.tvShowRank);
+                compatitonLevelFile = participationArrayList.get(pos).getContent_status();
+                compatitonLevelId = participationArrayList.get(pos).getCompetitionLevel();
+                compatitonLevelPaymentType = participationArrayList.get(pos).getType();
+                compatitonLevelAdminStatus = participationArrayList.get(pos).getAdminStatus();
+                competitionApi();
+                    AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, compatitonLevelContentType);
+                    AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
+                    AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
 
-                if (participationArrayList.get(pos).getType().equals("Free")) {
+                    Log.e("content_status", participationArrayList.get(pos).getContent_status());
+                    Log.e("PaymentStatus", participationArrayList.get(pos).getPaymentStatus());
+
+                /*if (participationArrayList.get(pos).getType().equals("Free")) {
                     if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
                         if (formant1 == 1) {
                             if (compatitonLevelContentType.equals("Video")) {
@@ -191,7 +205,16 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                             finish();
                         }
                     }
-                }
+                }*/
+
+                break;
+
+
+            case R.id.tvShowRank :
+                Intent intent = new Intent(mContext, RankLevelActivity.class);
+                intent.putExtra("CompatitonLevelId", compatitonLevelId);
+                startActivity(intent);
+
                 break;
         }
     }
@@ -266,4 +289,103 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         });
         dialog.show();
     }
+
+
+    private void competitionApi() {
+        cd = new ConnectionDetector(mContext);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
+        String strId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        if (cd.isNetworkAvailable()) {
+            RetrofitService.getParticipation(new Dialog(mContext), retrofitApiClient.getParticipation(compatitonLevelId, companyId, strId, compatitonLevelPaymentType), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    TokenModel loginModal = (TokenModel) result.body();
+                    assert loginModal != null;
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                        participat();
+                        tvAdminStatus1.setText("Apply");
+                        tvAdminStatus1.setVisibility(View.VISIBLE);
+                        tvShowRank1.setVisibility(View.GONE);
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
+                        if (compatitonLevelFile.equals("false")) {
+                            tvAdminStatus1.setVisibility(View.VISIBLE);
+                            tvShowRank1.setVisibility(View.GONE);
+                             participat();
+                        }else {
+                            tvAdminStatus1.setVisibility(View.GONE);
+                            tvShowRank1.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
+        }
+    }
+
+    private void participat() {
+        if (compatitonLevelPaymentType.equals("Free")) {
+            if (compatitonLevelAdminStatus.equals("Active")) {
+                if (formant1 == 1) {
+                    if (compatitonLevelContentType.equals("Video")) {
+                        Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showAudioDialog();
+                    }
+                } else if (formant1 == 2) {
+                    if (compatitonLevelContentType.equals("Audio")) {
+                        Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showVideoDialog();
+                    }
+                } else {
+                    Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                Alerts.show(mContext, "Yor can not Active admin side");
+                finish();
+            }
+        } else {
+            if (compatitonLevelPaymentType.equals("Pending")) {
+                Alerts.show(mContext, "Your Payment is Pending");
+            } else {
+                if (compatitonLevelAdminStatus.equals("Active")) {
+                    if (formant1 == 1) {
+                        if (compatitonLevelContentType.equals("Video")) {
+                            Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showAudioDialog();
+                        }
+                    } else if (formant1 == 2) {
+                        if (compatitonLevelContentType.equals("Audio")) {
+                            Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showVideoDialog();
+                        }
+                    } else {
+                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Alerts.show(mContext, "Yor can not Active admin side");
+                    finish();
+                }
+            }
+        }
+    }
+
 }

@@ -80,6 +80,8 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
         holder.tvAdminStatus.setText(singleItem.getAdminStatus());
         holder.tvAdminStatus.setTag(i);
         holder.tvAdminStatus.setOnClickListener(onClickListener);
+        holder.tvShowRank.setTag(i);
+        holder.tvShowRank.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -88,7 +90,7 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder {
-        protected TextView tvLevelName, tvPaymentStatus,  tvAdminStatus , tvPaymentType;
+        protected TextView tvLevelName, tvPaymentStatus,  tvAdminStatus , tvPaymentType , tvShowRank;
         protected LinearLayout levelBtn;
 
         public SingleItemRowHolder(View view) {
@@ -97,6 +99,7 @@ public class ParticipationListAdapter extends RecyclerView.Adapter<Participation
             this.tvPaymentStatus = (TextView) view.findViewById(R.id.tvPaymentStatus);
             this.tvAdminStatus = (TextView) view.findViewById(R.id.tvAdminStatus);
             this.tvPaymentType = (TextView) view.findViewById(R.id.tvPaymentType);
+            this.tvShowRank = (TextView) view.findViewById(R.id.tvShowRank);
 
         }
     }
