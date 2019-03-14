@@ -372,8 +372,6 @@ public class Profile extends BaseFragment implements View.OnClickListener {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 //close the progress dialog when buffering is done
-                video1.stopPlayback();
-                video1.pause();
                 pd.dismiss();
             }
         });

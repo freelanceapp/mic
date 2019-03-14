@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cleveroad.sy.cyclemenuwidget.CycleMenuWidget;
@@ -56,7 +57,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
     public String f_token;
     public String android_id;
     public static String user_id;
-
+    private LinearLayout ll;
     public static HomeActivity homeActivity;
 
     @Override
@@ -78,7 +79,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
         Log.e("Profile ", "..."+data);
         OtpModel loginModal = gson.fromJson(data, OtpModel.class);
         User.setUser(loginModal);
-
+        ll = findViewById(R.id.ll);
 
         OtpModel completionModel = User.getUser();
         user_id = completionModel.getUser().getParticipantId();
@@ -108,9 +109,14 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 final int sdk = Build.VERSION.SDK_INT;
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
-                    itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(HomeActivity.this, R.color.transparent_c));
-                } else
-                    itemCycleMenuWidget.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.color.transparent_c));
+                    //itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(HomeActivity.this, R.color.transparent_c));
+                    ll.setClickable(true);
+                    ll.setVisibility(View.VISIBLE);
+                } else {
+                    //itemCycleMenuWidget.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.color.transparent_c));
+                    ll.setClickable(true);
+                    ll.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -119,8 +125,10 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 ButtonSound.getInstance().playSound(ButtonSound.SOUND_1);
                 if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                     itemCycleMenuWidget.setBackgroundDrawable(ContextCompat.getDrawable(HomeActivity.this, R.color.transparent));
+                    ll.setVisibility(View.GONE);
                 } else {
                     itemCycleMenuWidget.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.color.transparent));
+                    ll.setVisibility(View.GONE);
                 }
             }
         });
@@ -168,6 +176,7 @@ public class HomeActivity extends BaseActivity implements OnMenuItemClickListene
                 break;
         }
         itemCycleMenuWidget.close(true);
+        ll.setVisibility(View.GONE);
     }
 
     @Override
