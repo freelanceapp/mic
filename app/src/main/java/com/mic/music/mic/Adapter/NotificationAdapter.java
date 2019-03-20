@@ -107,13 +107,9 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
 
         tvNotificationName.setText(strName);
         tvNotificatioDatail.setText(strDetail);
-        Picasso.get().load(strImage).placeholder(R.drawable.notification1).error(R.drawable.notification1).into(ivNotification);
+       // Picasso.get().load(strImage).placeholder(R.drawable.notification1).error(R.drawable.notification1).into(ivNotification);
 
-        Glide.with(context).load(strImage)
-                .thumbnail(0.5f)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ivNotification);
-
+        Glide.with(context).load(strImage).thumbnail(0.5f).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivNotification);
         btnNotificationCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

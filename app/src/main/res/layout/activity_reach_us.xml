@@ -87,12 +87,12 @@
                             android:src="@drawable/plocation" />
 
                         <TextView
-                            android:textAlignment="viewStart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="8dp"
                             android:text="@string/address"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/white"
                             android:textSize="15dp"
                             tools:ignore="RtlCompat" />
@@ -100,6 +100,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llCall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -124,6 +125,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llMail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -152,11 +154,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:weightSum="20">
 
             <RelativeLayout
@@ -277,34 +279,34 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:backgroundTint="@color/yellow"
-                android:tint="@color/yellow"
                 android:id="@+id/iv_facebook"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/imagebordercircle"
-                android:src="@drawable/fb" />
+                android:backgroundTint="@color/yellow"
+                android:src="@drawable/fb"
+                android:tint="@color/yellow" />
 
             <ImageView
-                android:backgroundTint="@color/yellow"
-                android:tint="@color/yellow"
-                android:padding="8dp"
                 android:id="@+id/iv_insta"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="24dp"
                 android:background="@drawable/imagebordercircle"
-                android:src="@drawable/ic_instragram" />
+                android:backgroundTint="@color/yellow"
+                android:padding="8dp"
+                android:src="@drawable/ic_instragram"
+                android:tint="@color/yellow" />
 
             <ImageView
-                android:backgroundTint="@color/yellow"
-                android:tint="@color/yellow"
                 android:id="@+id/iv_twiter"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="24dp"
                 android:background="@drawable/imagebordercircle"
-                android:src="@drawable/twiter" />
+                android:backgroundTint="@color/yellow"
+                android:src="@drawable/twiter"
+                android:tint="@color/yellow" />
         </LinearLayout>
     </LinearLayout>
 

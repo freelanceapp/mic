@@ -45,9 +45,10 @@
                 <ImageView
                     android:id="@+id/ivNotification"
                     android:layout_width="match_parent"
-                    android:layout_height="250sp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4sp" />
+                    android:layout_margin="4sp"
+                    android:adjustViewBounds="true"/>
 
                 <TextView
                     android:id="@+id/tvNotificatioDatail"
