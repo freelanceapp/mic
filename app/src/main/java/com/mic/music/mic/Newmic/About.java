@@ -43,7 +43,7 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             tvPageContent.setText(Html.fromHtml(strContent, Html.FROM_HTML_MODE_COMPACT));
         } else {
-            tvPageContent.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>"));
+            tvPageContent.setText(Html.fromHtml(strContent));
         }
     }
 
