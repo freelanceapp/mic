@@ -28,8 +28,18 @@
             android:textColor="@color/yellow"
             android:textSize="22sp" />
     </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:id="@+id/tv_pageContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </ScrollView>
     <WebView
+        android:visibility="gone"
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
