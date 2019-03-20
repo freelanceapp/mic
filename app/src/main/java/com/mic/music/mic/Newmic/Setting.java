@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class Setting extends BaseFragment implements View.OnClickListener {
 
     private LinearLayout about, reachus, termsofuse, privatepolicy, refundpolicy, soundsetting,
-            notificationsetting, ourteam, performance, logoutBtn;
+            notificationsetting, ourteam, performance, logoutBtn, bankDetailbtn;
     private String pageTitle, pageContent;
     private View view;
     private AppContentMainModal appContentMainModal;
@@ -56,8 +56,10 @@ public class Setting extends BaseFragment implements View.OnClickListener {
         refundpolicy = view.findViewById(R.id.refundpolicy);
         soundsetting = view.findViewById(R.id.soundsetting);
         notificationsetting = view.findViewById(R.id.notification);
+        bankDetailbtn = view.findViewById(R.id.bankDetailbtn);
+        bankDetailbtn.setOnClickListener(this);
 
-       // performance.setOnClickListener(this);
+        // performance.setOnClickListener(this);
         ourteam.setOnClickListener(this);
         about.setOnClickListener(this);
         reachus.setOnClickListener(this);
@@ -192,6 +194,13 @@ public class Setting extends BaseFragment implements View.OnClickListener {
             case R.id.notification:
                 Intent intent8 = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent8);
+                break;
+            case R.id.bankDetailbtn:
+                String strPaymentMethod = appContentMainModal.getPageContent().get(4).getPageContent();
+                Intent intent9 = new Intent(getActivity(), About.class);
+                intent9.putExtra("pagetitile", "Payment Method");
+                intent9.putExtra("pagecontent", strPaymentMethod);
+                startActivity(intent9);
                 break;
             case R.id.logoutBtn:
                 showVideoDialog();
