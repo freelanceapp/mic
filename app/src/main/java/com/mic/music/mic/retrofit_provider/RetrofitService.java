@@ -11,6 +11,7 @@ import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelR
 import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
+import com.mic.music.mic.model.judgement_responce.JudgementModel;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
@@ -356,6 +357,30 @@ public class RetrofitService {
             }
         });
     }
+
+
+    //app jugment
+    public static void getJugment(final Dialog dialog, final Call<JudgementModel> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
+
+        method.enqueue(new Callback<JudgementModel>() {
+            @Override
+            public void onResponse(Call<JudgementModel> call, Response<JudgementModel> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<JudgementModel> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
+
 
 
     //app resend number

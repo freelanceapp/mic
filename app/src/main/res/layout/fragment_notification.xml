@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="RECENT"
+            android:text="SCORE"
             android:gravity="center"
             android:textSize="16sp"
             android:id="@+id/recent_btn1"

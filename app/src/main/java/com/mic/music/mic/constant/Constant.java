@@ -29,6 +29,7 @@ public class Constant {
     public static final String AUDIO_URL = "http://onlinemic.in/images/audio/";
     public static final String COMPATITION_GRAPH = "api/select-user-competition-graph.php";
     public static final String COMPATITION_LEVEL_RANK = "api/select-user-competition-level-rank.php";
+    public static final String JUGMENT_COMMENT = "api/select-judgement.php";
 
     public static final String GRAPH_URL = "api/graph.php";
     public static final String WINNER_API = "api/winner.php";

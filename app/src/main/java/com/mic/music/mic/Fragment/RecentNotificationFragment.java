@@ -1,5 +1,6 @@
 package com.mic.music.mic.Fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,14 +17,27 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.mic.music.mic.Adapter.JudgementAdapter;
 import com.mic.music.mic.Adapter.NotificationAdapter;
 import com.mic.music.mic.Api.RequestHandler;
 import com.mic.music.mic.Api.URLs;
 import com.mic.music.mic.LoginActivity;
+import com.mic.music.mic.Newmic.Activity.Mobile_Ragistration;
+import com.mic.music.mic.Newmic.Activity.VerificationActivity;
 import com.mic.music.mic.OtpActivity;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
+import com.mic.music.mic.model.judgement_responce.Judgement;
+import com.mic.music.mic.model.judgement_responce.JudgementModel;
+import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.notification;
 import com.mic.music.mic.model.notification_responce.Notification;
+import com.mic.music.mic.retrofit_provider.RetrofitService;
+import com.mic.music.mic.retrofit_provider.WebResponse;
+import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
+import com.mic.music.mic.utils.BaseFragment;
+import com.mic.music.mic.utils.ConnectionDetector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,10 +46,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecentNotificationFragment extends Fragment {
+import retrofit2.Response;
+
+public class RecentNotificationFragment extends BaseFragment {
     RecyclerView recent_list;
-    ArrayList<Notification> notifications = new ArrayList<>();
-    NotificationAdapter adapter;
+    ArrayList<Judgement> judgementArrayList = new ArrayList<>();
+    JudgementAdapter adapter;
     ProgressBar notification_progress;
     public RecentNotificationFragment() {
         // Required empty public constructor
@@ -47,61 +63,52 @@ public class RecentNotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recent_notification, container, false);
         recent_list = (RecyclerView)view.findViewById(R.id.recent_list);
         notification_progress = (ProgressBar)view.findViewById(R.id.notification_progress);
-        NotificationUser notificationUser = new NotificationUser();
-        notificationUser.execute();
+
+        mContext = getActivity();
+        activity = getActivity();
+        cd = new ConnectionDetector(mContext);
+        retrofitRxClient = RetrofitService.getRxClient();
+        retrofitApiClient = RetrofitService.getRetrofit();
+
+        adapter = new JudgementAdapter(getActivity(),judgementArrayList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recent_list.setLayoutManager(mLayoutManager);
+        recent_list.setItemAnimator(new DefaultItemAnimator());
+        recent_list.setAdapter(adapter);
+
+        getNotificatio();
         return view;
     }
 
-    class NotificationUser extends AsyncTask<Void, Void, String> {
-        @Override
-        protected String doInBackground(Void... voids) {
-            //creating request handler object
-            RequestHandler requestHandler = new RequestHandler();
-            //creating request parameters
-            HashMap<String, String> params = new HashMap<>();
-            //returing the response
-            return requestHandler.sendPostRequest(URLs.URL_NOTIFICATION, params);
-        }
+    private void getNotificatio() {
+        if (cd.isNetworkAvailable()) {
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //displaying the progress bar while user registers on the server
-            notification_progress.setVisibility(View.VISIBLE);
-        }
+            String strUserIs = AppPreference.getStringPreference(mContext, Constant.User_Id);
+            RetrofitService.getJugment(new Dialog(mContext), retrofitApiClient.getJugment(strUserIs), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) {
+                    JudgementModel loginModal = (JudgementModel) result.body();
+                    assert loginModal != null;
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //hiding the progressbar after completion
-            notification_progress.setVisibility(View.GONE);
-            try {
-                //converting response to json object
-                JSONObject obj = new JSONObject(s);
-                //if no error in response
-                if (!obj.getBoolean("error")) {
-                //    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                    JSONArray jsonArray = obj.getJSONArray("notification");
-                    for (int i = 0 ; i<5 ; i++)
-                    {
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        Notification n = new Notification();
-                        n.setNotificationTitle(object.getString("notification_title"));
-                        n.setNotificationMessage(object.getString("notification_message"));
-                        notifications.add(n);
+                    judgementArrayList.clear();
+                    if (!loginModal.getError()) {
+                        Alerts.show(mContext, loginModal.getMessage());
+
+                        judgementArrayList.addAll(loginModal.getJudgement());
+                    } else {
+                        Alerts.show(mContext, loginModal.getMessage());
                     }
-                    adapter = new NotificationAdapter(getActivity(),notifications);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                    recent_list.setLayoutManager(mLayoutManager);
-                    recent_list.setItemAnimator(new DefaultItemAnimator());
-                    recent_list.setAdapter(adapter);
-
-                } else {
-                    Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+        } else {
+            cd.show(mContext);
         }
     }
+
 }
