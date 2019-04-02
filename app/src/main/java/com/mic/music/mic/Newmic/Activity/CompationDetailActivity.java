@@ -179,7 +179,10 @@ public class CompationDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 competitionApi();
-
+               /* Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
+                intent.putExtra("companyId", CompationId);
+                intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
+                mContext.startActivity(intent);*/
             }
         });
         btnRank.setOnClickListener(new View.OnClickListener() {

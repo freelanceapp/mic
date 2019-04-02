@@ -84,4 +84,5 @@ public class RankLevelActivity extends BaseActivity {
         }
     }
 
+
 }
