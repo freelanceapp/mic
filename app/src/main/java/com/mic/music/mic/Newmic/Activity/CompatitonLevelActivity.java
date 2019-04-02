@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +18,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mic.music.mic.Newmic.Adapter.SectionListDataAdapter;
 import com.mic.music.mic.R;
+import com.mic.music.mic.constant.Constant;
 import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
 import com.mic.music.mic.model.compation_level_responce.CompetitionLevel;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
+import com.mic.music.mic.utils.AppPreference;
 import com.mic.music.mic.utils.BaseActivity;
 import com.mic.music.mic.utils.ConnectionDetector;
 
@@ -92,8 +93,9 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     }
 
     private void tokenApi() {
+        String strUserId = AppPreference.getStringPreference(mContext, Constant.User_Id);
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getCompetitionLevel(new Dialog(mContext), retrofitApiClient.getCompationLevel(compationId), new WebResponse() {
+            RetrofitService.getCompetitionLevel(new Dialog(mContext), retrofitApiClient.getCompationLevel(strUserId, compationId), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     CompatitionLevelModel loginModal = (CompatitionLevelModel) result.body();
@@ -105,22 +107,22 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
                         Log.e("Login", ".." + data);
                         //  Alerts.show(mContext, loginModal.getMessage());
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvCompatitionName.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionName(), Html.FROM_HTML_MODE_COMPACT));
+                            tvCompatitionName.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionName(), Html.FROM_HTML_MODE_COMPACT));
                         } else {
-                            tvCompatitionName.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionName()));
+                            tvCompatitionName.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionName()));
                         }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvCompatitionDetail.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionDescription(), Html.FROM_HTML_MODE_COMPACT));
+                            tvCompatitionDetail.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionDescription(), Html.FROM_HTML_MODE_COMPACT));
                         } else {
-                            tvCompatitionDetail.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionDescription()));
+                            tvCompatitionDetail.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionDescription()));
                         }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvCompatitionRules.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionRules(), Html.FROM_HTML_MODE_COMPACT));
+                            tvCompatitionRules.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionRules(), Html.FROM_HTML_MODE_COMPACT));
                         } else {
-                            tvCompatitionRules.setText(Html.fromHtml(loginModal.getCompetition().get(0).getCompetitionRules()));
+                            tvCompatitionRules.setText(Html.fromHtml(loginModal.getCompetition().getCompetitionRules()));
                         }
 
-                        String s = loginModal.getCompetition().get(0).getCompetitionDuration();
+                        String s = loginModal.getCompetition().getCompetitionDuration();
                         String[] data1 = s.split("-", 2);
                         String fDate = data1[0];
                         String lDate = data1[1];
@@ -142,7 +144,7 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
 
                         tvCompatitionDuration.setText("Start Date " + sDate + " \n\nEnd Date " + eDate);
 
-                        competitionLevelArrayList.addAll(loginModal.getCompetition().get(0).getCompetitionLevel());
+                        competitionLevelArrayList.addAll(loginModal.getCompetition().getCompetitionLevel());
 
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
@@ -165,8 +167,8 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvApply:
-                int pos = Integer.parseInt(view.getTag().toString());
-                CompetitionLevel competitionLevel = competitionLevelArrayList.get(pos);
+                /*int pos = Integer.parseInt(view.getTag().toString());
+                SingleLevelCompetition competitionLevel = competitionLevelArrayList.get(pos);
                 Intent intent = new Intent(CompatitonLevelActivity.this, CompationDetailActivity.class);
                 intent.putExtra("CompatitonLevel", (Parcelable) competitionLevel);
                 intent.putExtra("CompationId", compationId);
@@ -179,8 +181,26 @@ public class CompatitonLevelActivity extends BaseActivity implements View.OnClic
                 intent.putExtra("CompatitonLevelPaymentAmount", competitionLevelArrayList.get(pos).getCompetitionLevelAmount());
                 intent.putExtra("CompatitonLevelPaymentContentType", competitionLevelArrayList.get(pos).getCompetitionLevelContentType());
                 intent.putExtra("CompatitonLevelPaymentContentRules", competitionLevelArrayList.get(pos).getCompetitionLevelRules());
-                startActivity(intent);
+                startActivity(intent);*/
+                getData(view);
                 break;
         }
+    }
+
+    private void getData(View view) {
+        int currentPos = Integer.parseInt(view.getTag().toString());
+        CompetitionLevel levelData = competitionLevelArrayList.get(currentPos);
+        Intent intent = new Intent(this, CompationDetailActivity.class);
+        intent.putExtra("level_id", levelData.getCompetitionLevelId());
+        intent.putExtra("CompationId", compationId);
+        if (currentPos > 0) {
+            int uperPos = currentPos - 1;
+            CompetitionLevel uperLevelData = competitionLevelArrayList.get(uperPos);
+            intent.putExtra("type", "second");
+            intent.putExtra("result_status", uperLevelData.getParticipation().getResultStatus());
+        } else {
+            intent.putExtra("type", "top");
+        }
+        startActivity(intent);
     }
 }

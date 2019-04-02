@@ -311,18 +311,18 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 if (compatitonLevelAdminStatus.equals("Active")) {
                     if (formant1 == 1) {
                         if (compatitonLevelContentType.equals("Video")) {
-                            Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Please Select Video File", Toast.LENGTH_SHORT).show();
                         } else {
                             showAudioDialog();
                         }
                     } else if (formant1 == 2) {
                         if (compatitonLevelContentType.equals("Audio")) {
-                            Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, "Please Select Audio File", Toast.LENGTH_SHORT).show();
                         } else {
                             showVideoDialog();
                         }
                     } else {
-                        Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Please Select Upload File", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
                         startActivity(intent);
                         finish();

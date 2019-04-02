@@ -1,14 +1,12 @@
-
-package com.mic.music.mic.model.compation_level_responce;
+package com.mic.music.mic.model.level_detail_modal;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CompatitionLevelModel implements Parcelable
-{
+public class SingleLevelMainModal implements Parcelable {
 
     @SerializedName("error")
     @Expose
@@ -18,31 +16,30 @@ public class CompatitionLevelModel implements Parcelable
     private String message;
     @SerializedName("competition")
     @Expose
-    private Competition competition;
-    public final static Parcelable.Creator<CompatitionLevelModel> CREATOR = new Creator<CompatitionLevelModel>() {
+    private SingleLevelCompetition singleLevelCompetition;
+    public final static Parcelable.Creator<SingleLevelMainModal> CREATOR = new Creator<SingleLevelMainModal>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public CompatitionLevelModel createFromParcel(Parcel in) {
-            return new CompatitionLevelModel(in);
+        public SingleLevelMainModal createFromParcel(Parcel in) {
+            return new SingleLevelMainModal(in);
         }
 
-        public CompatitionLevelModel[] newArray(int size) {
-            return (new CompatitionLevelModel[size]);
+        public SingleLevelMainModal[] newArray(int size) {
+            return (new SingleLevelMainModal[size]);
         }
 
-    }
-            ;
+    };
 
-    protected CompatitionLevelModel(Parcel in) {
+    protected SingleLevelMainModal(Parcel in) {
         this.error = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
-        this.competition = ((Competition) in.readValue((Competition.class.getClassLoader())));
+        this.singleLevelCompetition = ((SingleLevelCompetition) in.readValue((SingleLevelCompetition.class.getClassLoader())));
     }
 
-    public CompatitionLevelModel() {
+    public SingleLevelMainModal() {
     }
 
     public Boolean getError() {
@@ -61,18 +58,18 @@ public class CompatitionLevelModel implements Parcelable
         this.message = message;
     }
 
-    public Competition getCompetition() {
-        return competition;
+    public SingleLevelCompetition getSingleLevelCompetition() {
+        return singleLevelCompetition;
     }
 
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
+    public void setSingleLevelCompetition(SingleLevelCompetition singleLevelCompetition) {
+        this.singleLevelCompetition = singleLevelCompetition;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(error);
         dest.writeValue(message);
-        dest.writeValue(competition);
+        dest.writeValue(singleLevelCompetition);
     }
 
     public int describeContents() {

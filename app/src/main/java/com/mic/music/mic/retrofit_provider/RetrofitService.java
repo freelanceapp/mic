@@ -8,10 +8,10 @@ import com.mic.music.mic.model.appversion_responce.AppVersion;
 import com.mic.music.mic.model.compation_level_responce.CompatitionLevelModel;
 import com.mic.music.mic.model.compatition_graph_responce.CompatitionGraphModel;
 import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelRankModel;
-import com.mic.music.mic.model.competition_responce.CompetitionLevel;
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.judgement_responce.JudgementModel;
+import com.mic.music.mic.model.level_detail_modal.SingleLevelMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
@@ -178,7 +178,7 @@ public class RetrofitService {
         });
     }
 
-    //Select Participation
+    //Select SingleLevelParticipation
     public static void getSelectParticipation(final Dialog dialog, final Call<ParticipationModel> method, final WebResponse webResponse) {
         if (dialog != null)
             AppProgressDialog.show(dialog);
@@ -382,7 +382,6 @@ public class RetrofitService {
     }
 
 
-
     //app resend number
     public static void getResendMobile(final Dialog dialog, final Call<LoginModel1> method, final WebResponse webResponse) {
         if (dialog != null)
@@ -558,7 +557,6 @@ public class RetrofitService {
         });
     }
 
-
     public static void getCompatitionGraphData(final Dialog dialog, final Call<CompatitionGraphModel> method, final WebResponse webResponse) {
         if (dialog != null)
             AppProgressDialog.show(dialog);
@@ -580,5 +578,24 @@ public class RetrofitService {
         });
     }
 
+    public static void getLevelData(final Dialog dialog, final Call<SingleLevelMainModal> method, final WebResponse webResponse) {
+        if (dialog != null)
+            AppProgressDialog.show(dialog);
 
+        method.enqueue(new Callback<SingleLevelMainModal>() {
+            @Override
+            public void onResponse(Call<SingleLevelMainModal> call, Response<SingleLevelMainModal> response) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                WebServiceResponse.handleResponse(response, webResponse);
+            }
+
+            @Override
+            public void onFailure(Call<SingleLevelMainModal> call, Throwable throwable) {
+                if (dialog != null)
+                    AppProgressDialog.hide(dialog);
+                webResponse.onResponseFailed(throwable.getMessage());
+            }
+        });
+    }
 }

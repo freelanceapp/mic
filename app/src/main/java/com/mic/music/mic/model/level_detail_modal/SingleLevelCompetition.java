@@ -1,13 +1,12 @@
-package com.mic.music.mic.model.compation_level_responce;
+package com.mic.music.mic.model.level_detail_modal;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mic.music.mic.model.participation_responce.Participation;
 
-public class CompetitionLevel implements Parcelable
+public class SingleLevelCompetition implements Parcelable
 {
 
     @SerializedName("competition_level_id")
@@ -39,25 +38,25 @@ public class CompetitionLevel implements Parcelable
     private String competitionLevelRules;
     @SerializedName("participation")
     @Expose
-    private Participation participation;
-    public final static Parcelable.Creator<CompetitionLevel> CREATOR = new Creator<CompetitionLevel>() {
+    private SingleLevelParticipation singleLevelParticipation;
+    public final static Parcelable.Creator<SingleLevelCompetition> CREATOR = new Creator<SingleLevelCompetition>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public CompetitionLevel createFromParcel(Parcel in) {
-            return new CompetitionLevel(in);
+        public SingleLevelCompetition createFromParcel(Parcel in) {
+            return new SingleLevelCompetition(in);
         }
 
-        public CompetitionLevel[] newArray(int size) {
-            return (new CompetitionLevel[size]);
+        public SingleLevelCompetition[] newArray(int size) {
+            return (new SingleLevelCompetition[size]);
         }
 
     }
             ;
 
-    protected CompetitionLevel(Parcel in) {
+    protected SingleLevelCompetition(Parcel in) {
         this.competitionLevelId = ((String) in.readValue((String.class.getClassLoader())));
         this.competitionLevelName = ((String) in.readValue((String.class.getClassLoader())));
         this.competitionLevelDescription = ((String) in.readValue((String.class.getClassLoader())));
@@ -67,10 +66,10 @@ public class CompetitionLevel implements Parcelable
         this.competitionLevelAmount = ((String) in.readValue((String.class.getClassLoader())));
         this.competitionLevelContentType = ((String) in.readValue((String.class.getClassLoader())));
         this.competitionLevelRules = ((String) in.readValue((String.class.getClassLoader())));
-        this.participation = ((Participation) in.readValue((Participation.class.getClassLoader())));
+        this.singleLevelParticipation = ((SingleLevelParticipation) in.readValue((SingleLevelParticipation.class.getClassLoader())));
     }
 
-    public CompetitionLevel() {
+    public SingleLevelCompetition() {
     }
 
     public String getCompetitionLevelId() {
@@ -145,12 +144,12 @@ public class CompetitionLevel implements Parcelable
         this.competitionLevelRules = competitionLevelRules;
     }
 
-    public Participation getParticipation() {
-        return participation;
+    public SingleLevelParticipation getSingleLevelParticipation() {
+        return singleLevelParticipation;
     }
 
-    public void setParticipation(Participation participation) {
-        this.participation = participation;
+    public void setSingleLevelParticipation(SingleLevelParticipation singleLevelParticipation) {
+        this.singleLevelParticipation = singleLevelParticipation;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -163,7 +162,7 @@ public class CompetitionLevel implements Parcelable
         dest.writeValue(competitionLevelAmount);
         dest.writeValue(competitionLevelContentType);
         dest.writeValue(competitionLevelRules);
-        dest.writeValue(participation);
+        dest.writeValue(singleLevelParticipation);
     }
 
     public int describeContents() {

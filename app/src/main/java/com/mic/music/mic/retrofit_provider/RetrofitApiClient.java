@@ -9,6 +9,7 @@ import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelR
 import com.mic.music.mic.model.competition_responce.CompletionModel;
 import com.mic.music.mic.model.graph_modal.GraphMainModal;
 import com.mic.music.mic.model.judgement_responce.JudgementModel;
+import com.mic.music.mic.model.level_detail_modal.SingleLevelMainModal;
 import com.mic.music.mic.model.login_responce.LoginModel;
 import com.mic.music.mic.model.login_responce.LoginModel1;
 import com.mic.music.mic.model.micpagecontents.AppContentMainModal;
@@ -83,7 +84,7 @@ public interface RetrofitApiClient {
 
     @FormUrlEncoded
     @POST(Constant.COMPATITION_LEVEL)
-    Call<CompatitionLevelModel> getCompationLevel(@Field("competition") String competition);
+    Call<CompatitionLevelModel> getCompationLevel(@Field("user_id") String user_id,@Field("competition") String competition);
 
     @FormUrlEncoded
     @POST(Constant.USER_LOGIN)
@@ -160,6 +161,10 @@ public interface RetrofitApiClient {
     @POST(Constant.JUGMENT_COMMENT)
     Call<JudgementModel> getJugment(@Field("user_id") String user_id);
 
+    @FormUrlEncoded
+    @POST(Constant.LevelDetailApi)
+    Call<SingleLevelMainModal> levelDetail(@Field("user_id") String user_id,
+                                           @Field("competition_level") String competition_level);
 
     /*
      * Download image
@@ -173,7 +178,6 @@ public interface RetrofitApiClient {
 
     @GET(Constant.GRAPH_URL)
     Call<GraphMainModal> getGraphData();
-
 
 
 }
