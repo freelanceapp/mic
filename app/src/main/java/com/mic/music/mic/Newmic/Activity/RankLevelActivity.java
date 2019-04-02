@@ -1,19 +1,15 @@
 package com.mic.music.mic.Newmic.Activity;
 
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.mic.music.mic.Adapter.PerformanceListAdapter;
 import com.mic.music.mic.Newmic.Adapter.CompatitionLevelPerformanceAdapter;
 import com.mic.music.mic.R;
 import com.mic.music.mic.model.compatition_level_rank_responce.CompatitionLevelRankModel;
 import com.mic.music.mic.model.compatition_level_rank_responce.Participant;
-import com.mic.music.mic.model.graph_modal.GraphMainModal;
-import com.mic.music.mic.model.graph_modal.PerformanceList;
 import com.mic.music.mic.retrofit_provider.RetrofitService;
 import com.mic.music.mic.retrofit_provider.WebResponse;
 import com.mic.music.mic.utils.Alerts;
@@ -29,10 +25,11 @@ import static com.mic.music.mic.Newmic.Activity.HomeActivity.user_id;
 
 public class RankLevelActivity extends BaseActivity {
 
-    String compatitionLevelId, compatitonLevelContentType;
-    RecyclerView recyclerViewPerformanceList;
-    CompatitionLevelPerformanceAdapter adapter;
+    private String compatitionLevelId;
+    private RecyclerView recyclerViewPerformanceList;
+    private CompatitionLevelPerformanceAdapter adapter;
     private List<Participant> performanceLists = new ArrayList<>();
+    private List<Participant> filterLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +46,15 @@ public class RankLevelActivity extends BaseActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         recyclerViewPerformanceList.setLayoutManager(mLayoutManager);
         recyclerViewPerformanceList.setItemAnimator(new DefaultItemAnimator());
-        adapter = new CompatitionLevelPerformanceAdapter(mContext, performanceLists);
+        adapter = new CompatitionLevelPerformanceAdapter(mContext, filterLists);
         recyclerViewPerformanceList.setAdapter(adapter);
 
         graphDataApi();
     }
 
-
     private void graphDataApi() {
         if (cd.isNetworkAvailable()) {
-            RetrofitService.getCompatitionLevelData(new Dialog(mContext), retrofitApiClient.getCompatitionRank(compatitionLevelId , user_id), new WebResponse() {
+            RetrofitService.getCompatitionLevelData(new Dialog(mContext), retrofitApiClient.getCompatitionRank(compatitionLevelId, user_id), new WebResponse() {
                 @Override
                 public void onResponseSuccess(Response<?> result) {
                     CompatitionLevelRankModel graphMainModal = (CompatitionLevelRankModel) result.body();
@@ -72,8 +68,9 @@ public class RankLevelActivity extends BaseActivity {
                     } else {
                         Alerts.show(mContext, "No data!!!");
                     }
-                    adapter.notifyDataSetChanged();
+                    filterData();
                 }
+
                 @Override
                 public void onResponseFailed(String error) {
                     //Alerts.show(mContext, error);
@@ -82,6 +79,30 @@ public class RankLevelActivity extends BaseActivity {
         } else {
             cd.show(mContext);
         }
+    }
+
+    private void filterData() {
+        filterLists.clear();
+        if (performanceLists.size() > 0) {
+            if (performanceLists.size() < 4) {
+                filterLists.addAll(performanceLists);
+            } else {
+                for (int i = 0; i < 3; i++) {
+                    filterLists.add(performanceLists.get(i));
+                }
+            }
+
+            for (int j = 0; j < filterLists.size(); j++) {
+                if (!user_id.equals(filterLists.get(j).getParticipantId())) {
+                    for (int k = 0; k < performanceLists.size(); k++) {
+                        if (user_id.equals(performanceLists.get(k).getParticipantId())) {
+                            filterLists.add(performanceLists.get(k));
+                        }
+                    }
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
 }
