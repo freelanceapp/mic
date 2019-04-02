@@ -67,7 +67,7 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
     ArrayList<Participation> participationArrayList = new ArrayList<>();
     private String companyId, compatitonLevelContentType, compatitonLevelId, compatitonLevelPaymentType, compatitonLevelAdminStatus, compatitonLevelFile;
     private ImageView ivBackBtn;
-    TextView tvAdminStatus1 , tvShowRank1;
+    TextView tvAdminStatus1, tvShowRank1;
 
     public ParticipationDetailFragment() {
         // Required empty public constructor
@@ -146,71 +146,14 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                 compatitonLevelPaymentType = participationArrayList.get(pos).getType();
                 compatitonLevelAdminStatus = participationArrayList.get(pos).getAdminStatus();
                 competitionApi();
-                    AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, compatitonLevelContentType);
-                    AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
-                    AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
-
-                    Log.e("content_status", participationArrayList.get(pos).getContent_status());
-                    Log.e("PaymentStatus", participationArrayList.get(pos).getPaymentStatus());
-
-                /*if (participationArrayList.get(pos).getType().equals("Free")) {
-                    if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
-                        if (formant1 == 1) {
-                            if (compatitonLevelContentType.equals("Video")) {
-                                Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
-                            } else {
-                                showAudioDialog();
-                            }
-                        } else if (formant1 == 2) {
-                            if (compatitonLevelContentType.equals("Audio")) {
-                                Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
-                            } else {
-                                showVideoDialog();
-                            }
-                        } else {
-                            Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    } else {
-                        Alerts.show(mContext, "Yor can not Active admin side");
-                        finish();
-                    }
-                } else {
-                    if (participationArrayList.get(pos).getPaymentStatus().equals("Pending")) {
-                        Alerts.show(mContext, "Your Payment is Pending");
-                    } else {
-                        if (participationArrayList.get(pos).getAdminStatus().equals("Active")) {
-                            if (formant1 == 1) {
-                                if (compatitonLevelContentType.equals("Video")) {
-                                    Toast.makeText(mContext, "Pleae Select Video File", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    showAudioDialog();
-                                }
-                            } else if (formant1 == 2) {
-                                if (compatitonLevelContentType.equals("Audio")) {
-                                    Toast.makeText(mContext, "Pleae Select Audio File", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    showVideoDialog();
-                                }
-                            } else {
-                                Toast.makeText(mContext, "Pleae Select Upload File", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ParticipationDetailFragment.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        } else {
-                            Alerts.show(mContext, "Yor can not Active admin side");
-                            finish();
-                        }
-                    }
-                }*/
-
+                AppPreference.setStringPreference(mContext, Constant.FILE_TYPE, compatitonLevelContentType);
+                AppPreference.setStringPreference(mContext, Constant.COMPANY_ID, companyId);
+                AppPreference.setStringPreference(mContext, Constant.LEVEL_ID, participationArrayList.get(pos).getCompetitionLevel());
+                Log.e("content_status", participationArrayList.get(pos).getContent_status());
+                Log.e("PaymentStatus", participationArrayList.get(pos).getPaymentStatus());
                 break;
 
-
-            case R.id.tvShowRank :
+            case R.id.tvShowRank:
                 Intent intent = new Intent(mContext, RankLevelActivity.class);
                 intent.putExtra("CompatitonLevelId", compatitonLevelId);
                 startActivity(intent);
@@ -296,6 +239,10 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         String strId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        Log.e("userid", strId);
+        Log.e("compatitonLevelId", compatitonLevelId);
+        Log.e("companyId", companyId);
+        Log.e("PaymentType", compatitonLevelPaymentType);
         if (cd.isNetworkAvailable()) {
             RetrofitService.getParticipation(new Dialog(mContext), retrofitApiClient.getParticipation(compatitonLevelId, companyId, strId, compatitonLevelPaymentType), new WebResponse() {
                 @Override
@@ -314,8 +261,8 @@ public class ParticipationDetailFragment extends BaseActivity implements View.On
                         if (compatitonLevelFile.equals("false")) {
                             tvAdminStatus1.setVisibility(View.VISIBLE);
                             tvShowRank1.setVisibility(View.GONE);
-                             participat();
-                        }else {
+                            participat();
+                        } else {
                             tvAdminStatus1.setVisibility(View.GONE);
                             tvShowRank1.setVisibility(View.VISIBLE);
                         }

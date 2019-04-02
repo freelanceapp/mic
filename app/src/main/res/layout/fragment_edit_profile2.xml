@@ -149,7 +149,6 @@
                         android:textStyle="bold"
                         android:layout_alignParentRight="true"
                         android:visibility="gone"/>
--->
 
                 </RelativeLayout>
 
@@ -275,17 +274,19 @@
                          android:layout_height="wrap_content"
                          android:layout_marginRight="-8dp"
                          android:layout_toLeftOf="@+id/tvLocateMe"
-                         android:background="@drawable/layout_back_a">
+                        >
 
                          <EditText
                              android:id="@+id/user_loaction1"
                              android:layout_width="match_parent"
                              android:layout_height="wrap_content"
-                             android:background="@drawable/edittext_back_transparent"
                              android:inputType="text"
-                             android:paddingLeft="8dp"
+                             android:lines="2"
+                             android:background="@drawable/layout_back_b"
+                             android:padding="6dp"
                              android:textColor="@color/yellow"
-                             android:textColorHint="@color/hint_color" />
+                             android:textColorHint="@color/hint_color"
+                             android:layout_marginRight="10sp"/>
 
                          <RadioButton
                              android:id="@+id/radioLocation1"

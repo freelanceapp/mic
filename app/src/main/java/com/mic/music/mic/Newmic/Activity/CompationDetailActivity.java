@@ -178,15 +178,14 @@ public class CompationDetailActivity extends BaseActivity {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
-                intent.putExtra("companyId", CompationId);
-                intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
-                mContext.startActivity(intent);
+                competitionApi();
+
             }
         });
         btnRank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //competitionApi();
                 Intent intent = new Intent(mContext, RankLevelActivity.class);
                 intent.putExtra("CompatitonLevelId", compatitionLevelId);
                 startActivity(intent);
@@ -199,6 +198,10 @@ public class CompationDetailActivity extends BaseActivity {
         retrofitRxClient = RetrofitService.getRxClient();
         retrofitApiClient = RetrofitService.getRetrofit();
         String strId = AppPreference.getStringPreference(mContext, Constant.User_Id);
+        Log.e("userid", strId);
+        Log.e("compatitonLevelId", compatitionLevelId);
+        Log.e("companyId", CompationId);
+        Log.e("PaymentType", compatitonLevelPaymentType);
         if (cd.isNetworkAvailable()) {
             RetrofitService.getParticipation(new Dialog(mContext), retrofitApiClient.getParticipation(compatitionLevelId, CompationId, strId, compatitonLevelPaymentType), new WebResponse() {
                 @Override
@@ -208,6 +211,10 @@ public class CompationDetailActivity extends BaseActivity {
                     if (!loginModal.getError()) {
                         btnApply.setVisibility(View.VISIBLE);
                         btnRank.setVisibility(View.GONE);
+                        Intent intent = new Intent(mContext, ParticipationDetailFragment.class);
+                        intent.putExtra("companyId", CompationId);
+                        intent.putExtra("CompatitonLevelContentType", compatitonLevelContentType);
+                        mContext.startActivity(intent);
                     } else {
                         Alerts.show(mContext, loginModal.getMessage());
                         btnApply.setVisibility(View.GONE);

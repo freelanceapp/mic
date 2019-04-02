@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         btnRead = findViewById(R.id.btnRead);
         Log.e("USer ID ", "..." + User.getUser().getUser().getParticipantId());
         user_phone.setText(mobileNumber1);
+        user_phone.setFocusable(false);
         setDateTimeField();
 
         checkbox_termconditon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
