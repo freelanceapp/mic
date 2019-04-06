@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/mic_background"
     android:orientation="vertical">
 
@@ -38,12 +39,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="10sp">
 
-                <com.mic.music.mic.graph_classes.charts.LineChart
+                <com.online.music.mic.graph_classes.charts.LineChart
                     android:id="@+id/chart1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:visibility="visible"/>
+
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout

@@ -51,13 +51,13 @@
                 android:textSize="14dp" />
         </RelativeLayout>
 
-        <com.mic.music.mic.utils.pinview.Pinview
+        <com.online.music.mic.utils.pinview.Pinview
             android:id="@+id/pinview1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             app:cursorVisible="false"
-            app:forceKeyboard="true"
+            app:forceKeyboard="false"
             app:hint=""
             app:inputType="number"
             app:password="false"

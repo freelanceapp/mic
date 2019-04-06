@@ -111,7 +111,8 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:text="STOP PLAYING RECORDING "
-                android:textColor="@color/yellow" />
+                android:textColor="@color/yellow"
+                android:visibility="gone"/>
 
             <Button
                 android:layout_centerInParent="true"

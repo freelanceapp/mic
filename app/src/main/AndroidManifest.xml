@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.mic.music.mic">
+    package="com.online.music.mic">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera" />
@@ -24,9 +24,9 @@
     <application
         android:allowBackup="true"
         android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
-        android:icon="@drawable/logo2"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo2"
+        android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
@@ -34,80 +34,84 @@
         tools:replace="android:appComponentFactory">
 
         <activity
-            android:name=".Newmic.Activity.RankLevelActivity"
+            android:name="com.online.music.mic.Newmic.Activity.RankLevelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Newmic.Activity.PerformanceActivity"
+            android:name="com.online.music.mic.Newmic.Activity.PerformanceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Newmic.Activity.CompationDetailActivity"
+            android:name="com.online.music.mic.Newmic.Activity.CompationDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Newmic.Activity.CompatitonLevelActivity"
+            android:name="com.online.music.mic.Newmic.Activity.CompatitonLevelActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".VideoRecord.RecordCompressActivity"
+            android:name="com.online.music.mic.VideoRecord.RecordCompressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VideoRecord.SelectPictureActivity"
+            android:name="com.online.music.mic.VideoRecord.SelectPictureActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Newmic.Activity.NotificationActivity"
+            android:name="com.online.music.mic.Fragment.NotificationFragment"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Newmic.Activity.HomeActivity"
+            android:name="com.online.music.mic.Newmic.Activity.NotificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.online.music.mic.Newmic.Activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name="com.online.music.mic.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.online.music.mic.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
-            android:name=".LoginActivity"
+            android:name="com.online.music.mic.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".OtpActivity"
+            android:name="com.online.music.mic.OtpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".RagistrationActivity"
+            android:name="com.online.music.mic.RagistrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".VideoUpload.VideoFolder"
+            android:name="com.online.music.mic.VideoUpload.VideoFolder"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".VideoUpload.Activity_galleryview"
+            android:name="com.online.music.mic.VideoUpload.Activity_galleryview"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".VideoRecord.VideoRecordActivity"
+            android:name="com.online.music.mic.VideoRecord.VideoRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".VideoUpload.UploadVideoActivity"
+            android:name="com.online.music.mic.VideoUpload.UploadVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:name=".VideoRecord.VideoRecord"
+            android:name="com.online.music.mic.VideoRecord.VideoRecord"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Newmic.Activity.SplashScreen"
+            android:name="com.online.music.mic.Newmic.Activity.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -117,67 +121,67 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Newmic.ReachUs"
+            android:name="com.online.music.mic.Newmic.ReachUs"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.About"
+            android:name="com.online.music.mic.Newmic.About"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.Activity.VerificationActivity"
+            android:name="com.online.music.mic.Newmic.Activity.VerificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".Newmic.SoundSetting"
+            android:name="com.online.music.mic.Newmic.SoundSetting"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.Fragment.ParticipationDetailFragment"
+            android:name="com.online.music.mic.Newmic.Fragment.ParticipationDetailFragment"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.OurTeam"
+            android:name="com.online.music.mic.Newmic.OurTeam"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.Activity.MainActivity"
+            android:name="com.online.music.mic.Newmic.Activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.Activity.Mobile_Ragistration"
+            android:name="com.online.music.mic.Newmic.Activity.Mobile_Ragistration"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.VideoDialogBox"
+            android:name="com.online.music.mic.Newmic.VideoDialogBox"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Newmic.AutdioDialog"
+            android:name="com.online.music.mic.Newmic.AutdioDialog"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".AudioUpload.AudioListActivity"
+            android:name="com.online.music.mic.AudioUpload.AudioListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".AudioUpload.AudioRecordActivity"
+            android:name="com.online.music.mic.AudioUpload.AudioRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
-        <service android:name=".Notification.MyFirebaseMessagingService">
+        <service android:name="com.online.music.mic.Notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -186,7 +190,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOx-Hgq_GBt7zstNRcp-Y_6UjqhGSdChA" />
 
-        <receiver android:name=".utils.ReadSms">
+        <receiver android:name="com.online.music.mic.utils.ReadSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
